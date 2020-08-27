@@ -1,0 +1,32 @@
+{
+  "restaurant": [
+    {
+      "id": 1,
+      "name": "KFC",
+      "rate": 6.7,
+      "description": "Let us bring the food to you with KFC Delivery, or pick up your order at your preferred KFC store",
+      "status": "Open"
+    },
+    {
+      "name": "Mac",
+      "rate": 9.7,
+      "description": "Let us bring the food to you with KFC Delivery, or pick up your order at your preferred KFC store",
+      "status": "Closed",
+      "id": 2
+    },
+    {
+      "name": "Burger Ahmad",
+      "rate": 6.3,
+      "description": "Let us bring the food to you with KFC Delivery, or pick up your order at your preferred KFC store",
+      "status": "Closed",
+      "id": 3
+    },
+    {
+      "name": "Burger Ahmad",
+      "rate": 6.3,
+      "description": "Let us bring the food to you with KFC Delivery, or pick up your order at your preferred KFC store",
+      "status": "Closed",
+      "id": 4
+    }
+  ]
+}
