@@ -35,9 +35,7 @@ class RrestaurantStatesList extends State<RestaurantsList> {
                 margin: EdgeInsets.only(top: 10),
                 height: MediaQuery.of(context).size.height - 150,
                 child: ListView.builder(
-                    padding: EdgeInsets.only(
-                        left: 22,
-                        right: 22),
+                    padding: EdgeInsets.only(left: 22, right: 22),
                     scrollDirection: Axis.vertical,
                     itemCount: restaurantData.restaurants.length,
                     itemBuilder: (context, index) {

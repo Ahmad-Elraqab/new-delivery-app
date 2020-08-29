@@ -10,43 +10,79 @@ class RestaurantMenu extends StatefulWidget {
 class _RestaurantMenuState extends State<RestaurantMenu> {
   int numberOfOrders = 0;
   int currentIndexBar = 0;
+  bool isExtend = true;
+  bool _visible = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white,
-      floatingActionButton: FloatingActionButton.extended(
-        label: Text("Add to cart"),
-        icon: Icon(
-          FontAwesomeIcons.shoppingCart,
-          size: 18,
-        ),
-        onPressed: () {
-          //! Add items to cart
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              expandedHeight: 200.0,
-              floating: false,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  background: Image.network(
-                    "https://previews.123rf.com/images/geckophotos/geckophotos1807/geckophotos180700455/104601455-top-view-of-group-of-happy-friends-having-nice-food-and-drinks-enjoying-the-party-and-communication-.jpg",
-                    fit: BoxFit.cover,
-                  )),
-            ),
-          ];
-        },
-        body: 
-       
-          Column(
-            children: <Widget>[_categoryList(), _itemList(context)],
+      // floatingActionButton: FloatingActionButton.extended(
+
+      //   label: Text("Add to cart"),
+      //   icon: Icon(
+      //     FontAwesomeIcons.shoppingCart,
+      //     size: 18,
+      //   ),
+      //   onPressed: () {},
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      body: SafeArea(
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                expandedHeight: 200.0,
+                floating: true,
+                pinned: false,
+                flexibleSpace: FlexibleSpaceBar(
+                    centerTitle: true,
+                    background: Image.network(
+                      "https://previews.123rf.com/images/geckophotos/geckophotos1807/geckophotos180700455/104601455-top-view-of-group-of-happy-friends-having-nice-food-and-drinks-enjoying-the-party-and-communication-.jpg",
+                      fit: BoxFit.cover,
+                    )),
+              ),
+            ];
+          },
+          body: Column(
+            children: <Widget>[
+              _categoryList(),
+              _itemList(context),
+              // _visible ? _addCart() : null,
+              if (_visible)
+                _addCart()
+            ],
           ),
-   
+        ),
+      ),
+    );
+  }
+
+  AnimatedOpacity _addCart() {
+    return AnimatedOpacity(
+      opacity: 1.0,
+      duration: Duration(milliseconds: 2000),
+      child: Container(
+        color: Colors.deepOrange,
+        height: 60,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              FontAwesomeIcons.shoppingCart,
+              color: Colors.white,
+              size: 24,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              "Add to cart",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -72,7 +108,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
 
   Expanded _itemList(BuildContext context) {
     return Expanded(
-          child: Container(
+      child: Container(
         color: Colors.white,
         // height: MediaQuery.of(context).size.height,
         child: ListView.builder(
@@ -159,13 +195,15 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                                         numberOfOrders--;
                                         if (numberOfOrders < 0)
                                           numberOfOrders = 0;
+                                        if (numberOfOrders == 0)
+                                        _visible = false;
                                         setState(() {});
                                       },
                                       color: Colors.black,
                                     ),
                                     Text(
                                       // "${menuProvider.items[index].numberOfItems}",
-                                      "0",
+                                      "${numberOfOrders}",
                                       style: TextStyle(
                                         fontSize: 20,
                                         color: Colors.black,
@@ -178,7 +216,13 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                                         color: Colors.pink,
                                       ),
                                       // onPressed: menuProvider.incrementItem,
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        numberOfOrders++;
+                                        if (numberOfOrders < 0)
+                                          numberOfOrders = 0;
+                                        _visible = true;
+                                        setState(() {});
+                                      },
                                       color: Colors.black,
                                     ),
                                   ],

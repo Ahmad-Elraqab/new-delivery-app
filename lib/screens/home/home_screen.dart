@@ -44,22 +44,24 @@ class _HomePageState extends State<HomeScreen> {
             rest.restaurants =
                 rest.getRestaurantsFromJson(snapshot.data.documents);
 
-            return SingleChildScrollView(
-              child: Container(
-                // height: MediaQuery.of(context).size.height,
-                child: Column(
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        SearchBar(),
-                        RestaurantListViewTitle(),
-                        RestaurantListView(),
-                        CategoryListViewTitle(),
-                        CategoryListView(),
-                      ],
-                    )
-                  ],
+            return SafeArea(
+              child: SingleChildScrollView(
+                child: Container(
+                  // height: MediaQuery.of(context).size.height,
+                  child: Column(
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          SearchBar(),
+                          RestaurantListViewTitle(),
+                          RestaurantListView(),
+                          CategoryListViewTitle(),
+                          CategoryListView(),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             );

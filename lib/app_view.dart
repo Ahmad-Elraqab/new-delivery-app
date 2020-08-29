@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:work_app/dependencies/constants.dart';
 import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/my_profile_provider.dart';
 import 'package:work_app/provider/orders_provider.dart';
@@ -38,7 +39,8 @@ class _AppViewState extends State<AppView> {
           textTheme: TextTheme(body2: TextStyle(color: Colors.black)),
         ),
         onGenerateRoute: Router.generateRoute,
-        initialRoute: '/',
+        // initialRoute: '/',
+        initialRoute: kRestaurantMenu,
       ),
     );
   }
