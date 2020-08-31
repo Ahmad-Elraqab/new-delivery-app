@@ -15,7 +15,8 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: DefaultTabController(
+      body: 
+      DefaultTabController(
         // initialIndex: pageChanged,
         length: 2,
         child: NestedScrollView(
@@ -140,23 +141,6 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
       ),
     );
   }
-
-  //     GestureDetector(
-  //   onTap: () {
-  //     _height = 150.0;
-  //     // _size = 50;
-  //     setState(() {});
-  //   },
-  //   child: AnimatedSize(
-  //     curve: Curves.easeIn,
-  //     vsync: this,
-  //     duration: Duration(seconds: 1),
-  //     child: Container(
-  //       color: Colors.red,
-  //       height: _height,
-  //     ),
-  //   ),
-  // );
 
   SingleChildScrollView _orderListScreen() {
     return SingleChildScrollView(

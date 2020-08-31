@@ -34,8 +34,8 @@ class _AppViewState extends State<AppView> {
       ],
       child: MaterialApp(
         theme: ThemeData(
-          primaryColor: Colors.deepOrange,
-          accentColor: Colors.deepOrange,
+          primaryColor: Colors.pink,
+          accentColor: Colors.pink,
           textTheme: TextTheme(body2: TextStyle(color: Colors.black)),
         ),
         onGenerateRoute: Router.generateRoute,

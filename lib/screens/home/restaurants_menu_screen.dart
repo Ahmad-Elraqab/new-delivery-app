@@ -196,7 +196,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                                         if (numberOfOrders < 0)
                                           numberOfOrders = 0;
                                         if (numberOfOrders == 0)
-                                        _visible = false;
+                                          _visible = false;
                                         setState(() {});
                                       },
                                       color: Colors.black,
@@ -248,10 +248,6 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
       height: 50,
       decoration: BoxDecoration(
         color: Colors.white,
-        // borderRadius: BorderRadius.only(
-        //   topLeft: Radius.circular(25),
-        //   topRight: Radius.circular(25),
-        // ),
       ),
       child: ListView.builder(
         itemCount: 6,

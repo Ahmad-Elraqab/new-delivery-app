@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,247 +14,158 @@ class RestaurantsList extends StatefulWidget {
 }
 
 class RrestaurantStatesList extends State<RestaurantsList> {
+  var rng = new Random();
+  List<String> imgs = [
+    "https://i.pinimg.com/originals/2d/8e/79/2d8e79276a81c84a74d4641ff440f1db.jpg",
+    "https://pbs.twimg.com/profile_images/973995484749721601/WZEpvJeD_400x400.jpg",
+    "https://cdn.logojoy.com/wp-content/uploads/2018/05/30151550/1317.png",
+    "https://i.pinimg.com/originals/95/90/79/959079e4f999d7aca76a7307f3148d76.jpg",
+    "https://static.vecteezy.com/system/resources/thumbnails/000/331/114/small/Pizza_Logo_Emblem_4.jpg",
+    "https://image.freepik.com/free-vector/pizza-logo-vector_25327-119.jpg",
+    "https://static-cse.canva.com/blob/137719/Red-and-Black-Japanese-Restaurant-Logo.png",
+    "https://ucarecdn.com/7ccac1f3-c7ec-47ea-8737-eb73d86339d7/-/quality/lighter/-/format/auto/-/scale_crop/1920x1080/center/",
+    "https://1000logos.net/wp-content/uploads/2016/12/original-starbucks-logo.jpg",
+    "https://i.pinimg.com/736x/0b/17/0d/0b170d5a13ae67f693d3f2b4615812ff.jpg",
+    "https://www.sunwayputramall.com/wp-content/uploads/2019/11/texaschicken_logo.jpg",
+    "https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/0021/5231/brand.gif?itok=B_qMZvtv",
+    "https://lh3.googleusercontent.com/proxy/GUY443z7LInISXIEfiwdW4lv7F4khqndcfQymKxoVpVGHgVmcbCJP4UIb2gcN05TageqxPSY73OurSsOelO4oDl5djakV9Rbi7FaBXqgiSMlXvX-XpM",
+    "https://uploads.prod01.london.platform-os.com/instances/21/assets/images/logos/pizza-hut-express.png?updated=1568384417",
+    "https://fastly.4sqi.net/img/general/200x200/58979480_nIDls8LLNeA39LmcwMrfyprPLPc_UpA-xsZCMZGsgWg.jpg",
+    "https://s3-us-west-2.amazonaws.com/cities.directory/jeddah.cool/public_html/uploads/place_images/covers/3d0f4d91bd25c8980b9c1159b115a3f7.jpg",
+  ];
   @override
   Widget build(BuildContext context) {
-    final restaurantData = Provider.of<RestaurantProvider>(context);
+    // final restaurantData = Provider.of<RestaurantProvider>(context);
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              icon: Icon(FontAwesomeIcons.arrowLeft),
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-          title: Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: Text("Trending restaurants"),
-          ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
+      body: SafeArea(
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                floating: false,
+                pinned: false,
+              ),
+            ];
+          },
+          body: Column(
             children: <Widget>[
               SearchBar(),
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                height: MediaQuery.of(context).size.height - 150,
-                child: ListView.builder(
-                    padding: EdgeInsets.only(left: 22, right: 22),
-                    scrollDirection: Axis.vertical,
-                    itemCount: restaurantData.restaurants.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, kRestaurantDetail,
-                              arguments: index);
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 250,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 2.5,
-                                    offset: Offset(1, 1),
-                                    spreadRadius: 0.5)
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Container(
-                                  height: 160,
-                                  decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(5),
-                                      topLeft: Radius.circular(5),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.6,
+                    children: List.generate(
+                      30,
+                      (index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            elevation: 7,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  // color: Color.fromRGBO(10, rng.nextInt(100),
+                                  //     rng.nextInt(100), 0.3),
+                                  color: Colors.grey[200]),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 2,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        // gradient: LinearGradient(
+                                        //   begin: Alignment.topCenter,
+                                        //   end: Alignment.bottomCenter,
+                                        //   colors: [
+                                        //     Colors.transparent,
+                                        //     Colors.white.withOpacity(0.5),
+                                        //   ],
+                                        // ),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              "${imgs[rng.nextInt(16)]}"),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ),
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            "https://previews.123rf.com/images/geckophotos/geckophotos1807/geckophotos180700455/104601455-top-view-of-group-of-happy-friends-having-nice-food-and-drinks-enjoying-the-party-and-communication-.jpg"),
-                                        fit: BoxFit.cover),
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.grey,
-                                                blurRadius: 0.5,
-                                                offset: Offset(0.5, 0.5),
-                                                spreadRadius: 0.5)
-                                          ],
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5.0)),
-                                        ),
-                                        margin: EdgeInsets.only(
-                                          top: 20,
-                                          left: 20,
-                                        ),
-                                        width: 50,
-                                        height: 20,
+                                  Divider(
+                                    height: 1,
+                                    color: Colors.black,
+                                  ),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Container(
                                         child: Padding(
                                           padding:
-                                              const EdgeInsets.only(top: 3),
-                                          child: Text(
-                                              restaurantData
-                                                  .restaurants[index].status,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.green)),
-                                        ),
-                                      ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.grey,
-                                                blurRadius: 0.5,
-                                                offset: Offset(0.5, 0.5),
-                                                spreadRadius: 0.5)
-                                          ],
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5.0)),
-                                        ),
-                                        margin: EdgeInsets.only(
-                                          top: 20,
-                                          right: 20,
-                                        ),
-                                        width: 50,
-                                        height: 20,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            Icon(
-                                              Icons.star,
-                                              size: 12,
-                                              color: Colors.amberAccent,
-                                            ),
-                                            Text(
-                                                restaurantData
-                                                    .restaurants[index].rate
-                                                    .toString(),
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(fontSize: 12)),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        bottomRight: Radius.circular(5.0),
-                                        bottomLeft: Radius.circular(5.0)),
-                                    color: Colors.white.withOpacity(0.9),
-                                  ),
-                                  alignment: Alignment.bottomCenter,
-                                  height: 90,
-                                  padding: EdgeInsets.only(
-                                      top: 12.0, bottom: 12.0, right: 12.0),
-                                  child: ListTile(
-                                    title: Row(
-                                      children: <Widget>[
-                                        Text(restaurantData
-                                            .restaurants[index].name),
-                                        Padding(
-                                          padding:
                                               const EdgeInsets.only(left: 8.0),
-                                          child: Container(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 3.0,
-                                                  bottom: 3.0,
-                                                  left: 8.0,
-                                                  right: 8.0),
-                                              child: Text(
-                                                "Italian",
-                                                style: TextStyle(fontSize: 10),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text("Shop name"),
+                                              Text(
+                                                  "this place made to write any specific"),
+                                              Container(
+                                                height: 25,
+                                                color: Colors.grey[200],
+                                                child: Center(
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: <Widget>[
+                                                      Icon(Icons.star,
+                                                          color:
+                                                              Colors.deepOrange,
+                                                          size: 18),
+                                                      Icon(Icons.star,
+                                                          color:
+                                                              Colors.deepOrange,
+                                                          size: 18),
+                                                      Icon(Icons.star,
+                                                          color:
+                                                              Colors.deepOrange,
+                                                          size: 18),
+                                                      Icon(Icons.star,
+                                                          color:
+                                                              Colors.deepOrange,
+                                                          size: 18),
+                                                      Icon(Icons.star,
+                                                          color: Colors.grey,
+                                                          size: 18),
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                gradient: LinearGradient(
-                                                  colors: [
-                                                    Colors.orange,
-                                                    Colors.deepOrange
-                                                  ],
-                                                  begin: Alignment.centerLeft,
-                                                  end: Alignment.centerRight,
-                                                )),
+                                            ],
                                           ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
-                                          child: Container(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 3.0,
-                                                  bottom: 3.0,
-                                                  left: 8.0,
-                                                  right: 8.0),
-                                              child: Text(
-                                                "12 Km",
-                                                style: TextStyle(fontSize: 10),
-                                              ),
-                                            ),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                gradient: LinearGradient(
-                                                  colors: [
-                                                    Colors.purple[50],
-                                                    Colors.purple
-                                                  ],
-                                                  begin: Alignment.centerLeft,
-                                                  end: Alignment.centerRight,
-                                                )),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    subtitle: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 8.0, right: 8.0),
-                                      child: Text(restaurantData
-                                          .restaurants[index].description),
-                                    ),
-                                    // trailing: IconButton(
-                                    //   icon: Icon(Icons.delete),
-                                    //   color: Colors.brown,
-                                    //   onPressed: () {
-                                    //     restaurantData.delete(
-                                    //         restaurantData.restaurants[index].id);
-                                    //   },
-                                    // ),
-                                  ),
-                                ),
-                              ],
+                                      ))
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }),
-              )
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
-        ));
+        ),
+      ),
+      // body:
+    );
   }
 }

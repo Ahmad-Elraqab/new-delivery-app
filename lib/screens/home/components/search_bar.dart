@@ -12,34 +12,25 @@ class SearchBar extends StatelessWidget {
   String textInput;
   @override
   Widget build(BuildContext context) {
-    final rest = Provider.of<RestaurantProvider>(context);
+    // final rest = Provider.of<RestaurantProvider>(context);
 
     return Container(
-        margin: EdgeInsets.only(top: 20),
-        width: MediaQuery.of(context).size.width / 1.2,
         height: 40,
-        decoration: new BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
-                blurRadius: 25.0, // soften the shadow
-                spreadRadius: 5.0, //extend the shadow
-                offset: Offset(0, 3))
-          ],
-        ),
         child: TextField(
-          textDirection: TextDirection.ltr,
           decoration: InputDecoration(
             hintStyle: TextStyle(
-                fontSize: 12.0, color: Color.fromRGBO(110, 127, 170, 10)),
-            hintText: 'Find Restaurants',
+              fontSize: 18.0,
+              color: Colors.grey,
+            ),
+            hintText: 'Search...',
+            contentPadding: EdgeInsets.all(8.0),
             prefixIcon: IconButton(
               icon: Icon(Icons.search),
               color: Color.fromRGBO(110, 127, 170, 10),
               onPressed: () {
-                rest.restaurants[0].name = textInput;
-                rest.dataService
-                    .update('restaurant', data: rest.restaurants[0]);
+                // rest.restaurants[0].name = textInput;
+                // rest.dataService
+                //     .update('restaurant', data: rest.restaurants[0]);
               },
             ),
             suffixIcon: Icon(
@@ -49,9 +40,8 @@ class SearchBar extends StatelessWidget {
             filled: true,
             fillColor: Colors.white,
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              borderSide: BorderSide(
-                  color: Color.fromRGBO(110, 127, 170, 10), width: 1),
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              borderSide: BorderSide(color: Colors.transparent, width: 1),
             ),
           ),
           onChanged: (text) {

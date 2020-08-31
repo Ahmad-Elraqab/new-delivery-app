@@ -92,7 +92,7 @@ class _AppState extends State<App> {
       child: Container(
         child: Icon(
           icon,
-          color: widget.currentIndex == index ? Colors.deepOrange : Colors.grey,
+          color: widget.currentIndex == index ? Colors.pink : Colors.grey,
           size: 30,
         ),
       ),

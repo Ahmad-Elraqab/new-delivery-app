@@ -8,64 +8,70 @@ class CategoryListView extends StatelessWidget {
     final rest = Provider.of<RestaurantProvider>(context);
     return Container(
       margin: EdgeInsets.only(top: 10),
-      height: 120,
+      height: 180,
       child: ListView.builder(
-        padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width / 13,
-            right: MediaQuery.of(context).size.width / 10),
-        scrollDirection: Axis.horizontal,
-        // itemCount: model.categories.length,
-        itemBuilder: (context, index) {
-          return Stack(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(5.0),
+          padding: EdgeInsets.only(left: 20, right: 20),
+          scrollDirection: Axis.horizontal,
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return InkWell(
+              // onTap: () {
+              //   Navigator.pushNamed(context, kRestaurantDetail,
+              //       arguments: index);
+              // },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  width: MediaQuery.of(context).size.width * 0.35,
-                  height: 150,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey,
-                              blurRadius: 2.5,
-                              offset: Offset(1, 1),
-                              spreadRadius: 0.5)
-                        ],
-                        borderRadius: BorderRadius.circular(5.0),
-                        image: DecorationImage(
-                          image: NetworkImage(
-                              "https://cookieandkate.com/images/2020/03/vegan-chana-masala-recipe-2.jpg"),
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.35,
-                  height: 150,
+                  width: 200,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
-                    gradient: LinearGradient(colors: [
-                      Color(0xff832BF6).withOpacity(0.45),
-                      Color(0xffFF4665).withOpacity(0.45)
-                    ], begin: Alignment.bottomCenter, end: Alignment.topCenter),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey[350],
+                          blurRadius: 3.5,
+                          offset: Offset(0.5, 0.5),
+                          spreadRadius: 0.1)
+                    ],
                   ),
-                  child: Center(
-                      child: Text("Italian",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold))),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(5),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    "https://image.shutterstock.com/image-photo/delicious-pizza-olives-sausages-on-260nw-1100491781.jpg"),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(5.0),
+                              bottomLeft: Radius.circular(5.0)),
+                          color: Colors.white.withOpacity(0.9),
+                        ),
+                        alignment: Alignment.bottomCenter,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            ListTile(
+                              title: Text("Pizza & Pasta"),
+                              subtitle: Text("29 venues"),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ],
-          );
-        },
-      ),
+            );
+          }),
     );
   }
 }

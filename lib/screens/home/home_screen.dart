@@ -53,11 +53,47 @@ class _HomePageState extends State<HomeScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          SearchBar(),
-                          RestaurantListViewTitle(),
-                          RestaurantListView(),
+                          Container(
+                            height: 200,
+                            decoration: BoxDecoration(
+                                color: Colors.pink,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(50),
+                                  bottomRight: Radius.circular(50),
+                                )),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 20.0, right: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Text(
+                                    "Browse",
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                  SearchBar(),
+                                  Center(
+                                    child: Container(
+                                      width: 200,
+                                      height: 2,
+                                      color: Colors.grey,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
                           CategoryListViewTitle(),
                           CategoryListView(),
+                          RestaurantListViewTitle(),
+                          RestaurantListView(),
+                          _nearbyTitle(rest),
+                          _nearbyRestaurants()
                         ],
                       )
                     ],
@@ -72,119 +108,90 @@ class _HomePageState extends State<HomeScreen> {
     );
   }
 
-  _showDialog(BuildContext con) async {
-    // final dataService = service<RestaurantDataService>();
-    final restaurantData = Provider.of<RestaurantProvider>(context);
+  Container _nearbyRestaurants() {
+    return Container(
+      height: 200,
+      child: ListView.builder(
+        padding: EdgeInsets.only(left: 25, right: 25),
+        scrollDirection: Axis.vertical,
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return Card(
+            child: Container(
+              height: 75,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    height: 75,
+                    width: 75,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(5),
+                      image: DecorationImage(
+                          image: NetworkImage(
+                              "https://image.shutterstock.com/image-photo/delicious-pizza-olives-sausages-on-260nw-1100491781.jpg"),
+                          fit: BoxFit.cover),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text("Happy Bones"),
+                        Row(
+                          children: <Widget>[
+                            Icon(Icons.star,
+                                color: Colors.deepOrange, size: 18),
+                            Icon(Icons.star,
+                                color: Colors.deepOrange, size: 18),
+                            Icon(Icons.star,
+                                color: Colors.deepOrange, size: 18),
+                            Icon(Icons.star,
+                                color: Colors.deepOrange, size: 18),
+                            Icon(Icons.star, color: Colors.grey, size: 18),
+                            Text("  4.5  (260 Reviews)"),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
 
-    await showDialog(
-      context: con,
-      child: AlertDialog(
-        contentPadding: EdgeInsets.all(10),
-        content: Column(
-          children: <Widget>[
-            Text("Please fill out the form"),
-            Expanded(
-              child: TextField(
-                  autofocus: true,
-                  autocorrect: true,
-                  decoration: InputDecoration(labelText: "Restaurant Name*"),
-                  controller: restaurantName),
+  Padding _nearbyTitle(RestaurantProvider rest) {
+    return Padding(
+      padding:
+          const EdgeInsets.only(left: 28.0, top: 20, right: 25, bottom: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            "Nearby",
+            style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          InkWell(
+            // onTap: () {
+            //   Navigator.pushNamed(
+            //     context,
+            //     kAllCategories,
+            //   );
+            // },
+            child: Text(
+              "View all >>",
+              style: TextStyle(color: Colors.pink, fontSize: 12, fontWeight: FontWeight.bold),
             ),
-            Expanded(
-              child: TextField(
-                  autofocus: true,
-                  autocorrect: true,
-                  decoration: InputDecoration(labelText: "Description*"),
-                  controller: description),
-            ),
-            Expanded(
-              child: TextField(
-                autofocus: true,
-                autocorrect: true,
-                decoration: InputDecoration(labelText: "Status"),
-                controller: status,
-              ),
-            ),
-            Expanded(
-              child: TextField(
-                autofocus: true,
-                autocorrect: true,
-                decoration: InputDecoration(labelText: "Rate"),
-                controller: rate,
-              ),
-            ),
-            Expanded(
-              child: TextField(
-                autofocus: true,
-                autocorrect: true,
-                decoration: InputDecoration(labelText: "Image Link"),
-                controller: image,
-              ),
-            ),
-          ],
-        ),
-        actions: <Widget>[
-          FlatButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("Cancle")),
-          FlatButton(
-              onPressed: () {
-                if (restaurantName.text.isNotEmpty &&
-                    description.text.isNotEmpty &&
-                    status.text.isNotEmpty &&
-                    rate.text.isNotEmpty &&
-                    image.text.isNotEmpty) {
-                  restaurantData.dataService
-                      .create('restaurant',
-                          data: Restaurant(
-                              name: restaurantName.text,
-                              description: description.text,
-                              rate: double.parse(rate.text),
-                              status: status.text,
-                              image: image.text))
-                      .then((response) {
-                    restaurantName.clear();
-                    description.clear();
-                    rate.clear();
-                    image.clear();
-                    status.clear();
-                    Navigator.pop(context);
-                  }).catchError((error) => print("error"));
-                }
-              },
-              child: Text("Save")),
+          ),
         ],
       ),
     );
   }
 }
-
-// body: FutureBuilder<List<Restaurant>>(
-//   // future: restaurantService.getRestaurantList(),
-//   future: dataService.getList('restaurant'),
-//   builder: (context, snapshot) {
-//     if (!snapshot.hasData) {
-//       return CircularProgressIndicator();
-//     } else {
-//       _restaurants = snapshot.data;
-//       return SingleChildScrollView(
-//         child: Column(
-//           children: <Widget>[
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               children: <Widget>[
-//                 SearchBar(_restaurants),
-//                 RestaurantListViewTitle(_restaurants),
-//                 RestaurantListView(_restaurants),
-//                 CategoryListViewTitle(_restaurants),
-//                 CategoryListView(_restaurants),
-//               ],
-//             )
-//           ],
-//         ),
-//       );
-//     }
-//   },
-// ),

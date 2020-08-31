@@ -31,15 +31,17 @@ class _NotificationPageState extends State<NotificationPage> {
                 floating: true,
                 pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: true,
-                    background: Image.network(
-                      "https://png.pngtree.com/thumb_back/fw800/back_our/20190619/ourmid/pngtree-blue-horn-background-material-image_141450.jpg",
-                      fit: BoxFit.cover,
-                    )),
+                  centerTitle: true,
+                  background: Image.network(
+                    "https://png.pngtree.com/thumb_back/fw800/back_our/20190619/ourmid/pngtree-blue-horn-background-material-image_141450.jpg",
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ];
           },
-          body: Container(
+          body: 
+          Container(
             child: ListView.builder(
               itemCount: 10,
               itemBuilder: (context, index) {
@@ -56,7 +58,7 @@ class _NotificationPageState extends State<NotificationPage> {
                       leading: CircleAvatar(
                         backgroundImage: NetworkImage(
                             "https://www.mcdonalds.com/content/dam/usa/nfl/assets/nav/m-logo_108x108.jpg"),
-                            radius: 25,
+                        radius: 25,
                       ),
                       title: Text("Your order is ready to collect!"),
                       subtitle: Text("lorem osfk fjeejtr dlawd asd!"),
