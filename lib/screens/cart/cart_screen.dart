@@ -15,53 +15,182 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: 
-      DefaultTabController(
-        // initialIndex: pageChanged,
-        length: 2,
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                // backgroundColor: Colors.red,
-                expandedHeight: 150.0,
-                floating: true,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  background: Image.network(
-                    "https://image.freepik.com/free-vector/order-delivery-service-online-background_73174-203.jpg",
-                    fit: BoxFit.cover,
+      body: SafeArea(
+        child: DefaultTabController(
+          // initialIndex: pageChanged,
+          length: 2,
+          child: NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                  // backgroundColor: Colors.red,
+                  expandedHeight: 100.0,
+                  floating: true,
+                  pinned: true,
+                  flexibleSpace: FlexibleSpaceBar(
+                    centerTitle: true,
+                  ),
+                  bottom: TabBar(
+                    onTap: (index) {
+                      // pageChanged = index;
+                      pageController.animateToPage(index,
+                          duration: Duration(milliseconds: 250),
+                          curve: Curves.bounceInOut);
+                    },
+                    labelColor: Colors.white,
+                    unselectedLabelColor: Colors.black87,
+                    tabs: [
+                      Tab(icon: Icon(Icons.list), text: "current order"),
+                      Tab(icon: Icon(Icons.history), text: "order history"),
+                    ],
                   ),
                 ),
-                bottom: TabBar(
-                  onTap: (index) {
-                    // pageChanged = index;
-                    pageController.animateToPage(index,
-                        duration: Duration(milliseconds: 250),
-                        curve: Curves.bounceInOut);
-                  },
-                  labelColor: Colors.black87,
-                  unselectedLabelColor: Colors.white,
-                  tabs: [
-                    Tab(icon: Icon(Icons.list), text: "current order"),
-                    Tab(icon: Icon(Icons.history), text: "order history"),
+              ];
+            },
+            body: PageView(
+              onPageChanged: (index) {
+                // pageChanged = index;
+                // print(pageChanged);
+                setState(() {});
+              },
+              controller: pageController,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    _summaryBox(context),
+                    _orderList(),
+                    _checkoutButton()
                   ],
                 ),
-              ),
-            ];
-          },
-          body: PageView(
-            onPageChanged: (index) {
-              // pageChanged = index;
-              // print(pageChanged);
-              setState(() {});
-            },
-            controller: pageController,
-            children: <Widget>[_orderListScreen(), _historyScreen(context)],
+                _historyScreen(context),
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  Padding _checkoutButton() {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.pink,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        padding: EdgeInsets.all(16.0),
+        child: Center(
+          child: Text(
+            "Checkout",
+            style: TextStyle(
+                fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Column _summaryBox(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Card(
+          elevation: 7,
+          child: Container(
+            width: MediaQuery.of(context).size.width - 50,
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.white,
+            ),
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        "Subtotal:",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        "1469.95 RM",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        "Delivery:",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        "Free",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        "Taxes:",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        "59.45 RM",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: SizedBox(
+                    height: 10,
+                  ),
+                ),
+                Divider(
+                  height: 2,
+                  color: Colors.grey,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        "TOTAL:",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "1499.85 RM",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.pink),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -83,7 +212,7 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
               child: Container(
                 height: currentIndex == index && !_visible ? 300 : 80.0,
                 child: Card(
-                  color: Colors.blueGrey[100],
+                  color: Colors.blueGrey[50],
                   child: Column(
                     children: <Widget>[
                       ListTile(
@@ -96,12 +225,15 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
                             InkWell(
                               child: Text(
                                 "Reorder",
-                                style: TextStyle(color: Colors.blue),
+                                style: TextStyle(color: Colors.pink),
                               ),
                             ),
                           ],
                         ),
-                        subtitle: Text("Total: 2040 RM"),
+                        subtitle: Text(
+                          "Total: 2040 RM",
+                          style: TextStyle(color: Colors.pink),
+                        ),
                       ),
                       Expanded(
                         child: Container(
@@ -111,18 +243,25 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
                               return Container(
                                 height: 100,
                                 child: Card(
-                                  color: Colors.blueGrey[50],
+                                  color: Colors.blueGrey[100],
                                   child: Center(
                                     child: ListTile(
-                                      title: Text("Signature Box"),
+                                      title: Text("Signature Box",
+                                          style: TextStyle(fontSize: 16)),
                                       leading: CircleAvatar(
                                         backgroundImage: NetworkImage(
                                             "https://cdn.kfc.com.my/images/menu/self-collect/stacker-box.jpg"),
                                         radius: 25,
                                       ),
-                                      trailing: Text("25.18 RM"),
+                                      trailing: Text(
+                                        "25.18 RM",
+                                        style: TextStyle(
+                                            color: Colors.pink, fontSize: 16),
+                                      ),
                                       subtitle: Text(
-                                          "kopkaodsf kf e o egkowekg p w "),
+                                        "This text field is made for samll description about the item",
+                                        style: TextStyle(fontSize: 12),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -142,230 +281,143 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
     );
   }
 
-  SingleChildScrollView _orderListScreen() {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          _sammaryBox(),
-          _orderList(),
-        ],
-      ),
-    );
-  }
-
-  Padding _sammaryBox() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5), color: Colors.blueGrey[50]),
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text("Subtotal:"),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.attach_money,
-                        size: 18,
-                      ),
-                      Text("1469.95"),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Divider(
-              height: 1,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text("Taxes:"),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.attach_money,
-                        size: 18,
-                      ),
-                      Text("59.45"),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Divider(
-              height: 1,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text("TOTAL:"),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.attach_money,
-                        size: 18,
-                      ),
-                      Text("1499.85"),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: InkWell(
-                onTap: null,
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.deepOrange,
-                      borderRadius: BorderRadius.circular(5)),
-                  padding: EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(
-                        FontAwesomeIcons.moneyBill,
-                        color: Colors.white,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "Checkout",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Container _orderList() {
-    return Container(
-      height: 250,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 10,
-          padding: EdgeInsets.all(8.0),
-          itemBuilder: (context, index) {
-            return Card(
-              child: Container(
-                color: Colors.blueGrey[50],
-                width: MediaQuery.of(context).size.width / 2.3,
+  Expanded _orderList() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+        child: Card(
+          elevation: 7,
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: 10,
+            padding: EdgeInsets.all(8.0),
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(5),
-                              topLeft: Radius.circular(5)),
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                  "https://cdn-b.william-reed.com/var/wrbm_gb_hospitality/storage/images/publications/hospitality/bighospitality.co.uk/article/2020/04/15/kfc-reopens-11-restaurants-for-delivery-only/3331532-1-eng-GB/KFC-reopens-11-restaurants-for-delivery-only_wrbm_large.png"),
-                              fit: BoxFit.cover)),
-                      height: 250 / 2,
-                      child: Align(
-                          alignment: Alignment(-0.9, -0.8),
-                          child: CircleAvatar(
-                            radius: 15,
-                            backgroundColor: Colors.white,
-                            child: Icon(
-                              Icons.delete,
-                              color: Colors.blueGrey,
-                              size: 18,
-                            ),
-                          )),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      "KFC Box",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                    ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.attach_money,
-                          size: 18,
-                        ),
-                        Text("45.60",
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(
                           decoration: BoxDecoration(
-                            color: Colors.blueGrey[200],
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              bottomLeft: Radius.circular(5),
+                              borderRadius: BorderRadius.circular(5),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      "https://cdn-b.william-reed.com/var/wrbm_gb_hospitality/storage/images/publications/hospitality/bighospitality.co.uk/article/2020/04/15/kfc-reopens-11-restaurants-for-delivery-only/3331532-1-eng-GB/KFC-reopens-11-restaurants-for-delivery-only_wrbm_large.png"),
+                                  fit: BoxFit.cover)),
+                          width: 75,
+                          height: 75,
+                          child: Align(
+                              alignment: Alignment(-0.9, -0.8),
+                              child: CircleAvatar(
+                                radius: 10,
+                                backgroundColor: Colors.white,
+                                child: Icon(
+                                  Icons.delete,
+                                  color: Colors.blueGrey,
+                                  size: 14,
+                                ),
+                              )),
+                        ),
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.only(left: 8.0),
+                            height: 75,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "KFC Box",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "this text is made for small description",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Expanded(
+                                    child: SizedBox(
+                                  height: 10,
+                                )),
+                                Text(
+                                  "45.60 RM",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.pink),
+                                ),
+                              ],
                             ),
                           ),
-                          height: 30,
-                          width: 35,
-                          child: IconButton(
-                              icon: Icon(FontAwesomeIcons.minus, size: 10),
-                              onPressed: null),
                         ),
-                        Container(
-                          color: Colors.white,
-                          height: 30,
-                          width: 35,
-                          child: Center(
-                              child: Text(
-                            "0",
-                            style: TextStyle(fontSize: 14),
-                          )),
+                        SizedBox(
+                          width: 20,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.blueGrey[200],
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(5),
-                              bottomRight: Radius.circular(5),
-                            ),
-                          ),
-                          height: 30,
-                          width: 35,
-                          child: IconButton(
-                              icon: Icon(
-                                FontAwesomeIcons.plus,
-                                size: 10,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.blueGrey[50],
+                                borderRadius: BorderRadius.circular(5),
                               ),
-                              onPressed: null),
-                        ),
+                              height: 25,
+                              width: 25,
+                              child: IconButton(
+                                  icon: Icon(
+                                    FontAwesomeIcons.minus,
+                                    size: 10,
+                                    color: Colors.grey,
+                                  ),
+                                  onPressed: null),
+                            ),
+                            Container(
+                              color: Colors.white,
+                              height: 25,
+                              width: 25,
+                              child: Center(
+                                  child: Text(
+                                "0",
+                                style: TextStyle(fontSize: 14),
+                              )),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.blueGrey[50],
+                                  borderRadius: BorderRadius.circular(5)),
+                              height: 25,
+                              width: 25,
+                              child: IconButton(
+                                  icon: Icon(
+                                    FontAwesomeIcons.plus,
+                                    size: 10,
+                                    color: Colors.pink,
+                                  ),
+                                  onPressed: null),
+                            ),
+                          ],
+                        )
                       ],
+                    ),
+                    SizedBox(
+                      height: 16.0,
+                    ),
+                    Divider(
+                      height: 1.0,
+                      color: Colors.grey,
                     )
                   ],
                 ),
-              ),
-            );
-          }),
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 }
