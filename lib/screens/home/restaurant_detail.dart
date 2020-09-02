@@ -19,94 +19,96 @@ class RestaurantDetail extends StatelessWidget {
               ),
             ];
           },
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(
-                height: 50,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 25.0, top: 25, bottom: 5, right: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      "Recommended dishes",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, kRestaurantMenu);
-                      },
-                      child: Text(
-                        "View all >>",
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  height: 50,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 25.0, top: 25, bottom: 5, right: 25),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        "Recommended dishes",
                         style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.pink),
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 200,
-                child: ListView.builder(
-                  itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.only(left: 20),
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: EdgeInsets.all(5),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            height: 120,
-                            width: 150,
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey,
-                                      blurRadius: 2.5,
-                                      offset: Offset(1, 1),
-                                      spreadRadius: 0.5)
-                                ],
-                                borderRadius: BorderRadius.circular(5.0),
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                      "https://2.bp.blogspot.com/_wTB2n4D2Q4A/S3sJNExMyAI/AAAAAAAABaE/51ybi-8oadE/s400/Vodka+Penne_1911+120+dpi+sharp+%40+10.jpg"),
-                                  fit: BoxFit.cover,
-                                )),
-                          ),
-                          Text(
-                            "Raspberry cake",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          Text("10.5 RM", style: TextStyle(fontSize: 16)),
-                        ],
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, kRestaurantMenu);
+                        },
+                        child: Text(
+                          "View all >>",
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.pink),
+                        ),
                       ),
-                    );
-                  },
+                    ],
+                  ),
                 ),
-              ),
-              Divider(
-                height: 1,
-                thickness: 1,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 25.0, top: 20, bottom: 5),
-                child: Text(
-                  "The comments",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                Container(
+                  height: 200,
+                  child: ListView.builder(
+                    itemCount: 10,
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.only(left: 20),
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: EdgeInsets.all(5),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              height: 120,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.grey,
+                                        blurRadius: 2.5,
+                                        offset: Offset(1, 1),
+                                        spreadRadius: 0.5)
+                                  ],
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        "https://2.bp.blogspot.com/_wTB2n4D2Q4A/S3sJNExMyAI/AAAAAAAABaE/51ybi-8oadE/s400/Vodka+Penne_1911+120+dpi+sharp+%40+10.jpg"),
+                                    fit: BoxFit.cover,
+                                  )),
+                            ),
+                            Text(
+                              "Raspberry cake",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Text("10.5 RM", style: TextStyle(fontSize: 16)),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-              Expanded(
-                child: Container(
+                Divider(
+                  height: 1,
+                  thickness: 1,
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 25.0, top: 20, bottom: 5),
+                  child: Text(
+                    "The comments",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  height: 500,
                   child: ListView.builder(
                     itemCount: 20,
                     scrollDirection: Axis.vertical,
@@ -136,9 +138,9 @@ class RestaurantDetail extends StatelessWidget {
                       );
                     },
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
