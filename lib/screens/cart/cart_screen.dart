@@ -25,7 +25,7 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
               return <Widget>[
                 SliverAppBar(
                   // backgroundColor: Colors.red,
-                  expandedHeight: 100.0,
+                  expandedHeight: 0.0,
                   floating: true,
                   pinned: true,
                   flexibleSpace: FlexibleSpaceBar(
@@ -56,12 +56,14 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
               },
               controller: pageController,
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    _summaryBox(context),
-                    _orderList(),
-                    _checkoutButton()
-                  ],
+                SingleChildScrollView(
+                                  child: Column(
+                    children: <Widget>[
+                      _orderList(),
+                      _summaryBox(context),
+                      _checkoutButton()
+                    ],
+                  ),
                 ),
                 _historyScreen(context),
               ],
@@ -74,7 +76,7 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
 
   Padding _checkoutButton() {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(10.0),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.pink,
@@ -97,96 +99,99 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Card(
-          elevation: 7,
-          child: Container(
-            width: MediaQuery.of(context).size.width - 50,
-            height: 200,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Colors.white,
-            ),
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "Subtotal:",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        "1469.95 RM",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ],
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Card(
+            elevation: 3,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Colors.white,
+              ),
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          "Subtotal:",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          "1469.95 RM",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "Delivery:",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        "Free",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          "Delivery:",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          "Free",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "Taxes:",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        "59.45 RM",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          "Taxes:",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          "59.45 RM",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: SizedBox(
-                    height: 10,
+                  Expanded(
+                    child: SizedBox(
+                      height: 10,
+                    ),
                   ),
-                ),
-                Divider(
-                  height: 2,
-                  color: Colors.grey,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "TOTAL:",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "1499.85 RM",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.pink),
-                      ),
-                    ],
+                  Divider(
+                    height: 2,
+                    color: Colors.grey,
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          "TOTAL:",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "1499.85 RM",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.pink),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -281,12 +286,13 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
     );
   }
 
-  Expanded _orderList() {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-        child: Card(
-          elevation: 7,
+  Padding _orderList() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+      child: Card(
+        elevation: 3,
+        child: Container(
+          height: 400,
           child: ListView.builder(
             scrollDirection: Axis.vertical,
             itemCount: 10,
