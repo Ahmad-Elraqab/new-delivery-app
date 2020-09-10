@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NotificationPage extends StatefulWidget {
-  static const String routeName = "/NotificationPage";
+  // static const String routeName = "/NotificationPage";
 
   @override
   _NotificationPageState createState() => _NotificationPageState();
@@ -12,16 +12,6 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: FloatingActionButton.extended(
-
-      //   label: Text("Add to cart"),
-      //   icon: Icon(
-      //     FontAwesomeIcons.shoppingCart,
-      //     size: 18,
-      //   ),
-      //   onPressed: () {},
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -40,8 +30,7 @@ class _NotificationPageState extends State<NotificationPage> {
               ),
             ];
           },
-          body: 
-          Container(
+          body: Container(
             child: ListView.builder(
               itemCount: 10,
               itemBuilder: (context, index) {

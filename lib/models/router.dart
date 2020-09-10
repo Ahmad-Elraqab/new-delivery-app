@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:work_app/dependencies/constants.dart';
 import 'package:work_app/screens/app.dart';
 import 'package:work_app/screens/home/categories_screen.dart';
-import 'package:work_app/screens/home/home_screen.dart';
 import 'package:work_app/screens/home/restaurant_detail.dart';
 import 'package:work_app/screens/home/restaurants_menu_screen.dart';
 import 'package:work_app/screens/home/restaurants_screen.dart';
-import 'package:work_app/screens/notification/notification_screen.dart';
-import 'package:work_app/screens/profile/profile_screen.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -19,16 +16,16 @@ class Router {
       case '/':
         builder = (BuildContext context) => App();
         break;
-      case '/Cart':
+      case kRestaurantCart:
         builder = (BuildContext context) => App(currentIndex: 1);
         break;
       case kRestaurantHomePage:
         builder = (BuildContext context) => App(currentIndex: 0);
         break;
-      case '/my_profile':
+      case kRestaurantProfile:
         builder = (BuildContext context) => App(currentIndex: 4);
         break;
-      case NotificationPage.routeName:
+      case kRestaurantNotification:
         builder = (BuildContext context) => App(currentIndex: 3);
         break;
       case kRestaurantDetail:
