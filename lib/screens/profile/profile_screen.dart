@@ -1,217 +1,382 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:work_app/dependency.dart';
-import 'package:work_app/models/order_class.dart';
-import 'package:work_app/models/user_class.dart';
-import 'package:work_app/provider/my_profile_provider.dart';
-import 'package:work_app/provider/orders_provider.dart';
-import 'package:work_app/services/data_service.dart';
-import 'package:work_app/services/model_service/user_data_service.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyProfile extends StatefulWidget {
-  static const String routeName = "/MyProfilePage";
-
   @override
   _MyProfileState createState() => _MyProfileState();
 }
 
 class _MyProfileState extends State<MyProfile> {
+  List<String> itemsList = [
+    "Payment Cards",
+    "Address",
+    "Delivery Support",
+    "Settings",
+    "Terms of use",
+    "Privacy policy"
+  ];
+  List<Widget> iconsList = [
+    Icon(FontAwesomeIcons.creditCard, size: 30, color: Colors.blueGrey),
+    Icon(FontAwesomeIcons.addressCard, size: 30, color: Colors.yellow),
+    Icon(FontAwesomeIcons.solidQuestionCircle, size: 30, color: Colors.red),
+    Icon(Icons.settings, size: 30, color: Colors.blue),
+    Icon(FontAwesomeIcons.exclamationCircle, size: 30, color: Colors.green),
+    Icon(FontAwesomeIcons.lock, size: 30, color: Colors.yellow)
+  ];
   @override
   Widget build(BuildContext context) {
-    // ignore: non_constant_identifier_names
-    final order_provider = Provider.of<OrderProvider>(context);
-    // ignore: non_constant_identifier_names
-    final user_provider = Provider.of<MyProfileProvider>(context);
-
     return Scaffold(
-      backgroundColor: Colors.orange[50],
-      body: FutureBuilder<List<User>>(
-        future: user.getList('users'),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return SingleChildScrollView(
-              child: Container(
-                color: Colors.white,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Center(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Stack(
+              children: [
+                Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: Colors.pink,
+                  ),
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 70.0),
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            height: 200,
+                            width: MediaQuery.of(context).size.width - 20,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2.5,
+                                    offset: Offset(1, 1),
+                                    spreadRadius: 0.5)
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                SizedBox(height: 30),
-                                Text(
-                                  "${user_provider.users[0].name}",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                  textDirection: TextDirection.ltr,
-                                ),
-                                SizedBox(height: 5),
-                                Text("${user_provider.users[0].email}",
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                    textDirection: TextDirection.ltr),
-                                SizedBox(height: 15),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    FlatButton(
-                                        shape: new RoundedRectangleBorder(
-                                            borderRadius:
-                                                new BorderRadius.circular(5.0)),
-                                        disabledColor: Color(0xff5663FF),
-                                        disabledTextColor: Colors.black,
-                                        padding: EdgeInsets.all(15.0),
-                                        onPressed: null,
-                                        child: Text('Edit Profile')),
-                                    SizedBox(
-                                      width: 10,
+                                Expanded(
+                                  flex: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Container(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          CircleAvatar(
+                                            radius: 35,
+                                            backgroundImage: NetworkImage(
+                                                "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                                          ),
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                "Ricardo McDonald",
+                                                style: TextStyle(fontSize: 18),
+                                              ),
+                                              Text(
+                                                "corkey_dakota@gmail.com",
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.grey),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                    FlatButton(
-                                        shape: new RoundedRectangleBorder(
-                                            borderRadius:
-                                                new BorderRadius.circular(5.0)),
-                                        disabledColor: Colors.grey,
-                                        disabledTextColor: Colors.black,
-                                        padding: EdgeInsets.all(15.0),
-                                        onPressed: null,
-                                        child: Text('Settings')),
+                                  ),
+                                ),
+                                Divider(
+                                  height: 1,
+                                  color: Colors.grey,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          "Account Credits",
+                                          style: TextStyle(
+                                              fontSize: 18, color: Colors.grey),
+                                        ),
+                                        Text(
+                                          "52.25 RM",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.pink,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 10,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(
+                            Icons.arrow_back_ios,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.edit,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                child: Card(
+                  elevation: 5,
+                  child: ListView.builder(
+                    itemCount: itemsList.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border(
+                            bottom: BorderSide(width: 1.0, color: Colors.grey),
+                          ),
+                        ),
+                        height: 75,
+                        child: Center(
+                          child: ListTile(
+                            leading: iconsList[index],
+                            title: Text(
+                              "${itemsList[index]}",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            trailing: Icon(
+                              // FontAwesomeIcons.times,
+                              Icons.arrow_forward_ios,
+                              color: Colors.pink,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TopBar extends SliverPersistentHeaderDelegate {
+  final double expandedHeight;
+
+  TopBar({@required this.expandedHeight});
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Stack(
+      fit: StackFit.expand,
+      overflow: Overflow.visible,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.pink,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(0 + shrinkOffset / 2),
+              bottomRight: Radius.circular(0 + shrinkOffset / 2),
+            ),
+          ),
+        ),
+        Positioned(
+          top: expandedHeight / 3,
+          left: 20,
+          child: Container(
+            height: expandedHeight,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  height: 200,
+                  width: MediaQuery.of(context).size.width - 40,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 2.5,
+                          offset: Offset(1, 1),
+                          spreadRadius: 0.5)
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                CircleAvatar(
+                                  radius: 35,
+                                  backgroundImage: NetworkImage(
+                                      "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      "Ricardo McDonald",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    Text(
+                                      "corkey_dakota@gmail.com",
+                                      style: TextStyle(
+                                          fontSize: 14, color: Colors.grey),
+                                    ),
                                   ],
                                 )
                               ],
                             ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                    Divider(
-                      height: 30,
-                      color: Colors.black,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25),
-                      child: SizedBox(
-                        height: 20,
-                        child: Text("Orders history "),
+                      Divider(
+                        height: 1,
+                        color: Colors.grey,
                       ),
-                    ),
-                    FutureBuilder<List<Order>>(
-                      // future:
-                      //     order_provider.getListById(user_provider.users[0].id),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return Center(
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  height: 130,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 20),
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      // itemCount:
-                                         
-                                      itemBuilder: (context, index) {
-                                        return InkWell(
-                                          onLongPress: () {
-                                            order_provider.dataService.delete(
-                                                'orders',
-                                                order_provider
-                                                    .orders[index].id);
-                                          },
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.4,
-                                            child: Card(
-                                              elevation: 5,
-                                              color:
-                                                  Colors.grey.withOpacity(0.2),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.0),
-                                                  // image: DecorationImage(
-                                                  //     image: NetworkImage(
-                                                  //         "${order_provider.ordersList[index].image}"),
-                                                  //     fit: BoxFit.cover),
-                                                ),
-                                                child: Center(
-                                                    child: Text("",
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 32))),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.35,
-                                  child: ListView.builder(
-                                      padding:
-                                          EdgeInsets.only(left: 20, right: 25),
-                                      scrollDirection: Axis.horizontal,
-                                      // itemCount: rest.restaurants.length,
-                                      itemBuilder: (context, index) {
-                                        return Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.7,
-                                          child: Card(
-                                            elevation: 20,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              side: BorderSide(
-                                                color: Colors.blueGrey,
-                                                width: 1.0,
-                                              ),
-                                            ),
-                                            color: Colors.grey.withOpacity(0.2),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.0),
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(""),
-                                                      fit: BoxFit.cover)),
-                                            ),
-                                          ),
-                                        );
-                                      }),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                        return Center(child: CircularProgressIndicator());
-                      },
-                    )
-                  ],
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                "Account Credits",
+                                style:
+                                    TextStyle(fontSize: 18, color: Colors.grey),
+                              ),
+                              Text(
+                                "52.25 RM",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.pink,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            );
-          }
-          return Center(child: CircularProgressIndicator());
-        },
-      ),
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+          top: 10 - shrinkOffset / 17,
+          left: 5,
+          child: Container(
+            width: MediaQuery.of(context).size.width - 10,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.edit,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
+
+  @override
+  double get maxExtent => expandedHeight;
+
+  @override
+  double get minExtent => kToolbarHeight;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 }

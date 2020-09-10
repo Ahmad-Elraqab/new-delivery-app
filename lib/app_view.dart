@@ -40,7 +40,7 @@ class _AppViewState extends State<AppView> {
         ),
         onGenerateRoute: Router.generateRoute,
         // initialRoute: '/',
-        initialRoute: kRestaurantMenu,
+        initialRoute: kRestaurantHomePage,
       ),
     );
   }

@@ -20,24 +20,16 @@ class Router {
         builder = (BuildContext context) => App();
         break;
       case '/Cart':
-        builder = (BuildContext context) => App(
-              currentIndex: 0,
-            );
+        builder = (BuildContext context) => App(currentIndex: 1);
         break;
-      case HomeScreen.routeName:
-        builder = (BuildContext context) => App(
-              currentIndex: 2,
-            );
+      case kRestaurantHomePage:
+        builder = (BuildContext context) => App(currentIndex: 0);
         break;
-      case MyProfile.routeName:
-        builder = (BuildContext context) => App(
-              currentIndex: 4,
-            );
+      case '/my_profile':
+        builder = (BuildContext context) => App(currentIndex: 4);
         break;
       case NotificationPage.routeName:
-        builder = (BuildContext context) => App(
-              currentIndex: 3,
-            );
+        builder = (BuildContext context) => App(currentIndex: 3);
         break;
       case kRestaurantDetail:
         builder = (BuildContext context) => RestaurantDetail(data);
