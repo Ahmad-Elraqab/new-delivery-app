@@ -24,14 +24,14 @@ class ItemProvider with ChangeNotifier {
 
   //   return items;
   // }
-  List<Item> getMenu(List data)  {
+  List<Item> getMenu(List data) {
     items.clear();
     // final menus =  dataService.getStreamSecondCollection(
     //     collection1: 'restaurant', docId1: restaurantId, collection2: 'menu');
 
     data.forEach((doc) {
       final result = Item.fromJson(doc.data);
-      result.id = doc.documentID;
+      result.itemId = doc.documentID;
       items.add(result);
     });
 
@@ -39,13 +39,13 @@ class ItemProvider with ChangeNotifier {
   }
 
   void increment(index) {
-    items[index].numberOfItems++;
+    // items[index].numberOfItems++;
     // itemService.update(items[index]);
     notifyListeners();
   }
 
   void decrement(index) {
-    items[index].numberOfItems--;
+    // items[index].numberOfItems--;
     // itemService.update(items[index]);
     notifyListeners();
     // items[index].numberOfItems--;

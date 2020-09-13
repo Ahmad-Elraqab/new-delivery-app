@@ -1,27 +1,35 @@
 import 'item_class.dart';
 
 class Order {
+  String orderId;
   String userId;
+  String itemId;
+  String numberOfItems;
   double totalPrice;
-  String id;
   List<Item> items;
-  String restaurantName;
 
   Order(
-      {this.restaurantName, this.totalPrice, this.userId, this.id, this.items});
+      {this.orderId,
+      this.itemId,
+      this.totalPrice,
+      this.userId,
+      this.numberOfItems,
+      this.items});
   Order.fromJson(Map<String, dynamic> json)
       : this(
+          orderId: json['orderId'],
           userId: json['userid'],
-          id: json['id'],
-          restaurantName: json['restaurantName'],
+          numberOfItems: json['numberOfItems'],
+          itemId: json['itemId'],
           totalPrice: json['totalPrice'],
           items:
               (json['items'] as List).map((doc) => Item.fromJson(doc)).toList(),
         );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'restaurantName': restaurantName,
+        'orderId': orderId,
+        'numberOfItems': numberOfItems,
+        'itemId': itemId,
         'totalPrice': totalPrice,
         'userid': userId,
         'items': items

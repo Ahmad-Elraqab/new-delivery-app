@@ -28,12 +28,12 @@ class OrderProvider with ChangeNotifier {
   // }
   Future<void> addOrder(List<Item> data) async {
     double totalPrice = 0.0;
-    data.forEach((e) => totalPrice += e.price);
+    data.forEach((e) => totalPrice += e.itemPrice);
     Order order = Order(
-        items: data,
-        restaurantName: 'Burger Kine',
-        totalPrice: totalPrice,
-        userId: userId);
+      items: data,
+      totalPrice: totalPrice,
+      userId: userId,
+    );
 
     await dataService.createOrderCollection(
         collection: 'orders', dataId: 'hello id', data: order);
@@ -45,17 +45,10 @@ class OrderProvider with ChangeNotifier {
 
     data.forEach((doc) {
       final result = Order.fromJson(doc.data);
-      result.id = doc.documentID;
+      result.orderId = doc.documentID;
       orders.add(result);
     });
 
     notifyListeners();
   }
-
-  // String userId;
-  // double totalPrice;
-  // String id;
-  // List<Item> items;
-  // String restaurantName;
-
 }

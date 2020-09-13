@@ -1,45 +1,44 @@
 class Item {
-  String id;
-  String menuId;
-  bool isOrdered;
-  int numberOfItems;
-  String mealName;
-  String image;
-  String description;
-  double price;
   String restaurantId;
+  String itemId;
+  String itemCategory;
+  String itemName;
+  String itemImage;
+  String itemDescription;
+  double itemPrice;
+  bool isOrdered;
 
-  Item(
-      {this.id,
-      this.description,
-      this.mealName,
-      this.price,
-      this.image,
-      this.isOrdered,
-      this.numberOfItems,
-      this.restaurantId});
+  Item({
+    this.restaurantId,
+    this.itemCategory,
+    this.itemId,
+    this.itemDescription,
+    this.itemName,
+    this.itemPrice,
+    this.itemImage,
+    this.isOrdered,
+  });
 
   Item.fromJson(Map<String, dynamic> json)
       : this(
-          id: json['id'],
-          description: json['description'],
-          mealName: json['mealName'],
-          price: json['price'],
-          image: json['image'],
-          isOrdered: json['isOrdered'],
-          numberOfItems: json['numberOfItems'],
           restaurantId: json['restaurantId'],
+          itemCategory: json['itemCategory'],
+          itemId: json['itemId'],
+          itemDescription: json['itemDescription'],
+          itemName: json['itemName'],
+          itemPrice: json['itemPrice'],
+          itemImage: json['itemImage'],
+          isOrdered: json['isOrdered'],
         );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'description': description,
-        'mealName': mealName,
-        'price': price,
-        'image': image,
-        'isOrdered': isOrdered,
-        'menuId': menuId,
-        'numberOfItems': numberOfItems,
         'restaurantId': restaurantId,
+        'itemCategory': itemCategory,
+        'itemId': itemId,
+        'itemDescription': itemDescription,
+        'itemName': itemName,
+        'itemPrice': itemPrice,
+        'itemImage': itemImage,
+        'isOrdered': isOrdered,
       };
 }

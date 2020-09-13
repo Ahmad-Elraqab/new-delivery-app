@@ -7,7 +7,7 @@ class ItemService {
         .collection('restaurant')
         .document(data.restaurantId)
         .collection('menu')
-        .document(data.id)
+        .document(data.itemId)
         .setData(data.toJson());
 
     return data;
