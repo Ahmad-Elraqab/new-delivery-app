@@ -1,25 +1,25 @@
-class Comment {
+class Feedback {
   String restaurantId;
   String userName;
   String date;
   String userImage;
   String userRate;
-  String userComment;
+  String userFeedback;
 
-  Comment(
+  Feedback(
       {this.restaurantId,
       this.userName,
       this.date,
       this.userImage,
-      this.userComment,
+      this.userFeedback,
       this.userRate});
-  Comment.fromJson(Map<String, dynamic> json)
+  Feedback.fromJson(Map<String, dynamic> json)
       : this(
           restaurantId: json['restaurantId'],
           userName: json['userName'],
           date: json['date'],
           userImage: json['userImage'],
-          userComment: json['userComment'],
+          userFeedback: json['userFeedback'],
           userRate: json['userRate'],
         );
 
@@ -28,7 +28,7 @@ class Comment {
         'userName': userName,
         'date': date,
         'userImage': userImage,
-        'userComment': userComment,
+        'userFeedback': userFeedback,
         'userRate': userRate,
       };
 }

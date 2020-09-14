@@ -1,5 +1,6 @@
 class Item {
   String restaurantId;
+  String orderId;
   String itemId;
   String itemCategory;
   String itemName;
@@ -17,11 +18,13 @@ class Item {
     this.itemPrice,
     this.itemImage,
     this.isOrdered,
+    this.orderId,
   });
 
   Item.fromJson(Map<String, dynamic> json)
       : this(
           restaurantId: json['restaurantId'],
+          orderId: json['orderId'],
           itemCategory: json['itemCategory'],
           itemId: json['itemId'],
           itemDescription: json['itemDescription'],
@@ -33,6 +36,7 @@ class Item {
 
   Map<String, dynamic> toJson() => {
         'restaurantId': restaurantId,
+        'orderId': orderId,
         'itemCategory': itemCategory,
         'itemId': itemId,
         'itemDescription': itemDescription,
