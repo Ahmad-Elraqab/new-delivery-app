@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:work_app/models/order_class.dart';
 
 class DataService {
   Stream getListByStream(String collection) {
@@ -7,6 +6,15 @@ class DataService {
     print(result);
 
     return result;
+  }
+
+  Future getListByFuture(String collection) async {
+    final result =
+        (await Firestore.instance.collection(collection).getDocuments()).documents;
+    print(result);
+    var fatsha;
+    // return result.documents;
+    return Future(fatsha);
   }
 
   Future create(String collection, {dynamic data}) async {
@@ -29,8 +37,6 @@ class DataService {
 
   Future createOrderCollection(
       {String collection, dynamic data, String dataId}) async {
-
-
     data = data.toJson();
 
     final items = data['items'];
@@ -40,13 +46,14 @@ class DataService {
     // await Firestore.instance
     //     .collection('orders').document().collection('items').add(data);
     final result = await Firestore.instance.collection('orders').add(data);
-    items.forEach((item)async {
-      await Firestore.instance.collection('orders')
-        .document(result.documentID)
-        .collection('items')
-        .add(item.toJson());
+    items.forEach((item) async {
+      await Firestore.instance
+          .collection('orders')
+          .document(result.documentID)
+          .collection('items')
+          .add(item.toJson());
     });
-    
+
     return data;
   }
 
