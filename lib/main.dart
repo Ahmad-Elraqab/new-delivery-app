@@ -5,6 +5,7 @@ import 'app_view.dart';
 void main() {
 dep.init();
 
+
 return runApp(
       AppView(),
     );

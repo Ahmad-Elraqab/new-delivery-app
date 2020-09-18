@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DataService {
   Stream getListByStream(String collection) {
-    final result = Firestore.instance.collection(collection).snapshots();
+    final result =
+        Firestore.instance.collection(collection).snapshots();
     print(result);
 
     return result;
@@ -13,13 +14,14 @@ class DataService {
         (await Firestore.instance.collection(collection).getDocuments()).documents;
     print(result);
     var fatsha;
-    // return result.documents;
+    // return result.documents;5
     return Future(fatsha);
   }
 
   Future create(String collection, {dynamic data}) async {
-    final result =
-        await Firestore.instance.collection(collection).add(data.toJson());
+    final result = await Firestore.instance
+        .collection(collection)
+        .add(data.toJson());
 //     await Firestore.instance.collection(collection).document().collection(collectionPath).add(data);
 // final databaseReference = Firestore.instance;
 // databaseReference.collection('main collection name').document( unique id).collection('string name').document().setData(); // your answer missing **.document()**  before setDat
@@ -45,7 +47,8 @@ class DataService {
     collection = 'orders';
     // await Firestore.instance
     //     .collection('orders').document().collection('items').add(data);
-    final result = await Firestore.instance.collection('orders').add(data);
+    final result =
+        await Firestore.instance.collection('orders').add(data);
     items.forEach((item) async {
       await Firestore.instance
           .collection('orders')
