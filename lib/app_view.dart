@@ -36,9 +36,9 @@ class _AppViewState extends State<AppView> {
         theme: ThemeData(
           primaryColor: Colors.pink,
           accentColor: Colors.pink,
-          textTheme: TextTheme(body2: TextStyle(color: Colors.black)),
+          textTheme: TextTheme(bodyText1: TextStyle(color: Colors.black)),
         ),
-        onGenerateRoute: Router.generateRoute,
+        onGenerateRoute: RouterPage.generateRoute,
         // initialRoute: '/',
         initialRoute: kRestaurantHomePage,
       ),

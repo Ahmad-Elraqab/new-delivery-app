@@ -7,7 +7,7 @@ import 'package:work_app/screens/home/restaurant_detail.dart';
 import 'package:work_app/screens/home/restaurants_menu_screen.dart';
 import 'package:work_app/screens/home/restaurants_screen.dart';
 
-class Router {
+class RouterPage {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     WidgetBuilder builder;
     // Manage your route names here
