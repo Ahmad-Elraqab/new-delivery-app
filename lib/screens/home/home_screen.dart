@@ -112,53 +112,56 @@ class _HomePageState extends State<HomeScreen> {
     return Container(
       height: 200,
       child: ListView.builder(
-        padding: EdgeInsets.only(left: 25, right: 25),
+        padding: EdgeInsets.only(left: 10, right: 10),
         scrollDirection: Axis.vertical,
         itemCount: 10,
         itemBuilder: (context, index) {
-          return Card(
-            child: Container(
-              height: 75,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    height: 75,
-                    width: 75,
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(5),
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              "https://image.shutterstock.com/image-photo/delicious-pizza-olives-sausages-on-260nw-1100491781.jpg"),
-                          fit: BoxFit.cover),
+          return Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Card(
+              child: Container(
+                height: 75,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      height: 75,
+                      width: 75,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(5),
+                        image: DecorationImage(
+                            image: NetworkImage(
+                                "https://image.shutterstock.com/image-photo/delicious-pizza-olives-sausages-on-260nw-1100491781.jpg"),
+                            fit: BoxFit.cover),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Happy Bones"),
-                        Row(
-                          children: <Widget>[
-                            Icon(Icons.star,
-                                color: Colors.deepOrange, size: 18),
-                            Icon(Icons.star,
-                                color: Colors.deepOrange, size: 18),
-                            Icon(Icons.star,
-                                color: Colors.deepOrange, size: 18),
-                            Icon(Icons.star,
-                                color: Colors.deepOrange, size: 18),
-                            Icon(Icons.star, color: Colors.grey, size: 18),
-                            Text("  4.5  (260 Reviews)"),
-                          ],
-                        ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Happy Bones"),
+                          Row(
+                            children: <Widget>[
+                              Icon(Icons.star,
+                                  color: Colors.deepOrange, size: 18),
+                              Icon(Icons.star,
+                                  color: Colors.deepOrange, size: 18),
+                              Icon(Icons.star,
+                                  color: Colors.deepOrange, size: 18),
+                              Icon(Icons.star,
+                                  color: Colors.deepOrange, size: 18),
+                              Icon(Icons.star, color: Colors.grey, size: 18),
+                              Text("  4.5  (260 Reviews)"),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
@@ -170,7 +173,7 @@ class _HomePageState extends State<HomeScreen> {
   Padding _nearbyTitle(RestaurantProvider rest) {
     return Padding(
       padding:
-          const EdgeInsets.only(left: 28.0, top: 20, right: 25, bottom: 10),
+          const EdgeInsets.only(left: 20.0, top: 20, right: 20, bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

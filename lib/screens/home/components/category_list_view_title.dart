@@ -8,7 +8,7 @@ class CategoryListViewTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final rest = Provider.of<RestaurantProvider>(context);
     return Padding(
-      padding: const EdgeInsets.only(left: 28.0, top: 20, right: 25),
+      padding: const EdgeInsets.only(left: 20.0, top: 20, right: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

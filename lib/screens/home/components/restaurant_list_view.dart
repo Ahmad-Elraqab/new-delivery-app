@@ -13,7 +13,7 @@ class RestaurantListView extends StatelessWidget {
       margin: EdgeInsets.only(top: 10),
       height: 200,
       child: ListView.builder(
-          padding: EdgeInsets.only(left: 20, right: 30),
+          padding: EdgeInsets.only(left: 10, right: 10),
           scrollDirection: Axis.horizontal,
           itemCount: restaurantData.restaurants.length,
           itemBuilder: (context, index) {
@@ -51,7 +51,7 @@ class RestaurantListView extends StatelessWidget {
                             ),
                             image: DecorationImage(
                                 image: NetworkImage(
-                                    "https://previews.123rf.com/images/geckophotos/geckophotos1807/geckophotos180700455/104601455-top-view-of-group-of-happy-friends-having-nice-food-and-drinks-enjoying-the-party-and-communication-.jpg"),
+                                    "${restaurantData.restaurants[index].image}"),
                                 fit: BoxFit.cover),
                           ),
                         ),
@@ -68,16 +68,19 @@ class RestaurantListView extends StatelessWidget {
                             ),
                             alignment: Alignment.bottomCenter,
                             child: Padding(
-                              padding: const EdgeInsets.only(left:8.0),
+                              padding: const EdgeInsets.only(left: 8.0),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                   Row(
+                                  Row(
                                     children: <Widget>[
-                                      Text(restaurantData.restaurants[index].name),
+                                      Text(restaurantData
+                                          .restaurants[index].name),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 8.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
                                         child: Container(
                                           child: Padding(
                                             padding: const EdgeInsets.only(
@@ -86,12 +89,13 @@ class RestaurantListView extends StatelessWidget {
                                                 left: 8.0,
                                                 right: 8.0),
                                             child: Text(
-                                              "Italian",
+                                              "${restaurantData.restaurants[index].category}",
                                               style: TextStyle(fontSize: 10),
                                             ),
                                           ),
                                           decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                               gradient: LinearGradient(
                                                 colors: [
                                                   Colors.orange,
@@ -103,7 +107,8 @@ class RestaurantListView extends StatelessWidget {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 8.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
                                         child: Container(
                                           child: Padding(
                                             padding: const EdgeInsets.only(
@@ -112,12 +117,13 @@ class RestaurantListView extends StatelessWidget {
                                                 left: 8.0,
                                                 right: 8.0),
                                             child: Text(
-                                              "12 Km",
+                                              "${restaurantData.restaurants[index].distance} Km",
                                               style: TextStyle(fontSize: 10),
                                             ),
                                           ),
                                           decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                               gradient: LinearGradient(
                                                 colors: [
                                                   Colors.purple[50],
@@ -130,23 +136,27 @@ class RestaurantListView extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                   Text(restaurantData
-                                       .restaurants[index].description),
-                                   Row(
-                                     children: <Widget>[
-                                       Icon(Icons.star,
-                                           color: Colors.deepOrange, size: 18),
-                                       Icon(Icons.star,
-                                           color: Colors.deepOrange, size: 18),
-                                       Icon(Icons.star,
-                                           color: Colors.deepOrange, size: 18),
-                                       Icon(Icons.star,
-                                           color: Colors.deepOrange, size: 18),
-                                       Icon(Icons.star,
-                                           color: Colors.grey, size: 18),
-                                       Text("  4.5  (260 Reviews)"),
-                                     ],
-                                   ),
+                                  Text(restaurantData
+                                      .restaurants[index].description),
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(Icons.star,
+                                          color: Colors.deepOrange, size: 18),
+                                      Icon(Icons.star,
+                                          color: Colors.deepOrange, size: 18),
+                                      Icon(Icons.star,
+                                          color: Colors.deepOrange, size: 18),
+                                      Icon(Icons.star,
+                                          color: Colors.deepOrange, size: 18),
+                                      Icon(Icons.star,
+                                          color: Colors.grey, size: 18),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                          "${restaurantData.restaurants[index].rate}  (260 Reviews)"),
+                                    ],
+                                  ),
                                 ],
                               ),
                             )),

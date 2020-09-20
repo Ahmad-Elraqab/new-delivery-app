@@ -9,7 +9,7 @@ class RestaurantListViewTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final rest = Provider.of<RestaurantProvider>(context);
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0, left: 28, right: 25),
+      padding: const EdgeInsets.only(top: 20.0, left: 20, right: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
