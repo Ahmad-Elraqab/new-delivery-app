@@ -37,12 +37,12 @@ class _HomePageState extends State<HomeScreen> {
     final rest = Provider.of<RestaurantProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: StreamBuilder(
-        stream: rest.dataService.getListByStream('restaurant'),
+      body: FutureBuilder(
+        future: rest.dataService.getListByFuture('restaurant'),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             rest.restaurants =
-                rest.getRestaurantsFromJson(snapshot.data.docs);
+                rest.getRestaurantsFromJson(snapshot.data);
 
             return SafeArea(
               child: SingleChildScrollView(
