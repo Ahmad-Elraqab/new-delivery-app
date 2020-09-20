@@ -42,7 +42,7 @@ class _HomePageState extends State<HomeScreen> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             rest.restaurants =
-                rest.getRestaurantsFromJson(snapshot.data.documents);
+                rest.getRestaurantsFromJson(snapshot.data.docs);
 
             return SafeArea(
               child: SingleChildScrollView(

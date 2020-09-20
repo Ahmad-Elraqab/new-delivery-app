@@ -6,11 +6,11 @@ class UserDataService {
 
   Future<List<User>> getList(String endpoint) async {
     final QuerySnapshot result =
-        await Firestore.instance.collection(endpoint).getDocuments();
+        await FirebaseFirestore.instance.collection(endpoint).get();
 
-    result.documents.forEach((doc) {
-      users.add(User.fromJson(doc.data));
-      users[users.length - 1].id = doc.documentID;
+    result.docs.forEach((doc) {
+      users.add(User.fromJson(doc.data()));
+      users[users.length - 1].id = doc.id;
     });
 
     return users;

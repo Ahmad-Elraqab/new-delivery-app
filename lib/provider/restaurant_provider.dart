@@ -15,7 +15,8 @@ class RestaurantProvider with ChangeNotifier {
   List<Restaurant> getRestaurantsFromJson(List data) {
     restaurants.clear();
     data.forEach((doc) {
-      final restaurant = Restaurant.fromJson(doc.data);
+      print(doc.data());
+      final restaurant = Restaurant.fromJson(doc.data());
       restaurant.id = doc.documentID;
       restaurants.add(restaurant);
     });

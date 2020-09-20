@@ -3,12 +3,12 @@ import 'package:work_app/models/item_class.dart';
 
 class ItemService {
   Future update(Item data) async {
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection('restaurant')
-        .document(data.restaurantId)
+        .doc(data.restaurantId)
         .collection('menu')
-        .document(data.itemId)
-        .setData(data.toJson());
+        .doc(data.itemId)
+        .set(data.toJson());
 
     return data;
   }
