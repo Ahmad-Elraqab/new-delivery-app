@@ -1,27 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
+import 'package:work_app/provider/restaurant_provider.dart';
 
 class RestaurantDetail extends StatelessWidget {
   final int index;
   RestaurantDetail(this.index);
   @override
   Widget build(BuildContext context) {
-    return 
-    Scaffold(
+    final rest = Provider.of<RestaurantProvider>(context);
+    return Scaffold(
       body: SafeArea(
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverPersistentHeader(
-                delegate: MySliverAppBar(expandedHeight: 200),
+                delegate: MySliverAppBar(expandedHeight: 200, restIndex: index),
                 pinned: true,
               ),
             ];
           },
-          body: SingleChildScrollView(
-            child: Column(
+          body: Scrollable(
+            viewportBuilder: (context, position) => 
+             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(
@@ -108,38 +111,41 @@ class RestaurantDetail extends StatelessWidget {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
-                Container(
-                  height: 500,
-                  child: ListView.builder(
-                    itemCount: 20,
-                    scrollDirection: Axis.vertical,
-                    padding: EdgeInsets.only(left: 10),
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: Icon(Icons.person),
-                        title: Text("Sarah"),
-                        subtitle: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.star,
-                              color: Colors.yellow,
-                              size: 18,
-                            ),
-                            Icon(Icons.star, color: Colors.yellow, size: 18),
-                            Icon(Icons.star, color: Colors.yellow, size: 18),
-                            Icon(Icons.star, color: Colors.yellow, size: 18),
-                            Icon(Icons.star, color: Colors.grey, size: 18),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 4.0),
-                              child: Text("4.5"),
-                            ),
-                          ],
-                        ),
-                        trailing: Text("June 15"),
-                      );
-                    },
+                Expanded(
+                  child: Container(
+                    child: ListView.builder(
+                      physics: AlwaysScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 20,
+                      scrollDirection: Axis.vertical,
+                      padding: EdgeInsets.only(left: 10),
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          leading: Icon(Icons.person),
+                          title: Text("Sarah"),
+                          subtitle: Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                                size: 18,
+                              ),
+                              Icon(Icons.star, color: Colors.yellow, size: 18),
+                              Icon(Icons.star, color: Colors.yellow, size: 18),
+                              Icon(Icons.star, color: Colors.yellow, size: 18),
+                              Icon(Icons.star, color: Colors.grey, size: 18),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 4.0),
+                                child: Text("4.5"),
+                              ),
+                            ],
+                          ),
+                          trailing: Text("June 15"),
+                        );
+                      },
+                    ),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -151,12 +157,13 @@ class RestaurantDetail extends StatelessWidget {
 
 class MySliverAppBar extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
-
-  MySliverAppBar({@required this.expandedHeight});
+  int restIndex;
+  MySliverAppBar({this.restIndex, @required this.expandedHeight});
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final rest = Provider.of<RestaurantProvider>(context);
     return Stack(
       fit: StackFit.expand,
       overflow: Overflow.visible,
@@ -201,7 +208,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "The Soothing Dessert",
+                            "${rest.restaurants[restIndex].name}",
                             style: TextStyle(
                                 fontSize: 26, fontWeight: FontWeight.bold),
                           ),
@@ -336,4 +343,3 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 }
-

@@ -11,7 +11,7 @@ class Restaurant extends ChangeNotifier {
   String image;
   String category;
   String location;
-  String distance;
+  int distance;
   List<Restaurant> restaurants;
   // List<Comment> comments;
   // List<Item> item;
