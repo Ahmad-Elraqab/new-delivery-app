@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
+import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
 
 class RestaurantDetail extends StatelessWidget {
@@ -11,146 +12,162 @@ class RestaurantDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rest = Provider.of<RestaurantProvider>(context);
+    final menu = Provider.of<ItemProvider>(context);
+
     return Scaffold(
-      body: SafeArea(
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverPersistentHeader(
-                delegate: MySliverAppBar(expandedHeight: 200, restIndex: index),
-                pinned: true,
-              ),
-            ];
-          },
-          body: Scrollable(
-            viewportBuilder: (context, position) => 
-             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  height: 50,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 25.0, top: 25, bottom: 5, right: 25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: FutureBuilder(
+          future: menu.dataService.getMenu(rest.restaurants[index].id),
+          builder: (context, snapshot) {
+            menu.getMenuItems(snapshot.data);
+            return SafeArea(
+              child: NestedScrollView(
+                headerSliverBuilder:
+                    (BuildContext context, bool innerBoxIsScrolled) {
+                  return <Widget>[
+                    SliverPersistentHeader(
+                      delegate:
+                          MySliverAppBar(expandedHeight: 200, restIndex: index),
+                      pinned: true,
+                    ),
+                  ];
+                },
+                body: Scrollable(
+                  viewportBuilder: (context, position) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        "Recommended dishes",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                      SizedBox(
+                        height: 50,
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, kRestaurantMenu);
-                        },
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 25.0, top: 25, bottom: 5, right: 25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              "Recommended dishes",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, kRestaurantMenu, arguments: index);
+                              },
+                              child: Text(
+                                "View all >>",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.pink),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 200,
+                        child: ListView.builder(
+                          itemCount: menu.items.length,
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.only(left: 20),
+                          itemBuilder: (context, index) {
+                            return Container(
+                              padding: EdgeInsets.all(5),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    height: 120,
+                                    width: 150,
+                                    decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.grey,
+                                              blurRadius: 2.5,
+                                              offset: Offset(1, 1),
+                                              spreadRadius: 0.5)
+                                        ],
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              "${menu.items[index].itemImage}"),
+                                          fit: BoxFit.cover,
+                                        )),
+                                  ),
+                                  Text(
+                                    "${menu.items[index].itemName}",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  Text("${menu.items[index].itemPrice} RM",
+                                      style: TextStyle(fontSize: 16)),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Divider(
+                        height: 1,
+                        thickness: 1,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 25.0, top: 20, bottom: 5),
                         child: Text(
-                          "View all >>",
+                          "The comments",
                           style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.pink),
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: ListView.builder(
+                            physics: AlwaysScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: 20,
+                            scrollDirection: Axis.vertical,
+                            padding: EdgeInsets.only(left: 10),
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                leading: Icon(Icons.person),
+                                title: Text("Sarah"),
+                                subtitle: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.yellow,
+                                      size: 18,
+                                    ),
+                                    Icon(Icons.star,
+                                        color: Colors.yellow, size: 18),
+                                    Icon(Icons.star,
+                                        color: Colors.yellow, size: 18),
+                                    Icon(Icons.star,
+                                        color: Colors.yellow, size: 18),
+                                    Icon(Icons.star,
+                                        color: Colors.grey, size: 18),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 4.0),
+                                      child: Text("4.5"),
+                                    ),
+                                  ],
+                                ),
+                                trailing: Text("June 15"),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                Container(
-                  height: 200,
-                  child: ListView.builder(
-                    itemCount: 10,
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.only(left: 20),
-                    itemBuilder: (context, index) {
-                      return Container(
-                        padding: EdgeInsets.all(5),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              height: 120,
-                              width: 150,
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 2.5,
-                                        offset: Offset(1, 1),
-                                        spreadRadius: 0.5)
-                                  ],
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                        "https://2.bp.blogspot.com/_wTB2n4D2Q4A/S3sJNExMyAI/AAAAAAAABaE/51ybi-8oadE/s400/Vodka+Penne_1911+120+dpi+sharp+%40+10.jpg"),
-                                    fit: BoxFit.cover,
-                                  )),
-                            ),
-                            Text(
-                              "Raspberry cake",
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            Text("10.5 RM", style: TextStyle(fontSize: 16)),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Divider(
-                  height: 1,
-                  thickness: 1,
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 25.0, top: 20, bottom: 5),
-                  child: Text(
-                    "The comments",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    child: ListView.builder(
-                      physics: AlwaysScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 20,
-                      scrollDirection: Axis.vertical,
-                      padding: EdgeInsets.only(left: 10),
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: Icon(Icons.person),
-                          title: Text("Sarah"),
-                          subtitle: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.star,
-                                color: Colors.yellow,
-                                size: 18,
-                              ),
-                              Icon(Icons.star, color: Colors.yellow, size: 18),
-                              Icon(Icons.star, color: Colors.yellow, size: 18),
-                              Icon(Icons.star, color: Colors.yellow, size: 18),
-                              Icon(Icons.star, color: Colors.grey, size: 18),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 4.0),
-                                child: Text("4.5"),
-                              ),
-                            ],
-                          ),
-                          trailing: Text("June 15"),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+              ),
+            );
+          }),
     );
   }
 }
@@ -223,7 +240,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                               Icon(Icons.star, color: Colors.yellow, size: 18),
                               Icon(Icons.star, color: Colors.yellow, size: 18),
                               Icon(Icons.star, color: Colors.grey, size: 18),
-                              Text("  4.5  (260 Reviews)"),
+                              Text(
+                                  "${rest.restaurants[restIndex].rate}  (260 Reviews)"),
                             ],
                           ),
                           Row(
@@ -235,7 +253,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                       color: Colors.black54, size: 18),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
-                                    child: Text("Dessert"),
+                                    child: Text(
+                                        "${rest.restaurants[restIndex].category}"),
                                   )
                                 ],
                               ),
@@ -245,7 +264,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                       color: Colors.black54, size: 18),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
-                                    child: Text("1.6 Km"),
+                                    child: Text(
+                                        "${rest.restaurants[restIndex].distance} Km"),
                                   )
                                 ],
                               ),
@@ -256,9 +276,13 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                     color: Colors.black54,
                                     size: 18,
                                   ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
-                                    child: Text("  23/person"),
+                                    child: Text(
+                                        "${rest.restaurants[restIndex].reservationCost}/person"),
                                   )
                                 ],
                               ),
@@ -280,7 +304,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                     Padding(
                                       padding: const EdgeInsets.only(
                                           left: 4.0, top: 1),
-                                      child: Text("09:00-22:00"),
+                                      child: Text(
+                                          "${rest.restaurants[restIndex].openTime}-${rest.restaurants[restIndex].closeTime}"),
                                     )
                                   ],
                                 ),
@@ -291,7 +316,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                     Padding(
                                       padding: const EdgeInsets.only(
                                           left: 4.0, top: 2),
-                                      child: Text("Parking lot"),
+                                      child: Text(
+                                          "${rest.restaurants[restIndex].parkingFees} Rm"),
                                     )
                                   ],
                                 ),
@@ -303,7 +329,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 4.0, top: 4),
-                                child: Text("West 29th Street"),
+                                child: Text(
+                                    "${rest.restaurants[restIndex].location}"),
                               )
                             ],
                           ),

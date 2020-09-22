@@ -38,7 +38,7 @@ class RouterPage {
         builder = (BuildContext context) => CategoryList();
         break;
       case kRestaurantMenu:
-        builder = (BuildContext context) => RestaurantMenu();
+        builder = (BuildContext context) => RestaurantMenu(data);
         break;
       default:
         throw Exception('Invalid route: ${settings.name}');

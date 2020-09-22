@@ -21,9 +21,7 @@ class DataService {
     final result = await FirebaseFirestore.instance
         .collection(collection)
         .add(data.toJson());
-//     await Firestore.instance.collection(collection).document().collection(collectionPath).add(data);
-// final databaseReference = Firestore.instance;
-// databaseReference.collection('main collection name').document( unique id).collection('string name').document().setData(); // your answer missing **.document()**  before setDat
+
     return result;
   }
 
@@ -34,6 +32,19 @@ class DataService {
         .set(data.toJson());
 
     return data;
+  }
+
+  Future<void> delete(String collection, String id) async {
+    await FirebaseFirestore.instance.collection(collection).doc(id).delete();
+  }
+
+  Future getMenu(String id) async {
+    var result = await FirebaseFirestore.instance
+        .collection("restaurant")
+        .doc(id)
+        .collection("menu")
+        .get();
+    return result.docs;
   }
 
   Future createOrderCollection(
@@ -57,10 +68,6 @@ class DataService {
     });
 
     return data;
-  }
-
-  Future<void> delete(String collection, String id) async {
-    await FirebaseFirestore.instance.collection(collection).doc(id).delete();
   }
 
   Stream getStreamSecondCollection(

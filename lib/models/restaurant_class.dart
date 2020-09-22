@@ -12,6 +12,10 @@ class Restaurant extends ChangeNotifier {
   String category;
   String location;
   int distance;
+  double reservationCost;
+  String openTime;
+  String closeTime;
+  double parkingFees;
   List<Restaurant> restaurants;
   // List<Comment> comments;
   // List<Item> item;
@@ -26,6 +30,10 @@ class Restaurant extends ChangeNotifier {
     this.category,
     this.location,
     this.distance,
+    this.closeTime,
+    this.openTime,
+    this.parkingFees,
+    this.reservationCost,
   });
 
   Restaurant.fromJson(Map<String, dynamic> json)
@@ -39,6 +47,10 @@ class Restaurant extends ChangeNotifier {
           location: json['location'],
           distance: json['distance'],
           image: json['image'],
+          openTime: json['openTime'],
+          closeTime: json['closeTime'],
+          reservationCost: json['reservationCost'].toDouble(),
+          parkingFees: json['parkingFees'].toDouble(),
         );
 
   Map<String, dynamic> toJson() => {
@@ -50,6 +62,10 @@ class Restaurant extends ChangeNotifier {
         'category': category,
         'location': location,
         'distance': distance,
-        'image': image
+        'image': image,
+        'reservationCost': reservationCost,
+        'parkingFees': parkingFees,
+        'openTime': openTime,
+        'closeTime': closeTime,
       };
 }

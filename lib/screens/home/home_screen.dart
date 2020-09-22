@@ -44,7 +44,7 @@ class _HomePageState extends State<HomeScreen> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             rest.restaurants = rest.getRestaurantsFromJson(snapshot.data);
-        
+
             return SafeArea(
               child: SingleChildScrollView(
                 child: Column(
@@ -256,57 +256,55 @@ class _HomePageState extends State<HomeScreen> {
   }
 }
 
-
-
-    // rest.restaurants.add(Restaurant(
-    //             name: 'Osama rest',
-    //             id: 'hello 123',
-    //             category: 'sudanese',
-    //             description: 'helloo world',
-    //             distance: 2,
-    //             image: null,
-    //             location: 'Tamn u',
-    //             rate: 9.5,
-    //             status: 'open'));
-    //         rest.restaurants.add(Restaurant(
-    //             name: 'Osama rest',
-    //             id: 'hello 123',
-    //             category: 'sudanese',
-    //             description: 'helloo world',
-    //             distance: 2,
-    //             image: null,
-    //             location: 'Tamn u',
-    //             rate: 9.5,
-    //             status: 'open'));
-    //         rest.restaurants.add(Restaurant(
-    //             name: 'Osama rest',
-    //             id: 'hello 123',
-    //             category: 'sudanese',
-    //             description: 'helloo world',
-    //             distance: 2,
-    //             image: null,
-    //             location: 'Tamn u',
-    //             rate: 9.5,
-    //             status: 'open'));
-    //         rest.restaurants.add(Restaurant(
-    //             name: 'Osama rest',
-    //             id: 'hello 123',
-    //             category: 'sudanese',
-    //             description: 'helloo world',
-    //             distance: 2,
-    //             image: null,
-    //             location: 'Tamn u',
-    //             rate: 9.5,
-    //             status: 'open'));
-    //         rest.restaurants.add(
-    //           Restaurant(
-    //               name: 'Osama rest',
-    //               id: 'hello 123',
-    //               category: 'sudanese',
-    //               description: 'helloo world',
-    //               distance: 2,
-    //               image: null,
-    //               location: 'Tamn u',
-    //               rate: 9.5,
-    //               status: 'open'),
-    //         );
+// rest.restaurants.add(Restaurant(
+//             name: 'Osama rest',
+//             id: 'hello 123',
+//             category: 'sudanese',
+//             description: 'helloo world',
+//             distance: 2,
+//             image: null,
+//             location: 'Tamn u',
+//             rate: 9.5,
+//             status: 'open'));
+//         rest.restaurants.add(Restaurant(
+//             name: 'Osama rest',
+//             id: 'hello 123',
+//             category: 'sudanese',
+//             description: 'helloo world',
+//             distance: 2,
+//             image: null,
+//             location: 'Tamn u',
+//             rate: 9.5,
+//             status: 'open'));
+//         rest.restaurants.add(Restaurant(
+//             name: 'Osama rest',
+//             id: 'hello 123',
+//             category: 'sudanese',
+//             description: 'helloo world',
+//             distance: 2,
+//             image: null,
+//             location: 'Tamn u',
+//             rate: 9.5,
+//             status: 'open'));
+//         rest.restaurants.add(Restaurant(
+//             name: 'Osama rest',
+//             id: 'hello 123',
+//             category: 'sudanese',
+//             description: 'helloo world',
+//             distance: 2,
+//             image: null,
+//             location: 'Tamn u',
+//             rate: 9.5,
+//             status: 'open'));
+//         rest.restaurants.add(
+//           Restaurant(
+//               name: 'Osama rest',
+//               id: 'hello 123',
+//               category: 'sudanese',
+//               description: 'helloo world',
+//               distance: 2,
+//               image: null,
+//               location: 'Tamn u',
+//               rate: 9.5,
+//               status: 'open'),
+//         );

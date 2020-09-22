@@ -24,13 +24,13 @@ class ItemProvider with ChangeNotifier {
 
   //   return items;
   // }
-  List<Item> getMenu(List data) {
+  List<Item> getMenuItems(List data) {
     items.clear();
     // final menus =  dataService.getStreamSecondCollection(
     //     collection1: 'restaurant', docId1: restaurantId, collection2: 'menu');
 
     data.forEach((doc) {
-      final result = Item.fromJson(doc.data);
+      final result = Item.fromJson(doc.data());
       result.itemId = doc.documentID;
       items.add(result);
     });

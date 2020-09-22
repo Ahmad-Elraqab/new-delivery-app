@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:work_app/provider/item_provider.dart';
+import 'package:work_app/provider/restaurant_provider.dart';
 
 class RestaurantMenu extends StatefulWidget {
+  final int index;
+  RestaurantMenu(this.index);
   @override
   _RestaurantMenuState createState() => _RestaurantMenuState();
 }
@@ -14,17 +19,9 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
   bool _visible = false;
   @override
   Widget build(BuildContext context) {
+    final rest = Provider.of<RestaurantProvider>(context);
+    final menu = Provider.of<ItemProvider>(context);
     return Scaffold(
-      // floatingActionButton: FloatingActionButton.extended(
-
-      //   label: Text("Add to cart"),
-      //   icon: Icon(
-      //     FontAwesomeIcons.shoppingCart,
-      //     size: 18,
-      //   ),
-      //   onPressed: () {},
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -36,7 +33,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                 flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     background: Image.network(
-                      "https://previews.123rf.com/images/geckophotos/geckophotos1807/geckophotos180700455/104601455-top-view-of-group-of-happy-friends-having-nice-food-and-drinks-enjoying-the-party-and-communication-.jpg",
+                      "${rest.restaurants[widget.index].image}",
                       fit: BoxFit.cover,
                     )),
               ),
@@ -47,8 +44,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
               _categoryList(),
               _itemList(context),
               // _visible ? _addCart() : null,
-              if (_visible)
-                _addCart()
+              if (_visible) _addCart()
             ],
           ),
         ),
