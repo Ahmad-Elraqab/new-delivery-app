@@ -41,8 +41,8 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
           },
           body: Column(
             children: <Widget>[
-              _categoryList(),
-              _itemList(context),
+              _categoryList(rest),
+              _itemList(context, menu),
               // _visible ? _addCart() : null,
               if (_visible) _addCart()
             ],
@@ -102,14 +102,14 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
     );
   }
 
-  Expanded _itemList(BuildContext context) {
+  Expanded _itemList(BuildContext context, ItemProvider menu) {
     return Expanded(
       child: Container(
         color: Colors.white,
         // height: MediaQuery.of(context).size.height,
         child: ListView.builder(
           padding: EdgeInsets.all(8.0),
-          itemCount: 16,
+          itemCount: menu.items.length,
           // itemCount: menuProvider.items.length,
           itemBuilder: (context, index) {
             return Padding(
@@ -140,7 +140,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                               color: Colors.green,
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      "https://cdn.kfc.com.my/images/menu/self-collect/stacker-box.jpg"),
+                                      "${menu.items[index].itemImage}"),
                                   fit: BoxFit.cover)),
                         ),
                       ),
@@ -152,7 +152,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              "Signature Box",
+                              "${menu.items[index].itemName}",
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -160,7 +160,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                               ),
                             ),
                             Text(
-                              "1 Chicken piece, signature burger, fries potato with KFC special sauce,KFC special sauce & KFC special sauce ",
+                              "${menu.items[index].itemDescription}",
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -171,7 +171,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
-                                  "23.50 RM",
+                                  "${menu.items[index].itemPrice} RM",
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -239,14 +239,14 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
     );
   }
 
-  Container _categoryList() {
+  Container _categoryList(RestaurantProvider restaurant) {
     return Container(
       height: 50,
       decoration: BoxDecoration(
         color: Colors.white,
       ),
       child: ListView.builder(
-        itemCount: 6,
+        itemCount: restaurant.restaurants[widget.index].categories.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return InkWell(
@@ -267,7 +267,8 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                       ),
               ),
               width: MediaQuery.of(context).size.width / 3,
-              child: Center(child: Text("meal")),
+              child:
+                  Center(child: Text("${restaurant.restaurants[widget.index].categories[index]}")),
             ),
           );
         },
