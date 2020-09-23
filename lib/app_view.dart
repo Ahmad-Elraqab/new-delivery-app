@@ -20,7 +20,7 @@ class _AppViewState extends State<AppView> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => RestaurantProvider(),
+          create: (_) => RestaurantProvider()..setProviderData(),
         ),
         ChangeNotifierProvider(
           create: (_) => OrderProvider(),

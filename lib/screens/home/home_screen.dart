@@ -39,13 +39,14 @@ class _HomePageState extends State<HomeScreen> {
     final rest = Provider.of<RestaurantProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: FutureBuilder(
-        future: rest.dataService.getListByFuture('restaurant'),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            rest.restaurants = rest.getRestaurantsFromJson(snapshot.data);
+      body: 
+      // FutureBuilder(
+      //   future: rest.dataService.getListByFuture('restaurant'),
+      //   builder: (context, snapshot) {
+      //     if (snapshot.hasData) {
+      //       rest.restaurants = rest.getRestaurantsFromJson(snapshot.data);
 
-            return SafeArea(
+             SafeArea(
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,11 +93,11 @@ class _HomePageState extends State<HomeScreen> {
                   ],
                 ),
               ),
-            );
-          }
-          return Center(child: CircularProgressIndicator());
-        },
-      ),
+            ),
+          
+          // return Center(child: CircularProgressIndicator());
+        
+      
     );
   }
 
