@@ -27,7 +27,7 @@ class _AppViewState extends State<AppView> {
         //   } 
         // ),
         ChangeNotifierProvider(
-          create: (_) => RestaurantProvider(),
+          create: (_) => RestaurantProvider()..setProviderData(),
         ),
         ChangeNotifierProvider(
           create: (_) => OrderProvider(),

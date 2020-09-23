@@ -17,6 +17,16 @@ class RestaurantProvider with ChangeNotifier {
     await dataService.delete('restaurant', id);
   }
 
+  Future<void> setProviderData() async{
+    final data = await dataService.getListByFuture('restaurant');
+   data.forEach((e) {
+
+    restaurants.add( Restaurant.fromJson(e));
+    });
+    // restaurants.
+    notifyListeners();
+  }
+
   List<Restaurant> getRestaurantsFromJson(List data) {
     restaurants.clear();
     data.forEach((doc) {

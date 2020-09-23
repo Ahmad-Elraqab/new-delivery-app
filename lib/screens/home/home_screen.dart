@@ -39,70 +39,63 @@ class _HomePageState extends State<HomeScreen> {
     final rest = Provider.of<RestaurantProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: FutureBuilder(
-        future:!rest.isMenuArrive ?  rest.dataService.getMenu('menu') : rest.dataService.getListByFuture('restaurant') ,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            if(!rest.isMenuArrive){
-              rest.isMenuArrive = true;
-              Navigator.pushReplacementNamed(context, HomeScreen.routeName, );
-            }else{
-            rest.restaurants = rest.getRestaurantsFromJson(snapshot.data);
-            }
+      body:
+          // FutureBuilder(
+          //   future: rest.dataService.getListByFuture('restaurant'),
+          //   builder: (context, snapshot) {
+          //     if (snapshot.hasData) {
+          //       rest.restaurants = rest.getRestaurantsFromJson(snapshot.data);
 
-
-            return SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      height: 200,
-                      decoration: BoxDecoration(
-                          color: Colors.pink,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(50),
-                            bottomRight: Radius.circular(50),
-                          )),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20.0, right: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Text(
-                              "Browse",
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            SearchBar(),
-                            Center(
-                              child: Container(
-                                width: 200,
-                                height: 2,
-                                color: Colors.grey,
-                              ),
-                            )
-                          ],
-                        ),
+          SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                height: 200,
+                decoration: BoxDecoration(
+                    color: Colors.pink,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(50),
+                      bottomRight: Radius.circular(50),
+                    )),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0, right: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text(
+                        "Browse",
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
-                    ),
-                    CategoryListViewTitle(),
-                    CategoryListView(),
-                    RestaurantListViewTitle(),
-                    RestaurantListView(),
-                    _nearbyTitle(rest),
-                    _nearbyRestaurants(rest),
-                  ],
+                      SearchBar(),
+                      Center(
+                        child: Container(
+                          width: 200,
+                          height: 2,
+                          color: Colors.grey,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            );
-          }
-          return Center(child: CircularProgressIndicator());
-        },
+              CategoryListViewTitle(),
+              CategoryListView(),
+              RestaurantListViewTitle(),
+              RestaurantListView(),
+              _nearbyTitle(rest),
+              _nearbyRestaurants(rest),
+            ],
+          ),
+        ),
       ),
+
+      // return Center(child: CircularProgressIndicator());
     );
   }
 

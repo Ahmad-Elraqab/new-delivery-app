@@ -13,8 +13,13 @@ class DataService {
     final result =
         (await FirebaseFirestore.instance.collection(collection).get()).docs;
     print(result);
+    final data = [];
+    result.forEach((element) {
+      element.data();
+      data.add(element.data());
+    });
 
-    return result;
+    return data;
   }
 
   Future create(String collection, {dynamic data}) async {
