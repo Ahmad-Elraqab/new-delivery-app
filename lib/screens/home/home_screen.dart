@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
 import 'package:work_app/models/restaurant_class.dart';
+import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
 import 'components/category_list_view.dart';
 import 'components/category_list_view_title.dart';
@@ -40,16 +41,20 @@ class _HomePageState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: FutureBuilder(
-        future:!rest.isMenuArrive ?  rest.dataService.getMenu('menu') : rest.dataService.getListByFuture('restaurant') ,
+        future: rest.isRestaurantArrive
+            ? rest.dataService.getMenu('menu')
+            : rest.dataService.getListByFuture('restaurant'),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if(!rest.isMenuArrive){
-              rest.isMenuArrive = true;
-              Navigator.pushReplacementNamed(context, HomeScreen.routeName, );
-            }else{
-            rest.restaurants = rest.getRestaurantsFromJson(snapshot.data);
-            }
+            if (!rest.isRestaurantArrive) {
+              rest.restaurants = rest.getRestaurantsFromJson(snapshot.data);
+              rest.isRestaurantArrive = true;
+              return HomeScreen();
+            } else {
+              final itemProvider = Provider.of<ItemProvider>(context);
+              // itemProvider.setDataFromRestaurant(,rest.restaurants);
 
+            }
 
             return SafeArea(
               child: SingleChildScrollView(

@@ -5,7 +5,7 @@ import 'package:work_app/services/data_service.dart';
 
 class RestaurantProvider with ChangeNotifier {
   List<Restaurant> restaurants = [];
-  bool isMenuArrive = false;
+  bool isRestaurantArrive = false;
   
   final dataService = service<DataService>();
 

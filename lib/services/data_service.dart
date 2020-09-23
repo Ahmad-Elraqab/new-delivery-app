@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:work_app/models/item_class.dart';
 
 class DataService {
   Stream getListByStream(String collection) {
@@ -45,6 +46,10 @@ class DataService {
         .collection("menu")
         .get();
     return result.docs;
+  }
+
+  List<Item> getItems({String collection, List<String> ids}){
+    // final response = get
   }
 
   Future createOrderCollection(
