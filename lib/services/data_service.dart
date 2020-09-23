@@ -103,21 +103,21 @@ class DataService {
 //     status: "open");11
 
 // ??! why this function is'nt working !!!!!!!!!!!!!!!!!!!!!
-// Future getListByFuture(String collection, int type) async {
-//   List<dynamic> results;
-//   List<QueryDocumentSnapshot> menu;
-//   var restaurant =
-//       (await FirebaseFirestore.instance.collection(collection).get()).docs;
-//   print(restaurant);
+Future getListByFuture(String collection, int type) async {
+  List<dynamic> results;
+  List<QueryDocumentSnapshot> menu;
+  var restaurant =
+      (await FirebaseFirestore.instance.collection(collection).get()).docs;
+  print(restaurant);
 
-//   menu = (await FirebaseFirestore.instance
-//           .collection("restaurant")
-//           .doc("${restaurant.map((e) => e.id.toString())}")
-//           .collection("menu")
-//           .get())
-//       .docs;
+  menu = (await FirebaseFirestore.instance
+          .collection("restaurant")
+          .doc("${restaurant.map((e) => e.id.toString())}")
+          .collection("menu")
+          .get())
+      .docs;
 
-//   results.add(restaurant);
-//   results.add(menu);
-//   return results[type];
-// }
+  results.add(restaurant);
+  results.add(menu);
+  return results[type];
+}

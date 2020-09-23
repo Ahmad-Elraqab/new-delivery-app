@@ -19,6 +19,13 @@ class _AppViewState extends State<AppView> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        // ChangeNotifierProvider(
+        //   create: (_) {
+        //   RestaurantProvider rest = RestaurantProvider();
+        //   rest.setServerData();
+        //   return rest;
+        //   } 
+        // ),
         ChangeNotifierProvider(
           create: (_) => RestaurantProvider(),
         ),

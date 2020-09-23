@@ -5,8 +5,13 @@ import 'package:work_app/services/data_service.dart';
 
 class RestaurantProvider with ChangeNotifier {
   List<Restaurant> restaurants = [];
-
+  bool isMenuArrive = false;
+  
   final dataService = service<DataService>();
+
+  // void setServerData(){
+  //   getRestaurantsFromJson()
+  // }
 
   Future<void> delete(String id) async {
     await dataService.delete('restaurant', id);

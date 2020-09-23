@@ -40,10 +40,16 @@ class _HomePageState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: FutureBuilder(
-        future: rest.dataService.getListByFuture('restaurant'),
+        future:!rest.isMenuArrive ?  rest.dataService.getMenu('menu') : rest.dataService.getListByFuture('restaurant') ,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            if(!rest.isMenuArrive){
+              rest.isMenuArrive = true;
+              Navigator.pushReplacementNamed(context, HomeScreen.routeName, );
+            }else{
             rest.restaurants = rest.getRestaurantsFromJson(snapshot.data);
+            }
+
 
             return SafeArea(
               child: SingleChildScrollView(
