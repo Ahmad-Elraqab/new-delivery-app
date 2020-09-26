@@ -26,7 +26,7 @@ class Item {
           itemId: json['itemId'],
           itemDescription: json['itemDescription'],
           itemName: json['itemName'],
-          itemPrice: json['itemPrice'],
+          itemPrice: json['itemPrice'].toDouble(),
           itemImage: json['itemImage'],
           isOrdered: json['isOrdered'],
         );

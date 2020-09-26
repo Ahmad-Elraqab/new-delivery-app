@@ -15,8 +15,9 @@ class DataService {
     print(result);
     final data = [];
     result.forEach((element) {
-      element.data();
-      data.add(element.data());
+      Map x = element.data();
+      x["id"] = element.id;
+      data.add(x);
     });
 
     return data;
@@ -44,12 +45,25 @@ class DataService {
   }
 
   Future getMenu(String id) async {
-    var result = await FirebaseFirestore.instance
-        .collection("restaurant")
-        .doc(id)
-        .collection("menu")
-        .get();
-    return result.docs;
+    print(id);
+    var result = (await FirebaseFirestore.instance
+            .collection("restaurant")
+            .doc(id)
+            .collection("menu")
+            .get())
+        .docs;
+
+    // final data = [];
+    result.forEach((element) {
+      Map x = element.data();
+      x["id"] = element.id;
+      x["restaurantId"] = id;
+
+      // data.add(x);
+    });
+
+    return result;
+    // return data;
   }
 
   Future createOrderCollection(
