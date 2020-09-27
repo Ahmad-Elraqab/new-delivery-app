@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
-import 'package:work_app/models/restaurant_class.dart';
-import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
 import 'components/category_list_view.dart';
 import 'components/category_list_view_title.dart';
@@ -13,7 +10,6 @@ import 'components/restaurant_list_view_title.dart';
 import 'components/search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const String routeName = "/HomeScreen";
   @override
   _HomePageState createState() => _HomePageState();
 }
