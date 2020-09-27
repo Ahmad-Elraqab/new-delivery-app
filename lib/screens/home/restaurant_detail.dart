@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
+import 'package:work_app/models/restaurant_class.dart';
 import 'package:work_app/provider/feedback_provider.dart';
 import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
@@ -208,7 +209,10 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     final rest = Provider.of<RestaurantProvider>(context);
-
+    List<Restaurant> restaurantsList = [];
+    rest.isNotNearby
+        ? restaurantsList = rest.restaurants
+        : restaurantsList = rest.nearbyRestaurant;
     return Stack(
       fit: StackFit.expand,
       overflow: Overflow.visible,
@@ -253,7 +257,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "${rest.isNotNearby ? rest.restaurants[restIndex].name : rest.nearbyRestaurant[restIndex].name}",
+                            "${restaurantsList[restIndex].name}",
                             style: TextStyle(
                                 fontSize: 26, fontWeight: FontWeight.bold),
                           ),
@@ -269,7 +273,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                               Icon(Icons.star, color: Colors.yellow, size: 18),
                               Icon(Icons.star, color: Colors.grey, size: 18),
                               Text(
-                                  "${rest.isNotNearby ? rest.restaurants[restIndex].rate : rest.nearbyRestaurant[restIndex].rate}  (260 Reviews)"),
+                                  "${restaurantsList[restIndex].rate}  (260 Reviews)"),
                             ],
                           ),
                           Row(
@@ -282,7 +286,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
                                     child: Text(
-                                        "${rest.isNotNearby ? rest.restaurants[restIndex].category : rest.nearbyRestaurant[restIndex].category}"),
+                                        "${restaurantsList[restIndex].category}"),
                                   )
                                 ],
                               ),
@@ -293,7 +297,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
                                     child: Text(
-                                        "${rest.isNotNearby ? rest.restaurants[restIndex].distance : rest.nearbyRestaurant[restIndex].distance} Km"),
+                                        "${restaurantsList[restIndex].distance} Km"),
                                   )
                                 ],
                               ),
@@ -310,7 +314,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
                                     child: Text(
-                                        "${rest.isNotNearby ? rest.restaurants[restIndex].reservationCost : rest.nearbyRestaurant[restIndex].reservationCost}/person"),
+                                        "${restaurantsList[restIndex].reservationCost}/person"),
                                   )
                                 ],
                               ),
@@ -333,8 +337,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                       padding: const EdgeInsets.only(
                                           left: 4.0, top: 1),
                                       child: Text(
-                                          '${rest.isNotNearby ? rest.restaurants[restIndex].openTime : rest.nearbyRestaurant[restIndex].openTime}-' +
-                                              '${rest.isNotNearby ? rest.restaurants[restIndex].closeTime : rest.nearbyRestaurant[restIndex].closeTime}'),
+                                          '${restaurantsList[restIndex].openTime}-' +
+                                              '${restaurantsList[restIndex].closeTime}'),
                                     )
                                   ],
                                 ),
@@ -346,7 +350,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                       padding: const EdgeInsets.only(
                                           left: 4.0, top: 2),
                                       child: Text(
-                                          "${rest.isNotNearby ? rest.restaurants[restIndex].parkingFees : rest.nearbyRestaurant[restIndex].parkingFees} Rm"),
+                                          "${restaurantsList[restIndex].parkingFees} Rm"),
                                     )
                                   ],
                                 ),
@@ -359,7 +363,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                 padding:
                                     const EdgeInsets.only(left: 4.0, top: 4),
                                 child: Text(
-                                    "${rest.isNotNearby ? rest.restaurants[restIndex].location : rest.nearbyRestaurant[restIndex].location}"),
+                                    "${restaurantsList[restIndex].location}"),
                               )
                             ],
                           ),

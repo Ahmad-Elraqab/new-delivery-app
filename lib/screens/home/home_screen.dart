@@ -233,12 +233,13 @@ class _HomePageState extends State<HomeScreen> {
                 color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
           ),
           InkWell(
-            // onTap: () {
-            //   Navigator.pushNamed(
-            //     context,
-            //     kAllCategories,
-            //   );
-            // },
+            onTap: () {
+              rest.isNotNearby = false;
+              Navigator.pushNamed(
+                context,
+                kAllRestaurants,
+              );
+            },
             child: Text(
               "View all >>",
               style: TextStyle(

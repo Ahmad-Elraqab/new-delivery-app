@@ -11,7 +11,7 @@ class RestaurantListView extends StatelessWidget {
 
     return Container(
       margin: EdgeInsets.only(top: 10),
-      height: 200,
+      height: 250,
       child: ListView.builder(
           padding: EdgeInsets.only(left: 10, right: 10),
           scrollDirection: Axis.horizontal,
@@ -139,8 +139,11 @@ class RestaurantListView extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    Text(restaurantData
-                                        .restaurants[index].description),
+                                    Text(
+                                      "${restaurantData.restaurants[index].description}",
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
+                                    ),
                                     Row(
                                       children: <Widget>[
                                         Icon(Icons.star,
