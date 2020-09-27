@@ -6,9 +6,10 @@ import 'package:work_app/services/data_service.dart';
 class RestaurantProvider with ChangeNotifier {
   List<Restaurant> restaurants = [];
   bool isMenuArrive = false;
-  
   final dataService = service<DataService>();
-
+  bool isNotNearby = true;
+  int nearbyRestaurants = 0;
+  List<Restaurant> nearbyRestaurant = [];
   // void setServerData(){
   //   getRestaurantsFromJson()
   // }
@@ -17,14 +18,24 @@ class RestaurantProvider with ChangeNotifier {
     await dataService.delete('restaurant', id);
   }
 
-  Future<void> setProviderData() async{
+  Future<void> setProviderData() async {
     final data = await dataService.getListByFuture('restaurant');
-   data.forEach((e) {
-
-    restaurants.add( Restaurant.fromJson(e));
+    data.forEach((e) {
+      restaurants.add(Restaurant.fromJson(e));
     });
     // restaurants.
     notifyListeners();
+  }
+
+  getNearbyRestaurant() {
+    nearbyRestaurants = 0;
+    nearbyRestaurant.clear();
+    restaurants.forEach((element) {
+      if (element.distance <= 3) {
+        nearbyRestaurants++;
+        nearbyRestaurant.add(element);
+      }
+    });
   }
 
   List<Restaurant> getRestaurantsFromJson(List data) {

@@ -33,7 +33,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                 flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     background: Image.network(
-                      "${rest.restaurants[widget.index].image}",
+                      "${rest.isNotNearby ? rest.restaurants[widget.index].image : rest.nearbyRestaurant[widget.index].image}",
                       fit: BoxFit.cover,
                     )),
               ),
@@ -113,12 +113,13 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
           itemCount: menu.items.length,
           // itemCount: menuProvider.items.length,
           itemBuilder: (context, index) {
-            print(menu.items[index].itemCategory);
-            print(restaurant
-                .restaurants[widget.index].categories[currentIndexBar]);
-            if (menu.items[index].itemCategory ==
-                restaurant
-                    .restaurants[widget.index].categories[currentIndexBar])
+            if (restaurant.isNotNearby
+                ? menu.items[index].itemCategory ==
+                    restaurant
+                        .restaurants[widget.index].categories[currentIndexBar]
+                : menu.items[index].itemCategory ==
+                    restaurant.nearbyRestaurant[widget.index]
+                        .categories[currentIndexBar])
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -256,7 +257,9 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
         color: Colors.white,
       ),
       child: ListView.builder(
-        itemCount: restaurant.restaurants[widget.index].categories.length,
+        itemCount: restaurant.isNotNearby
+            ? restaurant.restaurants[widget.index].categories.length
+            : restaurant.nearbyRestaurant[widget.index].categories.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return InkWell(
@@ -279,7 +282,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
               width: MediaQuery.of(context).size.width / 3,
               child: Center(
                   child: Text(
-                      "${restaurant.restaurants[widget.index].categories[index]}")),
+                      "${restaurant.isNotNearby ? restaurant.restaurants[widget.index].categories[index] : restaurant.nearbyRestaurant[widget.index].categories[index]}")),
             ),
           );
         },

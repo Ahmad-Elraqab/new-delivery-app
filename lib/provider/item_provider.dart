@@ -28,7 +28,6 @@ class ItemProvider with ChangeNotifier {
     items.clear();
     // final menus =  dataService.getStreamSecondCollection(
     //     collection1: 'restaurant', docId1: restaurantId, collection2: 'menu');
-
     data.forEach((doc) {
       final result = Item.fromJson(doc.data());
       result.itemId = doc.documentID;
@@ -37,6 +36,8 @@ class ItemProvider with ChangeNotifier {
 
     // if (items.isEmpty) return null;
   }
+
+
 
   void increment(index) {
     // items[index].numberOfItems++;

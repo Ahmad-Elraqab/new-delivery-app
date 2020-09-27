@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
 import 'package:work_app/models/restaurant_class.dart';
+import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
 import 'components/category_list_view.dart';
 import 'components/category_list_view_title.dart';
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Text(
-                        "Browse",
+                        "browse",
                         style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
@@ -100,11 +101,7 @@ class _HomePageState extends State<HomeScreen> {
   }
 
   Widget _nearbyRestaurants(RestaurantProvider rest) {
-    var count = 0;
-    rest.restaurants.forEach((element) {
-      if (element.distance <= 3) count++;
-    });
-
+    rest.getNearbyRestaurant();
     return Container(
       height: 200,
       child: ListView.builder(
@@ -112,12 +109,13 @@ class _HomePageState extends State<HomeScreen> {
         shrinkWrap: true,
         padding: EdgeInsets.only(left: 10, right: 10),
         scrollDirection: Axis.vertical,
-        itemCount: count,
+        itemCount: rest.nearbyRestaurant.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(4.0),
             child: InkWell(
               onTap: () {
+                rest.isNotNearby = false;
                 Navigator.pushNamed(context, kRestaurantDetail,
                     arguments: index);
               },
@@ -137,7 +135,7 @@ class _HomePageState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(5),
                             image: DecorationImage(
                                 image: NetworkImage(
-                                    "${rest.restaurants[index].image}"),
+                                    "${rest.nearbyRestaurant[index].image}"),
                                 fit: BoxFit.cover),
                           ),
                         ),
@@ -152,7 +150,7 @@ class _HomePageState extends State<HomeScreen> {
                               Expanded(
                                   flex: 3,
                                   child: Text(
-                                    "${rest.restaurants[index].name}",
+                                    "${rest.nearbyRestaurant[index].name}",
                                     style: TextStyle(fontSize: 18),
                                   )),
                               Expanded(
@@ -192,13 +190,13 @@ class _HomePageState extends State<HomeScreen> {
                                           CircleAvatar(
                                               backgroundColor: Colors.amber,
                                               child: Text(
-                                                "${rest.restaurants[index].rate}",
+                                                "${rest.nearbyRestaurant[index].rate}",
                                                 style: TextStyle(fontSize: 14),
                                               )),
                                           CircleAvatar(
                                               backgroundColor: Colors.pink,
                                               child: Text(
-                                                  "${rest.restaurants[index].distance} Km",
+                                                  "${rest.nearbyRestaurant[index].distance} Km",
                                                   style:
                                                       TextStyle(fontSize: 14))),
                                         ],

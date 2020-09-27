@@ -19,6 +19,7 @@ class RestaurantListView extends StatelessWidget {
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
+                restaurantData.isNotNearby = true;
                 Navigator.pushNamed(context, kRestaurantDetail,
                     arguments: index);
               },

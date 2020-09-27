@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Feedback {
+  String id;
+  String uid;
   String restaurantId;
   String userName;
-  String date;
+  Timestamp date;
   String userImage;
-  String userRate;
+  double userRate;
   String userFeedback;
 
   Feedback(
@@ -20,7 +24,7 @@ class Feedback {
           date: json['date'],
           userImage: json['userImage'],
           userFeedback: json['userFeedback'],
-          userRate: json['userRate'],
+          userRate: json['userRate'].toDouble(),
         );
 
   Map<String, dynamic> toJson() => {

@@ -53,17 +53,19 @@ class DataService {
             .get())
         .docs;
 
-    // final data = [];
-    result.forEach((element) {
-      Map x = element.data();
-      x["id"] = element.id;
-      x["restaurantId"] = id;
-
-      // data.add(x);
-    });
-
     return result;
     // return data;
+  }
+
+  Future getFeedback(String id) async {
+    print(id);
+    var result = (await FirebaseFirestore.instance
+            .collection("restaurant")
+            .doc(id)
+            .collection("feedback")
+            .get())
+        .docs;
+    return result;
   }
 
   Future createOrderCollection(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
+import 'package:work_app/provider/feedback_provider.dart';
 import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
 
@@ -13,11 +14,15 @@ class RestaurantDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     final rest = Provider.of<RestaurantProvider>(context);
     final menu = Provider.of<ItemProvider>(context);
+    final feedback = Provider.of<FeedbackProvider>(context);
 
     return Scaffold(
       body: FutureBuilder(
-          future: menu.dataService.getMenu(rest.restaurants[index].id),
-          builder: (context, snapshot) {
+        future: menu.dataService.getMenu(rest.isNotNearby
+            ? rest.restaurants[index].id
+            : rest.nearbyRestaurant[index].id),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
             menu.getMenuItems(snapshot.data);
             return SafeArea(
               child: NestedScrollView(
@@ -51,7 +56,8 @@ class RestaurantDetail extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Navigator.pushNamed(context, kRestaurantMenu, arguments: index);
+                                Navigator.pushNamed(context, kRestaurantMenu,
+                                    arguments: index);
                               },
                               child: Text(
                                 "View all >>",
@@ -124,42 +130,60 @@ class RestaurantDetail extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          child: ListView.builder(
-                            physics: AlwaysScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: 20,
-                            scrollDirection: Axis.vertical,
-                            padding: EdgeInsets.only(left: 10),
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                leading: Icon(Icons.person),
-                                title: Text("Sarah"),
-                                subtitle: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 18,
-                                    ),
-                                    Icon(Icons.star,
-                                        color: Colors.yellow, size: 18),
-                                    Icon(Icons.star,
-                                        color: Colors.yellow, size: 18),
-                                    Icon(Icons.star,
-                                        color: Colors.yellow, size: 18),
-                                    Icon(Icons.star,
-                                        color: Colors.grey, size: 18),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 4.0),
-                                      child: Text("4.5"),
-                                    ),
-                                  ],
+                        child: FutureBuilder(
+                          future: feedback.dataService.getFeedback(
+                              rest.isNotNearby
+                                  ? rest.restaurants[index].id
+                                  : rest.nearbyRestaurant[index].id),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              feedback.getFeedbackList(snapshot.data);
+
+                              return Container(
+                                child: ListView.builder(
+                                  physics: AlwaysScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: feedback.feedback.length,
+                                  scrollDirection: Axis.vertical,
+                                  padding: EdgeInsets.only(left: 10),
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      leading: CircleAvatar(
+                                        backgroundColor: Colors.pink,
+                                        backgroundImage: NetworkImage(
+                                            "${feedback.feedback[index].userImage}"),
+                                      ),
+                                      title: Text(
+                                          "${feedback.feedback[index].userName}"),
+                                      subtitle: Row(
+                                        children: <Widget>[
+                                          Icon(Icons.star,
+                                              color: Colors.yellow, size: 18),
+                                          Icon(Icons.star,
+                                              color: Colors.yellow, size: 18),
+                                          Icon(Icons.star,
+                                              color: Colors.yellow, size: 18),
+                                          Icon(Icons.star,
+                                              color: Colors.yellow, size: 18),
+                                          Icon(Icons.star,
+                                              color: Colors.grey, size: 18),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 4.0),
+                                            child: Text(
+                                                "${feedback.feedback[index].userRate}"),
+                                          ),
+                                        ],
+                                      ),
+                                      trailing: Text(
+                                          "${feedback.readTimestamp(feedback.feedback[index].date.millisecondsSinceEpoch)}"),
+                                    );
+                                  },
                                 ),
-                                trailing: Text("June 15"),
                               );
-                            },
-                          ),
+                            }
+                            return Center(child: CircularProgressIndicator());
+                          },
                         ),
                       ),
                     ],
@@ -167,7 +191,10 @@ class RestaurantDetail extends StatelessWidget {
                 ),
               ),
             );
-          }),
+          }
+          return Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
 }
@@ -181,6 +208,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     final rest = Provider.of<RestaurantProvider>(context);
+
     return Stack(
       fit: StackFit.expand,
       overflow: Overflow.visible,
@@ -225,7 +253,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "${rest.restaurants[restIndex].name}",
+                            "${rest.isNotNearby ? rest.restaurants[restIndex].name : rest.nearbyRestaurant[restIndex].name}",
                             style: TextStyle(
                                 fontSize: 26, fontWeight: FontWeight.bold),
                           ),
@@ -241,7 +269,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                               Icon(Icons.star, color: Colors.yellow, size: 18),
                               Icon(Icons.star, color: Colors.grey, size: 18),
                               Text(
-                                  "${rest.restaurants[restIndex].rate}  (260 Reviews)"),
+                                  "${rest.isNotNearby ? rest.restaurants[restIndex].rate : rest.nearbyRestaurant[restIndex].rate}  (260 Reviews)"),
                             ],
                           ),
                           Row(
@@ -254,7 +282,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
                                     child: Text(
-                                        "${rest.restaurants[restIndex].category}"),
+                                        "${rest.isNotNearby ? rest.restaurants[restIndex].category : rest.nearbyRestaurant[restIndex].category}"),
                                   )
                                 ],
                               ),
@@ -265,7 +293,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
                                     child: Text(
-                                        "${rest.restaurants[restIndex].distance} Km"),
+                                        "${rest.isNotNearby ? rest.restaurants[restIndex].distance : rest.nearbyRestaurant[restIndex].distance} Km"),
                                   )
                                 ],
                               ),
@@ -282,7 +310,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
                                     child: Text(
-                                        "${rest.restaurants[restIndex].reservationCost}/person"),
+                                        "${rest.isNotNearby ? rest.restaurants[restIndex].reservationCost : rest.nearbyRestaurant[restIndex].reservationCost}/person"),
                                   )
                                 ],
                               ),
@@ -305,7 +333,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                       padding: const EdgeInsets.only(
                                           left: 4.0, top: 1),
                                       child: Text(
-                                          "${rest.restaurants[restIndex].openTime}-${rest.restaurants[restIndex].closeTime}"),
+                                          '${rest.isNotNearby ? rest.restaurants[restIndex].openTime : rest.nearbyRestaurant[restIndex].openTime}-' +
+                                              '${rest.isNotNearby ? rest.restaurants[restIndex].closeTime : rest.nearbyRestaurant[restIndex].closeTime}'),
                                     )
                                   ],
                                 ),
@@ -317,7 +346,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                       padding: const EdgeInsets.only(
                                           left: 4.0, top: 2),
                                       child: Text(
-                                          "${rest.restaurants[restIndex].parkingFees} Rm"),
+                                          "${rest.isNotNearby ? rest.restaurants[restIndex].parkingFees : rest.nearbyRestaurant[restIndex].parkingFees} Rm"),
                                     )
                                   ],
                                 ),
@@ -330,7 +359,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                 padding:
                                     const EdgeInsets.only(left: 4.0, top: 4),
                                 child: Text(
-                                    "${rest.restaurants[restIndex].location}"),
+                                    "${rest.isNotNearby ? rest.restaurants[restIndex].location : rest.nearbyRestaurant[restIndex].location}"),
                               )
                             ],
                           ),
