@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:work_app/dependencies/constants.dart';
 import 'package:work_app/provider/item_provider.dart';
+import 'package:work_app/provider/cart_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
 
 class RestaurantMenu extends StatefulWidget {
@@ -21,6 +23,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
   Widget build(BuildContext context) {
     final rest = Provider.of<RestaurantProvider>(context);
     final menu = Provider.of<ItemProvider>(context);
+    final order = Provider.of<CartProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: NestedScrollView(
@@ -44,7 +47,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
               _categoryList(rest),
               _itemList(context, menu, rest),
               // _visible ? _addCart() : null,
-              if (_visible) _addCart()
+              if (_visible) _addCart(menu, order)
             ],
           ),
         ),
@@ -52,32 +55,45 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
     );
   }
 
-  AnimatedOpacity _addCart() {
+  AnimatedOpacity _addCart(ItemProvider menu, CartProvider order) {
     return AnimatedOpacity(
       opacity: 1.0,
       duration: Duration(milliseconds: 2000),
-      child: Container(
-        color: Colors.deepOrange,
-        height: 60,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Icon(
-              FontAwesomeIcons.shoppingCart,
-              color: Colors.white,
-              size: 24,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              "Add to cart",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
+      child: InkWell(
+        onTap: () {
+          menu.cartItems.clear();
+          menu.items.forEach((element) {
+            if (element.itemCount != 0) menu.cartItems.add(element);
+          });
+          order.addOrder(menu.cartItems);
+          menu.items.forEach((element) {
+            element.itemCount = 0;
+          });
+          Navigator.pushNamed(context, kRestaurantCart);
+        },
+        child: Container(
+          color: Colors.deepOrange,
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                FontAwesomeIcons.shoppingCart,
+                color: Colors.white,
+                size: 24,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                "Add to cart",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         ),
       ),
     );

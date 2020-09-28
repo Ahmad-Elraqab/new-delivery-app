@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:work_app/models/order_class.dart';
+import 'package:work_app/models/cart_class.dart';
 
-class OrderDataService {  List<Order> ordersList = [];
+class OrderDataService {
+  List<Cart> ordersList = [];
 
   // user.getList('users');
-  Future<List<Order>> getListOrder({String id}) async {
+  Future<List<Cart>> getListOrder({String id}) async {
     // user.getList('users');
     ordersList.clear();
     final QuerySnapshot result =
@@ -12,14 +13,14 @@ class OrderDataService {  List<Order> ordersList = [];
 
     result.docs.forEach((doc) {
       if (doc.data()['userid'] == id) {
-        ordersList.add(Order.fromJson(doc.data()));
+        ordersList.add(Cart.fromJson(doc.data()));
       }
     });
 
     return ordersList;
   }
 
-  List<Order> getOrders() {
+  List<Cart> getOrders() {
     return ordersList;
   }
 }

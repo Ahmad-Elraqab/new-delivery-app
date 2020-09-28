@@ -75,14 +75,12 @@ class DataService {
     final items = data['items'];
 
     data.remove('items');
-    collection = 'orders';
-    // await Firestore.instance
-    //     .collection('orders').document().collection('items').add(data);
+
     final result =
-        await FirebaseFirestore.instance.collection('orders').add(data);
+        await FirebaseFirestore.instance.collection(collection).add(data);
     items.forEach((item) async {
       await FirebaseFirestore.instance
-          .collection('orders')
+          .collection(collection)
           .doc(result.id)
           .collection('items')
           .add(item.toJson());

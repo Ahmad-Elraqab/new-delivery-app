@@ -5,7 +5,7 @@ import 'package:work_app/dependencies/constants.dart';
 import 'package:work_app/provider/feedback_provider.dart';
 import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/my_profile_provider.dart';
-import 'package:work_app/provider/orders_provider.dart';
+import 'package:work_app/provider/cart_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
 
 import 'models/router.dart';
@@ -31,7 +31,7 @@ class _AppViewState extends State<AppView> {
           create: (_) => RestaurantProvider()..setProviderData(),
         ),
         ChangeNotifierProvider(
-          create: (_) => OrderProvider(),
+          create: (_) => CartProvider(),
         ),
         ChangeNotifierProvider(
           create: (_) => MyProfileProvider(),
