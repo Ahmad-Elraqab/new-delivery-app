@@ -37,8 +37,6 @@ class ItemProvider with ChangeNotifier {
     // if (items.isEmpty) return null;
   }
 
-
-
   void increment(index) {
     // items[index].numberOfItems++;
     // itemService.update(items[index]);

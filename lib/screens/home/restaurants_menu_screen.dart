@@ -107,11 +107,9 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
     return Expanded(
       child: Container(
         color: Colors.white,
-        // height: MediaQuery.of(context).size.height,
         child: ListView.builder(
           padding: EdgeInsets.all(8.0),
           itemCount: menu.items.length,
-          // itemCount: menuProvider.items.length,
           itemBuilder: (context, index) {
             if (restaurant.isNotNearby
                 ? menu.items[index].itemCategory ==
@@ -120,29 +118,27 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                 : menu.items[index].itemCategory ==
                     restaurant.nearbyRestaurant[widget.index]
                         .categories[currentIndexBar])
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
+              return Container(
+                padding: EdgeInsets.all(8.0),
+                height: 170,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                ),
                 child: Container(
-                  padding: EdgeInsets.all(8.0),
-                  height: 170,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(width: 1.0, color: Colors.grey),
-                      ),
+                    border: Border(
+                      bottom: BorderSide(width: 1.0, color: Colors.grey),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            width: 80,
-                            height: 80,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
                                 color: Colors.green,
@@ -152,93 +148,113 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                                     fit: BoxFit.cover)),
                           ),
                         ),
-                        Container(
+                      ),
+                      Expanded(
+                        flex: 6,
+                        child: Container(
                           padding: EdgeInsets.all(10.0),
-                          width: 225,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(
-                                "${menu.items[index].itemName}",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text(
-                                "${menu.items[index].itemDescription}",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    "${menu.items[index].itemPrice} RM",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                  "${menu.items[index].itemName}",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
                                   ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      IconButton(
-                                        icon: Icon(
-                                          FontAwesomeIcons.minus,
-                                          size: 16,
-                                        ),
-                                        // onPressed: menuProvider.decrementItem,
-                                        onPressed: () {
-                                          numberOfOrders--;
-                                          if (numberOfOrders < 0)
-                                            numberOfOrders = 0;
-                                          if (numberOfOrders == 0)
-                                            _visible = false;
-                                          setState(() {});
-                                        },
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: Text(
+                                  "${menu.items[index].itemDescription}",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                  ),
+                                  maxLines: 5,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      "${menu.items[index].itemPrice} RM",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
-                                      Text(
-                                        // "${menuProvider.items[index].numberOfItems}",
-                                        "${numberOfOrders}",
-                                        style: TextStyle(
-                                          fontSize: 20,
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        IconButton(
+                                          icon: Icon(
+                                            FontAwesomeIcons.minus,
+                                            size: 16,
+                                          ),
+                                          // onPressed: menuProvider.decrementItem,
+                                          onPressed: () {
+                                            int tempInvisible = 0;
+                                            menu.items[index].itemCount--;
+                                            if (menu.items[index].itemCount < 0)
+                                              menu.items[index].itemCount = 0;
+                                            menu.items.forEach((element) {
+                                              if (element.itemCount != 0)
+                                                _visible = true;
+                                              else
+                                                tempInvisible++;
+                                            });
+                                            if (tempInvisible ==
+                                                menu.items.length)
+                                              _visible = false;
+
+                                            setState(() {});
+                                          },
                                           color: Colors.black,
                                         ),
-                                      ),
-                                      IconButton(
-                                        icon: Icon(
-                                          FontAwesomeIcons.plus,
-                                          size: 16,
-                                          color: Colors.pink,
+                                        Text(
+                                          // "${menuProvider.items[index].numberOfItems}",
+                                          "${menu.items[index].itemCount}",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.black,
+                                          ),
                                         ),
-                                        // onPressed: menuProvider.incrementItem,
-                                        onPressed: () {
-                                          numberOfOrders++;
-                                          if (numberOfOrders < 0)
-                                            numberOfOrders = 0;
-                                          _visible = true;
-                                          setState(() {});
-                                        },
-                                        color: Colors.black,
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                        IconButton(
+                                          icon: Icon(
+                                            FontAwesomeIcons.plus,
+                                            size: 16,
+                                            color: Colors.pink,
+                                          ),
+                                          // onPressed: menuProvider.incrementItem,
+                                          onPressed: () {
+                                            menu.items[index].itemCount++;
+                                            if (menu.items[index].itemCount < 0)
+                                              menu.items[index].itemCount = 0;
+                                            _visible = true;
+                                            setState(() {});
+                                          },
+                                          color: Colors.black,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               );

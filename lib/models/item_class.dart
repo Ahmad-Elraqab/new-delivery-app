@@ -6,18 +6,19 @@ class Item {
   String itemImage;
   String itemDescription;
   double itemPrice;
+  int itemCount;
   bool isOrdered;
 
-  Item({
-    this.restaurantId,
-    this.itemCategory,
-    this.itemId,
-    this.itemDescription,
-    this.itemName,
-    this.itemPrice,
-    this.itemImage,
-    this.isOrdered,
-  });
+  Item(
+      {this.restaurantId,
+      this.itemCategory,
+      this.itemId,
+      this.itemDescription,
+      this.itemName,
+      this.itemPrice,
+      this.itemImage,
+      this.isOrdered,
+      this.itemCount = 0});
 
   Item.fromJson(Map<String, dynamic> json)
       : this(
