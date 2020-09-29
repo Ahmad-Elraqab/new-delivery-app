@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:work_app/dependencies/constants.dart';
+import 'package:work_app/models/cart_class.dart';
 
 class DataService {
   Stream getListByStream(String collection) {
@@ -54,7 +56,6 @@ class DataService {
         .docs;
 
     return result;
-    // return data;
   }
 
   Future getFeedback(String id) async {
@@ -66,6 +67,36 @@ class DataService {
             .get())
         .docs;
     return result;
+  }
+
+  Future<Cart> getCart() async {
+    var carts = (await FirebaseFirestore.instance
+            .collection("cart")
+            .where("userid", isEqualTo: userIdConst)
+            .get())
+        .docs;
+    final items = await getCartItems(carts[0]);
+
+    final id = carts[0].documentID;
+
+    final Map<String, dynamic> mergedCart = carts[0].data();
+    mergedCart['id'] = id;
+    final result = (items as List).map((e) => e.data()).toList();
+    mergedCart['items'] = result;
+
+    return Cart.fromJson(mergedCart);
+  }
+
+  Future<dynamic> getCartItems(data) async {
+    final id = data.documentID;
+
+    var items = (await FirebaseFirestore.instance
+            .collection("cart")
+            .doc(id)
+            .collection("items")
+            .get())
+        .docs;
+    return items;
   }
 
   Future createOrderCollection(

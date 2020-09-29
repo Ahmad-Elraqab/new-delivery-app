@@ -1,30 +1,28 @@
 import 'item_class.dart';
 
 class Cart {
-  String cartId;
+  String id;
   String userId;
   double totalPrice;
   List<Item> items;
 
   Cart({
-    this.cartId,
+    this.id,
     this.userId,
     this.totalPrice,
     this.items,
   });
+  // Cart.fromJson(Map<String, dynamic> json, dynamic json2)
   Cart.fromJson(Map<String, dynamic> json)
       : this(
-          cartId: json['cartId'],
+          id: json['id'],
           userId: json['userid'],
           totalPrice: json['totalPrice'],
-          items:
-              (json['items'] as List).map((doc) => Item.fromJson(doc)).toList(),
+          items: (json['items'] as List)
+              .map((doc) => Item.fromJson(doc))
+              .toList(),
         );
 
-  Map<String, dynamic> toJson() => {
-        'cartId': cartId,
-        'userid': userId,
-        'totalPrice': totalPrice,
-        'items': items
-      };
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'userid': userId, 'totalPrice': totalPrice, 'items': items};
 }

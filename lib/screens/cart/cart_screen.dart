@@ -1,19 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:work_app/models/cart_class.dart';
+import 'package:work_app/provider/cart_provider.dart';
 
-class Cart extends StatefulWidget {
+class CartScreen extends StatefulWidget {
   @override
-  _CartState createState() => _CartState();
+  _CartScreenState createState() => _CartScreenState();
 }
 
-class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
+class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateMixin {
   // static int pageChanged = 0;
   PageController pageController = PageController(initialPage: 0);
   bool _visible = true;
   int currentIndex;
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: DefaultTabController(
@@ -48,25 +52,36 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
                 ),
               ];
             },
-            body: PageView(
-              onPageChanged: (index) {
-                // pageChanged = index;
-                // print(pageChanged);
-                setState(() {});
-              },
-              controller: pageController,
-              children: <Widget>[
-                SingleChildScrollView(
-                                  child: Column(
+            body: FutureBuilder(
+              future: cart.dataService.getCart(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                   final Cart cartItems = snapshot.data;
+
+                  return PageView(
+                    onPageChanged: (index) {
+                      // pageChanged = index;
+                      // print(pageChanged);
+                      setState(() {});
+                    },
+                    controller: pageController,
                     children: <Widget>[
-                      _orderList(),
-                      _summaryBox(context),
-                      _checkoutButton()
+                      SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            Text('${cartItems.items}'),
+                            _orderList(),
+                            _summaryBox(context),
+                            _checkoutButton()
+                          ],
+                        ),
+                      ),
+                      _historyScreen(context),
                     ],
-                  ),
-                ),
-                _historyScreen(context),
-              ],
+                  );
+                }
+                return Center(child: CircularProgressIndicator());
+              },
             ),
           ),
         ),

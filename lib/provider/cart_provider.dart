@@ -5,7 +5,7 @@ import 'package:work_app/services/data_service.dart';
 import '../dependency.dart';
 
 class CartProvider with ChangeNotifier {
-  List<Cart> orders = [];
+  List<dynamic> carts = [];
   final String collection = 'orders';
   final userId = 'newUser';
 
@@ -25,17 +25,17 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setOrdersFromStream(List data) {
-    orders.clear();
+  // void setCart(List data1, List data2) {
+  //   carts.clear();
 
-    data.forEach((doc) {
-      final result = Cart.fromJson(doc.data);
-      result.cartId = doc.documentID;
-      orders.add(result);
-    });
+  //   for (int i = 0; i < data1.length; i++) {
+  //     final result = Cart.fromJson(data1[i].data(), data2[i].data());
 
-    notifyListeners();
-  }
+  //     carts.add(result);
+  //   }
+
+  //   notifyListeners();
+  // }
 }
 
 // Future<List<Order>> getListById(String id) async {
