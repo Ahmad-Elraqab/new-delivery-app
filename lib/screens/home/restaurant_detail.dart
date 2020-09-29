@@ -14,15 +14,13 @@ class RestaurantDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rest = Provider.of<RestaurantProvider>(context);
-    final menu = Provider.of<ItemProvider>(context);
+    final menu = Provider.of<ItemProvider>(context, listen: false);
     final feedback = Provider.of<FeedbackProvider>(context);
-    // menu.getMenuItems(snapshot.data);
+    final resData = rest.restaurantsByDistance[rest.currentRestaurantType];
 
     return Scaffold(
       body: FutureBuilder(
-        future: menu.dataService.getMenu(rest.isNotNearby
-            ? rest.restaurants[index].id
-            : rest.nearbyRestaurant[index].id),
+        future: menu.dataService.getMenu(resData[index].id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             menu.getMenuItems(snapshot.data);
@@ -136,10 +134,8 @@ class RestaurantDetail extends StatelessWidget {
                       ),
                       Expanded(
                         child: FutureBuilder(
-                          future: feedback.dataService.getFeedback(
-                              rest.isNotNearby
-                                  ? rest.restaurants[index].id
-                                  : rest.nearbyRestaurant[index].id),
+                          future: feedback.dataService
+                              .getFeedback(resData[index].id),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               feedback.getFeedbackList(snapshot.data);
@@ -213,10 +209,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     final rest = Provider.of<RestaurantProvider>(context);
-    List<Restaurant> restaurantsList = [];
-    rest.isNotNearby
-        ? restaurantsList = rest.restaurants
-        : restaurantsList = rest.nearbyRestaurant;
+    List<Restaurant> restaurantsList =
+        rest.restaurantsByDistance[rest.currentRestaurantType];
     return Stack(
       fit: StackFit.expand,
       overflow: Overflow.visible,

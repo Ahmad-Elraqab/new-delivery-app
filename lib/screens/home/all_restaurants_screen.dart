@@ -14,10 +14,8 @@ class RrestaurantStatesList extends State<RestaurantsList> {
   @override
   Widget build(BuildContext context) {
     final restaurantData = Provider.of<RestaurantProvider>(context);
-    List<Restaurant> restaurantsList = [];
-    restaurantData.isNotNearby
-        ? restaurantsList = restaurantData.restaurants
-        : restaurantsList = restaurantData.nearbyRestaurant;
+    List<Restaurant> restaurantsList = restaurantData
+        .restaurantsByDistance[restaurantData.currentRestaurantType];
     return Scaffold(
       body: SafeArea(
         child: NestedScrollView(

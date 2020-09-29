@@ -18,12 +18,12 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
   int numberOfOrders = 0;
   int currentIndexBar = 0;
   bool isExtend = true;
-  bool _visible = false;
   @override
   Widget build(BuildContext context) {
     final rest = Provider.of<RestaurantProvider>(context);
     final menu = Provider.of<ItemProvider>(context);
     final order = Provider.of<CartProvider>(context);
+    final restData = rest.restaurantsByDistance[rest.currentRestaurantType];
     return Scaffold(
       body: SafeArea(
         child: NestedScrollView(
@@ -36,7 +36,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                 flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     background: Image.network(
-                      "${rest.isNotNearby ? rest.restaurants[menu.currentMenu].image : rest.nearbyRestaurant[menu.currentMenu].image}",
+                      "${restData[menu.currentMenu].image}",
                       fit: BoxFit.cover,
                     )),
               ),
@@ -44,10 +44,10 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
           },
           body: Column(
             children: <Widget>[
-              _categoryList(rest),
-              _itemList(context, menu, rest),
+              _categoryList(rest, restData),
+              _itemList(context, menu, rest, restData),
               // _visible ? _addCart() : null,
-              if (_visible) _addCart(menu, order)
+              if (menu.visible) _addCart(menu, order)
             ],
           ),
         ),
@@ -118,8 +118,8 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
     );
   }
 
-  Expanded _itemList(
-      BuildContext context, ItemProvider menu, RestaurantProvider restaurant) {
+  Expanded _itemList(BuildContext context, ItemProvider menu,
+      RestaurantProvider restaurant, restData) {
     return Expanded(
       child: Container(
         color: Colors.white,
@@ -127,13 +127,8 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
           padding: EdgeInsets.all(8.0),
           itemCount: menu.items.length,
           itemBuilder: (context, index) {
-            if (restaurant.isNotNearby
-                ? menu.items[index].itemCategory ==
-                    restaurant
-                        .restaurants[menu.currentMenu].categories[currentIndexBar]
-                : menu.items[index].itemCategory ==
-                    restaurant.nearbyRestaurant[menu.currentMenu]
-                        .categories[currentIndexBar])
+            if (menu.items[index].itemCategory ==
+                restData[menu.currentMenu].categories[currentIndexBar])
               return Container(
                 padding: EdgeInsets.all(8.0),
                 height: 170,
@@ -219,21 +214,22 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                                           ),
                                           // onPressed: menuProvider.decrementItem,
                                           onPressed: () {
-                                            int tempInvisible = 0;
-                                            menu.items[index].itemCount--;
-                                            if (menu.items[index].itemCount < 0)
-                                              menu.items[index].itemCount = 0;
-                                            menu.items.forEach((element) {
-                                              if (element.itemCount != 0)
-                                                _visible = true;
-                                              else
-                                                tempInvisible++;
-                                            });
-                                            if (tempInvisible ==
-                                                menu.items.length)
-                                              _visible = false;
+                                            // int tempInvisible = 0;
+                                            // menu.items[index].itemCount--;
+                                            // if (menu.items[index].itemCount < 0)
+                                            //   menu.items[index].itemCount = 0;
+                                            // menu.items.forEach((element) {
+                                            //   if (element.itemCount != 0)
+                                            //     _visible = true;
+                                            //   else
+                                            //     tempInvisible++;
+                                            // });
+                                            // if (tempInvisible ==
+                                            //     menu.items.length)
+                                            //   _visible = false;
 
-                                            setState(() {});
+                                            // setState(() {});
+                                            menu.decrement(index);
                                           },
                                           color: Colors.black,
                                         ),
@@ -283,7 +279,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
     );
   }
 
-  Container _categoryList(RestaurantProvider restaurant) {
+  Container _categoryList(RestaurantProvider restaurant, restData) {
     final menu = Provider.of<ItemProvider>(context);
     return Container(
       height: 50,
@@ -291,9 +287,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
         color: Colors.white,
       ),
       child: ListView.builder(
-        itemCount: restaurant.isNotNearby
-            ? restaurant.restaurants[menu.currentMenu].categories.length
-            : restaurant.nearbyRestaurant[menu.currentMenu].categories.length,
+        itemCount: restData[menu.currentMenu].categories.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return InkWell(
@@ -315,8 +309,8 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
               ),
               width: MediaQuery.of(context).size.width / 3,
               child: Center(
-                  child: Text(
-                      "${restaurant.isNotNearby ? restaurant.restaurants[menu.currentMenu].categories[index] : restaurant.nearbyRestaurant[menu.currentMenu].categories[index]}")),
+                  child:
+                      Text("${restData[menu.currentMenu].categories[index]}")),
             ),
           );
         },

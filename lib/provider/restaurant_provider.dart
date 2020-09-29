@@ -10,8 +10,15 @@ class RestaurantProvider with ChangeNotifier {
   final dataService = service<DataService>();
   final dataService2 = RestaurantService();
 
+  String currentRestaurantType;
+
+  Map<String, List<Restaurant>> restaurantsByDistance = {
+    'nearby': [],
+    'trending': [],
+  };
+
   bool isNotNearby = true;
-  int nearbyRestaurants = 0;
+  // int nearbyRestaurants = 0;
   List<Restaurant> nearbyRestaurant = [];
   // void setServerData(){
   //   getRestaurantsFromJson()
@@ -24,15 +31,17 @@ class RestaurantProvider with ChangeNotifier {
   Future<void> setProviderData() async {
     final data = await dataService2.getAllRestaurants();
     restaurants = data;
+    restaurantsByDistance['trending'] = restaurants;
+    restaurantsByDistance['nearby'] = nearbyRestaurant;
     notifyListeners();
   }
 
   getNearbyRestaurant() {
-    nearbyRestaurants = 0;
+    // nearbyRestaurants = 0;
     nearbyRestaurant.clear();
     restaurants.forEach((element) {
       if (element.distance <= 3) {
-        nearbyRestaurants++;
+        // nearbyRestaurants++;
         nearbyRestaurant.add(element);
       }
     });

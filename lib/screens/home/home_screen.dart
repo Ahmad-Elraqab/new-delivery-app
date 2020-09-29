@@ -111,7 +111,7 @@ class _HomePageState extends State<HomeScreen> {
             padding: const EdgeInsets.all(4.0),
             child: InkWell(
               onTap: () {
-                rest.isNotNearby = false;
+                rest.currentRestaurantType = 'nearby';
                 Navigator.pushNamed(context, kRestaurantDetail,
                     arguments: index);
               },
@@ -230,7 +230,7 @@ class _HomePageState extends State<HomeScreen> {
           ),
           InkWell(
             onTap: () {
-              rest.isNotNearby = false;
+              rest.currentRestaurantType = 'nearby';
               Navigator.pushNamed(
                 context,
                 kAllRestaurants,

@@ -20,7 +20,7 @@ class RestaurantListViewTitle extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              rest.isNotNearby = true;
+              rest.currentRestaurantType = 'trending';
               Navigator.pushNamed(
                 context,
                 kAllRestaurants,
