@@ -10,7 +10,8 @@ class CartScreen extends StatefulWidget {
   _CartScreenState createState() => _CartScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateMixin {
+class _CartScreenState extends State<CartScreen>
+    with SingleTickerProviderStateMixin {
   // static int pageChanged = 0;
   PageController pageController = PageController(initialPage: 0);
   bool _visible = true;
@@ -53,11 +54,9 @@ class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateM
               ];
             },
             body: FutureBuilder(
-              future: cart.dataService.getCart(),
+              future: cart.getCart(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                   final Cart cartItems = snapshot.data;
-
                   return PageView(
                     onPageChanged: (index) {
                       // pageChanged = index;
@@ -66,13 +65,12 @@ class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateM
                     },
                     controller: pageController,
                     children: <Widget>[
-                      SingleChildScrollView(
-                        child: Column(
+                      Scrollable(
+                        viewportBuilder: (context, position) => Column(
                           children: <Widget>[
-                            Text('${cartItems.items}'),
-                            _orderList(),
-                            _summaryBox(context),
-                            _checkoutButton()
+                            _summaryBox(context, cart),
+                            _checkoutButton(),
+                            Expanded(child: _orderList(cart)),
                           ],
                         ),
                       ),
@@ -109,7 +107,7 @@ class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateM
     );
   }
 
-  Column _summaryBox(BuildContext context) {
+  Column _summaryBox(BuildContext context, CartProvider cart) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -120,7 +118,7 @@ class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateM
             elevation: 3,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 200,
+              height: 170,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: Colors.white,
@@ -138,7 +136,7 @@ class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateM
                           style: TextStyle(fontSize: 18),
                         ),
                         Text(
-                          "1469.95 RM",
+                          "${cart.carts.totalPrice} RM",
                           style: TextStyle(fontSize: 18),
                         ),
                       ],
@@ -170,7 +168,7 @@ class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateM
                           style: TextStyle(fontSize: 18),
                         ),
                         Text(
-                          "59.45 RM",
+                          "${cart.carts.totalPrice * 0.1} RM",
                           style: TextStyle(fontSize: 18),
                         ),
                       ],
@@ -196,7 +194,7 @@ class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateM
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "1499.85 RM",
+                          "${cart.carts.totalPrice + (cart.carts.totalPrice * 0.1)} RM",
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -301,16 +299,17 @@ class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateM
     );
   }
 
-  Padding _orderList() {
+  Padding _orderList(CartProvider cart) {
     return Padding(
       padding: const EdgeInsets.only(left: 10.0, right: 10.0),
       child: Card(
         elevation: 3,
         child: Container(
-          height: 400,
           child: ListView.builder(
+            physics: AlwaysScrollableScrollPhysics(),
+            shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            itemCount: 10,
+            itemCount: cart.carts.items.length,
             padding: EdgeInsets.all(8.0),
             itemBuilder: (context, index) {
               return Padding(
@@ -325,7 +324,7 @@ class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateM
                               borderRadius: BorderRadius.circular(5),
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      "https://cdn-b.william-reed.com/var/wrbm_gb_hospitality/storage/images/publications/hospitality/bighospitality.co.uk/article/2020/04/15/kfc-reopens-11-restaurants-for-delivery-only/3331532-1-eng-GB/KFC-reopens-11-restaurants-for-delivery-only_wrbm_large.png"),
+                                      "${cart.carts.items[index].itemImage}"),
                                   fit: BoxFit.cover)),
                           width: 75,
                           height: 75,
@@ -344,19 +343,19 @@ class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateM
                         Expanded(
                           child: Container(
                             padding: EdgeInsets.only(left: 8.0),
-                            height: 75,
+                            height: 80,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  "KFC Box",
+                                  "${cart.carts.items[index].itemName}",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  "this text is made for small description",
+                                  "${cart.carts.items[index].itemDescription}",
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold),
@@ -366,7 +365,7 @@ class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateM
                                   height: 10,
                                 )),
                                 Text(
-                                  "45.60 RM",
+                                  "${cart.carts.items[index].itemPrice} RM",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -403,7 +402,7 @@ class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateM
                               width: 25,
                               child: Center(
                                   child: Text(
-                                "0",
+                                "${cart.carts.items[index].itemCount}",
                                 style: TextStyle(fontSize: 14),
                               )),
                             ),

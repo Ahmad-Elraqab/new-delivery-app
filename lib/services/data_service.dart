@@ -69,22 +69,14 @@ class DataService {
     return result;
   }
 
-  Future<Cart> getCart() async {
+  Future getCart() async {
     var carts = (await FirebaseFirestore.instance
             .collection("cart")
             .where("userid", isEqualTo: userIdConst)
             .get())
         .docs;
-    final items = await getCartItems(carts[0]);
 
-    final id = carts[0].documentID;
-
-    final Map<String, dynamic> mergedCart = carts[0].data();
-    mergedCart['id'] = id;
-    final result = (items as List).map((e) => e.data()).toList();
-    mergedCart['items'] = result;
-
-    return Cart.fromJson(mergedCart);
+    return carts;
   }
 
   Future<dynamic> getCartItems(data) async {

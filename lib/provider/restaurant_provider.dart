@@ -9,20 +9,14 @@ class RestaurantProvider with ChangeNotifier {
   bool isMenuArrive = false;
   final dataService = service<DataService>();
   final dataService2 = RestaurantService();
-
   String currentRestaurantType;
-
   Map<String, List<Restaurant>> restaurantsByDistance = {
     'nearby': [],
     'trending': [],
   };
-
   bool isNotNearby = true;
-  // int nearbyRestaurants = 0;
   List<Restaurant> nearbyRestaurant = [];
-  // void setServerData(){
-  //   getRestaurantsFromJson()
-  // }
+ 
 
   Future<void> delete(String id) async {
     await dataService.delete('restaurant', id);

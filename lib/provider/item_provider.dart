@@ -3,7 +3,7 @@ import 'package:work_app/dependency.dart';
 import 'package:work_app/models/item_class.dart';
 import 'package:work_app/models/restaurant_class.dart';
 import 'package:work_app/services/data_service.dart';
-import 'package:work_app/services/model_service/item_service.dart';
+import 'package:work_app/services/screens_service/item_service.dart';
 
 class ItemProvider with ChangeNotifier {
   List<Item> items = [];
