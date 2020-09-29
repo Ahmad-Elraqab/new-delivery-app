@@ -36,7 +36,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                 flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     background: Image.network(
-                      "${rest.isNotNearby ? rest.restaurants[widget.index].image : rest.nearbyRestaurant[widget.index].image}",
+                      "${rest.isNotNearby ? rest.restaurants[menu.currentMenu].image : rest.nearbyRestaurant[menu.currentMenu].image}",
                       fit: BoxFit.cover,
                     )),
               ),
@@ -130,9 +130,9 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
             if (restaurant.isNotNearby
                 ? menu.items[index].itemCategory ==
                     restaurant
-                        .restaurants[widget.index].categories[currentIndexBar]
+                        .restaurants[menu.currentMenu].categories[currentIndexBar]
                 : menu.items[index].itemCategory ==
-                    restaurant.nearbyRestaurant[widget.index]
+                    restaurant.nearbyRestaurant[menu.currentMenu]
                         .categories[currentIndexBar])
               return Container(
                 padding: EdgeInsets.all(8.0),
@@ -253,11 +253,12 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                                           ),
                                           // onPressed: menuProvider.incrementItem,
                                           onPressed: () {
-                                            menu.items[index].itemCount++;
-                                            if (menu.items[index].itemCount < 0)
-                                              menu.items[index].itemCount = 0;
-                                            _visible = true;
-                                            setState(() {});
+                                            menu.increment(index);
+                                            // menu.items[index].itemCount++;
+                                            // if (menu.items[index].itemCount < 0)
+                                            //   menu.items[index].itemCount = 0;
+                                            // _visible = true;
+                                            // setState(() {});
                                           },
                                           color: Colors.black,
                                         ),
@@ -283,6 +284,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
   }
 
   Container _categoryList(RestaurantProvider restaurant) {
+    final menu = Provider.of<ItemProvider>(context);
     return Container(
       height: 50,
       decoration: BoxDecoration(
@@ -290,8 +292,8 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
       ),
       child: ListView.builder(
         itemCount: restaurant.isNotNearby
-            ? restaurant.restaurants[widget.index].categories.length
-            : restaurant.nearbyRestaurant[widget.index].categories.length,
+            ? restaurant.restaurants[menu.currentMenu].categories.length
+            : restaurant.nearbyRestaurant[menu.currentMenu].categories.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return InkWell(
@@ -314,7 +316,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
               width: MediaQuery.of(context).size.width / 3,
               child: Center(
                   child: Text(
-                      "${restaurant.isNotNearby ? restaurant.restaurants[widget.index].categories[index] : restaurant.nearbyRestaurant[widget.index].categories[index]}")),
+                      "${restaurant.isNotNearby ? restaurant.restaurants[menu.currentMenu].categories[index] : restaurant.nearbyRestaurant[menu.currentMenu].categories[index]}")),
             ),
           );
         },

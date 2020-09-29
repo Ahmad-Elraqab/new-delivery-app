@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:work_app/dependency.dart';
 import 'package:work_app/models/restaurant_class.dart';
 import 'package:work_app/services/data_service.dart';
+import 'package:work_app/services/screens_service/restaurant_service.dart';
 
 class RestaurantProvider with ChangeNotifier {
   List<Restaurant> restaurants = [];
   bool isMenuArrive = false;
   final dataService = service<DataService>();
+  final dataService2 = RestaurantService();
+
   bool isNotNearby = true;
   int nearbyRestaurants = 0;
   List<Restaurant> nearbyRestaurant = [];
@@ -19,11 +22,8 @@ class RestaurantProvider with ChangeNotifier {
   }
 
   Future<void> setProviderData() async {
-    final data = await dataService.getListByFuture('restaurant');
-    data.forEach((e) {
-      restaurants.add(Restaurant.fromJson(e));
-    });
-    // restaurants.
+    final data = await dataService2.getAllRestaurants();
+    restaurants = data;
     notifyListeners();
   }
 

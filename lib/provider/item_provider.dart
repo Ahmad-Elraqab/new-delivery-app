@@ -10,9 +10,11 @@ class ItemProvider with ChangeNotifier {
   final dataService = service<DataService>();
   final itemService = service<ItemService>();
   bool visible = false;
+  int currentMenu;
 
   List<Item> getMenuItems(List data) {
-    items.clear();
+    // items.clear();
+    // items = [];
     // final menus =  dataService.getStreamSecondCollection(
     //     collection1: 'restaurant', docId1: restaurantId, collection2: 'menu');
     data.forEach((doc) {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:work_app/dependency.dart';
+import 'package:work_app/screens/cart/cart_screen.dart';
 import 'package:work_app/screens/profile/profile_screen.dart';
 import 'package:work_app/services/data_service.dart';
-import 'cart/cart_screen.dart';
 import 'home/home_screen.dart';
 import 'notification/notification_screen.dart';
 
@@ -27,7 +27,7 @@ class _AppState extends State<App> {
         return HomeScreen();
         break;
       case 1:
-        return Cart();
+        return CartScreen();
         break;
       case 2:
         return NotificationPage();

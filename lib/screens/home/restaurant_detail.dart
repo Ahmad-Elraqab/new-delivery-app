@@ -16,6 +16,7 @@ class RestaurantDetail extends StatelessWidget {
     final rest = Provider.of<RestaurantProvider>(context);
     final menu = Provider.of<ItemProvider>(context);
     final feedback = Provider.of<FeedbackProvider>(context);
+    // menu.getMenuItems(snapshot.data);
 
     return Scaffold(
       body: FutureBuilder(
@@ -57,8 +58,11 @@ class RestaurantDetail extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Navigator.pushNamed(context, kRestaurantMenu,
-                                    arguments: index);
+                                menu.currentMenu = index;
+                                Navigator.pushNamed(
+                                  context,
+                                  kRestaurantMenu,
+                                );
                               },
                               child: Text(
                                 "View all >>",
