@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:work_app/dependencies/constants.dart';
 import 'package:work_app/models/cart_class.dart';
 import 'package:work_app/models/item_class.dart';
@@ -17,7 +16,11 @@ class CartService {
     final Map<String, dynamic> mergedCart = carts[0].data();
     mergedCart['id'] = id;
     final result = (items as List).map((e) => e.data()).toList();
+
     mergedCart['items'] = result;
+    for (var i = 0; i < mergedCart['items'].length; i++) {
+      mergedCart['items'][i]['menuId'] = items[0].documentID;
+    }
 
     return Cart.fromJson(mergedCart);
   }
@@ -32,13 +35,26 @@ class CartService {
       userId: userIdConst,
     );
 
-    await dataService.createOrderCollection(
-        collection: 'cart', dataId: 'blablalba', data: order);
+    await dataService.createOrderCollection(collection: 'cart', data: order);
   }
 
-  // Future<Cart> updateCart(Cart r) async {}
+  Future<void> updateCartRepeated(Item data, String id, String itemId) async {
+    await dataService.updateRepeated(data.toJson(), id, itemId);
+  }
+
+  Future<void> updateCartDocument(Item data, String id) async {
+    await dataService.updateDocument(data.toJson(), id);
+  }
 
   Future<void> deleteCart({Cart r, String id}) {
     return null;
+  }
+
+  Future checkDoc(String id) async {
+    return await dataService.checkExist('cart', id: id);
+  }
+
+  Future checkItemExist(String cartId, String itemId) async {
+    return await dataService.checkItemExistInDoc(cartId, itemId);
   }
 }

@@ -14,6 +14,24 @@ class CartProvider with ChangeNotifier {
 
   Future<void> addOrder(List<Item> data) async {
     await cartService.createCart(data);
+  }
+
+  Future<void> updateCart(List<Item> data) async {
+    // final dataList = data;
+
+    data.forEach((element) async {
+      final checkData = await cartService.checkItemExist(carts.id, element.id);
+
+      carts.items.forEach((doc) {
+        if (doc.id == element.id) element.itemCount += doc.itemCount;
+      });
+
+      if (checkData == false) {
+        await cartService.updateCartDocument(element, carts.id);
+      } else {
+        await cartService.updateCartRepeated(element, carts.id, checkData);
+      }
+    });
     notifyListeners();
   }
 
@@ -22,5 +40,9 @@ class CartProvider with ChangeNotifier {
     carts = await cartList;
 
     return cartList;
+  }
+
+  Future checkDocument(String id) async {
+    return await cartService.checkDoc(id);
   }
 }

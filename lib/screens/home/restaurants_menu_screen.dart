@@ -55,20 +55,24 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
     );
   }
 
-  AnimatedOpacity _addCart(ItemProvider menu, CartProvider order) {
+  AnimatedOpacity _addCart(ItemProvider menu, CartProvider cart) {
     return AnimatedOpacity(
       opacity: 1.0,
       duration: Duration(milliseconds: 2000),
       child: InkWell(
-        onTap: () {
+        onTap: () async {
           menu.cartItems.clear();
           menu.items.forEach((element) {
             if (element.itemCount != 0) menu.cartItems.add(element);
           });
-          order.addOrder(menu.cartItems);
-          menu.items.forEach((element) {
-            element.itemCount = 0;
-          });
+
+          final response = await cart.checkDocument(userIdConst);
+          if (response == true) {
+            cart.addOrder(menu.cartItems);
+          } else {
+            cart.updateCart(menu.cartItems);
+          }
+
           Navigator.pushNamed(context, kRestaurantCart);
         },
         child: Container(

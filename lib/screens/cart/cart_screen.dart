@@ -78,7 +78,11 @@ class _CartScreenState extends State<CartScreen>
                     ],
                   );
                 }
-                return Center(child: CircularProgressIndicator());
+                return Center(
+                    child: Text(
+                  "Cart is Empty!..",
+                  style: TextStyle(color: Colors.pink, fontSize: 25),
+                ));
               },
             ),
           ),

@@ -7,7 +7,7 @@ class ItemService {
         .collection('restaurant')
         .doc(data.restaurantId)
         .collection('menu')
-        .doc(data.itemId)
+        .doc(data.id)
         .set(data.toJson());
 
     return data;

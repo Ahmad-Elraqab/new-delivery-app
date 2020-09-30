@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:work_app/dependency.dart';
 import 'package:work_app/models/item_class.dart';
-import 'package:work_app/models/restaurant_class.dart';
 import 'package:work_app/services/data_service.dart';
 import 'package:work_app/services/screens_service/item_service.dart';
 
@@ -17,7 +16,10 @@ class ItemProvider with ChangeNotifier {
     items.clear();
     data.forEach((doc) {
       final result = Item.fromJson(doc.data());
-      result.itemId = doc.documentID;
+
+      // ignore: unnecessary_statements
+      result.itemCount == null ? result.itemCount = 0 : null;
+      result.id = doc.documentID;
       items.add(result);
     });
 
@@ -45,8 +47,6 @@ class ItemProvider with ChangeNotifier {
 
     notifyListeners();
   }
-
-
 }
 
 // Future<List<Item>> getMenu(String restaurantId) async {

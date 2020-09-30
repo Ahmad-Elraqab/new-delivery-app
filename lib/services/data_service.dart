@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:work_app/dependencies/constants.dart';
-import 'package:work_app/models/cart_class.dart';
 
 class DataService {
   Stream getListByStream(String collection) {
@@ -91,16 +90,17 @@ class DataService {
     return items;
   }
 
-  Future createOrderCollection(
-      {String collection, dynamic data, String dataId}) async {
+  Future createOrderCollection({String collection, dynamic data}) async {
     data = data.toJson();
 
-    final items = data['items'];
+    // final items = [];
+    final items = [...data['items']];
 
     data.remove('items');
 
     final result =
         await FirebaseFirestore.instance.collection(collection).add(data);
+
     items.forEach((item) async {
       await FirebaseFirestore.instance
           .collection(collection)
@@ -122,44 +122,43 @@ class DataService {
 
     return result;
   }
-}
 
-//? archive
-//   //? Used by FutureBuilder only
-// Future getListById(String collection, String id) async {
-//   final QuerySnapshot result = await Firestore.instance
-//       .collection(collection)
-//       .where('userid==$id')
-//       .getDocuments();
+  Future checkExist(String collection, {String id}) async {
+    final data = await FirebaseFirestore.instance
+        .collection("cart")
+        .where("userid", isEqualTo: id)
+        .get();
 
-//   return result;
-// }
+    if (data.docs.isEmpty) return true;
+    return false;
+  }
 
-//? mock data
-// data = Restaurant(
-//     description: 'none',
-//     image:
-//         "https://simsolutions.com.sg/wp-content/uploads/2014/10/burger-king-logo.jpg",
-//     name: "Fatsha",
-//     rate: 5.6,
-//     status: "open");11
+  Future checkItemExistInDoc(String cartId, String itemId) async {
+    final data = await FirebaseFirestore.instance
+        .collection("cart")
+        .doc(cartId)
+        .collection('items')
+        .where("id", isEqualTo: itemId)
+        .get();
 
-// ??! why this function is'nt working !!!!!!!!!!!!!!!!!!!!!
-Future getListByFuture(String collection, int type) async {
-  List<dynamic> results;
-  List<QueryDocumentSnapshot> menu;
-  var restaurant =
-      (await FirebaseFirestore.instance.collection(collection).get()).docs;
-  print(restaurant);
+    if (data.docs.isNotEmpty) return data.docs[0].id;
+    return false;
+  }
 
-  menu = (await FirebaseFirestore.instance
-          .collection("restaurant")
-          .doc("${restaurant.map((e) => e.id.toString())}")
-          .collection("menu")
-          .get())
-      .docs;
+  Future<void> updateRepeated(Map data, String id, String itemId) async {
+    await FirebaseFirestore.instance
+        .collection("cart")
+        .doc(id)
+        .collection("items")
+        .doc(itemId)
+        .set(data);
+  }
 
-  results.add(restaurant);
-  results.add(menu);
-  return results[type];
+  Future<void> updateDocument(Map data, String id) async {
+    await FirebaseFirestore.instance
+        .collection("cart")
+        .doc(id)
+        .collection("items")
+        .add(data);
+  }
 }
