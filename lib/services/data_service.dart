@@ -32,11 +32,11 @@ class DataService {
     return result;
   }
 
-  Future update(String collection, {dynamic data}) async {
+  Future update(String id, String collection, {dynamic data}) async {
     await FirebaseFirestore.instance
         .collection(collection)
-        .doc(data.id)
-        .set(data.toJson());
+        .doc(id)
+        .set(data, SetOptions(merge: true));
 
     return data;
   }
@@ -141,7 +141,7 @@ class DataService {
         .where("id", isEqualTo: itemId)
         .get();
 
-    if (data.docs.isNotEmpty) return data.docs[0].id;
+    if (data.docs.isNotEmpty) return data.docs;
     return false;
   }
 
@@ -160,5 +160,14 @@ class DataService {
         .doc(id)
         .collection("items")
         .add(data);
+  }
+
+  Future<void> deleteFromSubCollection(String doc1Id, String doc2Id) async {
+    await FirebaseFirestore.instance
+        .collection("cart")
+        .doc(doc1Id)
+        .collection("items")
+        .doc(doc2Id)
+        .delete();
   }
 }

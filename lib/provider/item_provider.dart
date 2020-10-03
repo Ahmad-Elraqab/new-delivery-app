@@ -12,18 +12,13 @@ class ItemProvider with ChangeNotifier {
   bool visible = false;
   int currentMenu;
 
-  List<Item> getMenuItems(List data) {
+  Future getMenuItems(String id) async {
     items.clear();
-    data.forEach((doc) {
-      final result = Item.fromJson(doc.data());
 
-      // ignore: unnecessary_statements
-      result.itemCount == null ? result.itemCount = 0 : null;
-      result.id = doc.documentID;
-      items.add(result);
-    });
+    final data = await itemService.getItems(id);
 
-    // if (items.isEmpty) return null;
+    items = data;
+    return items;
   }
 
   void increment(index) {

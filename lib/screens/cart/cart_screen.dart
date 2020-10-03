@@ -56,7 +56,7 @@ class _CartScreenState extends State<CartScreen>
             body: FutureBuilder(
               future: cart.getCart(),
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
+                if (cart.carts.items.length != 0) {
                   return PageView(
                     onPageChanged: (index) {
                       // pageChanged = index;
@@ -334,13 +334,18 @@ class _CartScreenState extends State<CartScreen>
                           height: 75,
                           child: Align(
                               alignment: Alignment(-0.9, -0.8),
-                              child: CircleAvatar(
-                                radius: 10,
-                                backgroundColor: Colors.white,
-                                child: Icon(
-                                  Icons.delete,
-                                  color: Colors.blueGrey,
-                                  size: 14,
+                              child: InkWell(
+                                onTap: () {
+                                  cart.delete(index);
+                                },
+                                child: CircleAvatar(
+                                  radius: 10,
+                                  backgroundColor: Colors.white,
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.blueGrey,
+                                    size: 14,
+                                  ),
                                 ),
                               )),
                         ),
@@ -398,7 +403,9 @@ class _CartScreenState extends State<CartScreen>
                                     size: 10,
                                     color: Colors.grey,
                                   ),
-                                  onPressed: null),
+                                  onPressed: () async {
+                                    await cart.decrement(index);
+                                  }),
                             ),
                             Container(
                               color: Colors.white,
@@ -422,7 +429,9 @@ class _CartScreenState extends State<CartScreen>
                                     size: 10,
                                     color: Colors.pink,
                                   ),
-                                  onPressed: null),
+                                  onPressed: () async {
+                                    await cart.increment(index);
+                                  }),
                             ),
                           ],
                         )

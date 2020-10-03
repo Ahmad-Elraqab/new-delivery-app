@@ -20,10 +20,9 @@ class RestaurantDetail extends StatelessWidget {
 
     return Scaffold(
       body: FutureBuilder(
-        future: menu.dataService.getMenu(resData[index].id),
+        future: menu.getMenuItems(resData[index].id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            menu.getMenuItems(snapshot.data);
             return SafeArea(
               child: NestedScrollView(
                 headerSliverBuilder:

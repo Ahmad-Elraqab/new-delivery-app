@@ -68,11 +68,12 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
 
           final response = await cart.checkDocument(userIdConst);
           if (response == true) {
-            cart.addOrder(menu.cartItems);
+            await cart.addOrder(menu.cartItems);
           } else {
-            cart.updateCart(menu.cartItems);
+            await cart.updateCart(menu.cartItems);
           }
-
+          await Future.delayed(Duration(seconds: 1));
+          
           Navigator.pushNamed(context, kRestaurantCart);
         },
         child: Container(

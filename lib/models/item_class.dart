@@ -7,6 +7,7 @@ class Item {
   String itemImage;
   String itemDescription;
   double itemPrice;
+  double totalPrice;
   int itemCount;
   bool isOrdered;
 
@@ -21,6 +22,7 @@ class Item {
     this.isOrdered,
     this.itemCount,
     this.menuId,
+    this.totalPrice,
   });
 
   Item.fromJson(Map<String, dynamic> json)
@@ -35,6 +37,8 @@ class Item {
           isOrdered: json['isOrdered'],
           menuId: json['menuId'],
           itemCount: json['itemCount'],
+          totalPrice:
+              json['totalPrice'] == null ? 0.0 : json['totalPrice'].toDouble(),
         );
 
   Map<String, dynamic> toJson() => {
@@ -47,6 +51,7 @@ class Item {
         'itemImage': itemImage,
         'isOrdered': isOrdered,
         'itemCount': itemCount,
-        'menuId': menuId
+        'menuId': menuId,
+        'totalPrice': totalPrice,
       };
 }

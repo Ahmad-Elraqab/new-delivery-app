@@ -10,17 +10,20 @@ class CartService {
   Future getCartItems() async {
     final carts = await dataService.getCart();
     final items = await dataService.getCartItems(carts[0]);
-
     final id = carts[0].documentID;
-
     final Map<String, dynamic> mergedCart = carts[0].data();
-    mergedCart['id'] = id;
     final result = (items as List).map((e) => e.data()).toList();
+    // double totalPrice = 0.0;
 
+    mergedCart['id'] = id;
     mergedCart['items'] = result;
+
     for (var i = 0; i < mergedCart['items'].length; i++) {
-      mergedCart['items'][i]['menuId'] = items[0].documentID;
+      mergedCart['items'][i]['menuId'] = items[i].documentID;
+      // totalPrice += mergedCart['items'][i]['totalPrice'];
     }
+
+    // mergedCart['totalPrice'] = totalPrice;
 
     return Cart.fromJson(mergedCart);
   }
@@ -56,5 +59,20 @@ class CartService {
 
   Future checkItemExist(String cartId, String itemId) async {
     return await dataService.checkItemExistInDoc(cartId, itemId);
+  }
+
+  Future updateItemField(Item data, String itemId, String cartId) async {
+    final result = data.toJson();
+
+    return await dataService.updateRepeated(result, cartId, itemId);
+  }
+
+  Future deleteFromCart(String itemId, String cartId) async {
+    return await dataService.deleteFromSubCollection(cartId, itemId);
+  }
+
+  Future updateCartTotalPrice(String cartId, double totalPrice) async {
+    return await dataService
+        .update(cartId, 'cart', data: {'totalPrice': totalPrice});
   }
 }
