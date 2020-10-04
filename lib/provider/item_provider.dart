@@ -1,61 +1,61 @@
 import 'package:flutter/cupertino.dart';
 import 'package:work_app/dependency.dart';
 import 'package:work_app/models/item_class.dart';
-import 'package:work_app/models/restaurant_class.dart';
 import 'package:work_app/services/data_service.dart';
-import 'package:work_app/services/model_service/item_service.dart';
+import 'package:work_app/services/screens_service/item_service.dart';
 
 class ItemProvider with ChangeNotifier {
   List<Item> items = [];
+  List<Item> cartItems = [];
   final dataService = service<DataService>();
   final itemService = service<ItemService>();
+  bool visible = false;
+  int currentMenu;
 
-  // Future<List<Item>> getMenu(String restaurantId) async {
-  //   items.clear();
-  //   final menus = await dataService.getStreamSecondCollection(
-  //       collection1: 'restaurant', docId1: restaurantId, collection2: 'menu');
-
-  //   menus.documents.forEach((doc) {
-  //     final result = Item.fromJson(doc.data);
-  //     result.id = doc.documentID;
-  //     items.add(result);
-  //   });
-
-  //   if (items.isEmpty) return null;
-
-  //   return items;
-  // }
-
-
-  void setDataFromRestaurant(List<Restaurant> restaurants){
-    
-  }
-
-  List<Item> getMenuItems(List data) {
+  Future getMenuItems(String id) async {
     items.clear();
-    // final menus =  dataService.getStreamSecondCollection(
-    //     collection1: 'restaurant', docId1: restaurantId, collection2: 'menu');
 
-    data.forEach((doc) {
-      final result = Item.fromJson(doc.data());
-      result.itemId = doc.documentID;
-      items.add(result);
-    });
+    final data = await itemService.getItems(id);
 
-    // if (items.isEmpty) return null;
+    items = data;
+    return items;
   }
 
   void increment(index) {
-    // items[index].numberOfItems++;
-    // itemService.update(items[index]);
+    items[index].itemCount++;
+    if (items[index].itemCount < 0) items[index].itemCount = 0;
+    visible = true;
     notifyListeners();
   }
 
   void decrement(index) {
-    // items[index].numberOfItems--;
-    // itemService.update(items[index]);
+    int tempInvisible = 0;
+    items[index].itemCount--;
+    if (items[index].itemCount < 0) items[index].itemCount = 0;
+    items.forEach((element) {
+      if (element.itemCount != 0)
+        visible = true;
+      else
+        tempInvisible++;
+    });
+    if (tempInvisible == items.length) visible = false;
+
     notifyListeners();
-    // items[index].numberOfItems--;
-    // notifyListeners();
   }
 }
+
+// Future<List<Item>> getMenu(String restaurantId) async {
+//   items.clear();
+//   final menus = await dataService.getStreamSecondCollection(
+//       collection1: 'restaurant', docId1: restaurantId, collection2: 'menu');
+
+//   menus.documents.forEach((doc) {
+//     final result = Item.fromJson(doc.data);
+//     result.id = doc.documentID;
+//     items.add(result);
+//   });
+
+//   if (items.isEmpty) return null;
+
+//   return items;
+// }

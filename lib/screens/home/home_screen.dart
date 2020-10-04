@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
-import 'package:work_app/models/restaurant_class.dart';
-import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
 import 'components/category_list_view.dart';
 import 'components/category_list_view_title.dart';
@@ -13,7 +10,6 @@ import 'components/restaurant_list_view_title.dart';
 import 'components/search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const String routeName = "/HomeScreen";
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -40,83 +36,68 @@ class _HomePageState extends State<HomeScreen> {
     final rest = Provider.of<RestaurantProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: FutureBuilder(
-        future: rest.isRestaurantArrive
-            ? rest.dataService.getMenu('menu')
-            : rest.dataService.getListByFuture('restaurant'),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            if (!rest.isRestaurantArrive) {
-              rest.restaurants = rest.getRestaurantsFromJson(snapshot.data);
-              rest.isRestaurantArrive = true;
-              return HomeScreen();
-            } else {
-              final itemProvider = Provider.of<ItemProvider>(context);
-              // itemProvider.setDataFromRestaurant(,rest.restaurants);
+      body:
+          // FutureBuilder(
+          //   future: rest.dataService.getListByFuture('restaurant'),
+          //   builder: (context, snapshot) {
+          //     if (snapshot.hasData) {
+          //       rest.restaurants = rest.getRestaurantsFromJson(snapshot.data);
 
-            }
-
-            return SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      height: 200,
-                      decoration: BoxDecoration(
-                          color: Colors.pink,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(50),
-                            bottomRight: Radius.circular(50),
-                          )),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20.0, right: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Text(
-                              "Browse",
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            SearchBar(),
-                            Center(
-                              child: Container(
-                                width: 200,
-                                height: 2,
-                                color: Colors.grey,
-                              ),
-                            )
-                          ],
-                        ),
+          SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                height: 200,
+                decoration: BoxDecoration(
+                    color: Colors.pink,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(50),
+                      bottomRight: Radius.circular(50),
+                    )),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0, right: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text(
+                        "browse",
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
-                    ),
-                    CategoryListViewTitle(),
-                    CategoryListView(),
-                    RestaurantListViewTitle(),
-                    RestaurantListView(),
-                    _nearbyTitle(rest),
-                    _nearbyRestaurants(rest),
-                  ],
+                      SearchBar(),
+                      Center(
+                        child: Container(
+                          width: 200,
+                          height: 2,
+                          color: Colors.grey,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            );
-          }
-          return Center(child: CircularProgressIndicator());
-        },
+              CategoryListViewTitle(),
+              CategoryListView(),
+              RestaurantListViewTitle(),
+              RestaurantListView(),
+              _nearbyTitle(rest),
+              _nearbyRestaurants(rest),
+            ],
+          ),
+        ),
       ),
+
+      // return Center(child: CircularProgressIndicator());
     );
   }
 
   Widget _nearbyRestaurants(RestaurantProvider rest) {
-    var count = 0;
-    rest.restaurants.forEach((element) {
-      if (element.distance <= 3) count++;
-    });
-
+    rest.getNearbyRestaurant();
     return Container(
       height: 200,
       child: ListView.builder(
@@ -124,12 +105,13 @@ class _HomePageState extends State<HomeScreen> {
         shrinkWrap: true,
         padding: EdgeInsets.only(left: 10, right: 10),
         scrollDirection: Axis.vertical,
-        itemCount: count,
+        itemCount: rest.nearbyRestaurant.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(4.0),
             child: InkWell(
               onTap: () {
+                rest.currentRestaurantType = 'nearby';
                 Navigator.pushNamed(context, kRestaurantDetail,
                     arguments: index);
               },
@@ -149,7 +131,7 @@ class _HomePageState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(5),
                             image: DecorationImage(
                                 image: NetworkImage(
-                                    "${rest.restaurants[index].image}"),
+                                    "${rest.nearbyRestaurant[index].image}"),
                                 fit: BoxFit.cover),
                           ),
                         ),
@@ -164,7 +146,7 @@ class _HomePageState extends State<HomeScreen> {
                               Expanded(
                                   flex: 3,
                                   child: Text(
-                                    "${rest.restaurants[index].name}",
+                                    "${rest.nearbyRestaurant[index].name}",
                                     style: TextStyle(fontSize: 18),
                                   )),
                               Expanded(
@@ -204,13 +186,13 @@ class _HomePageState extends State<HomeScreen> {
                                           CircleAvatar(
                                               backgroundColor: Colors.amber,
                                               child: Text(
-                                                "${rest.restaurants[index].rate}",
+                                                "${rest.nearbyRestaurant[index].rate}",
                                                 style: TextStyle(fontSize: 14),
                                               )),
                                           CircleAvatar(
                                               backgroundColor: Colors.pink,
                                               child: Text(
-                                                  "${rest.restaurants[index].distance} Km",
+                                                  "${rest.nearbyRestaurant[index].distance} Km",
                                                   style:
                                                       TextStyle(fontSize: 14))),
                                         ],
@@ -247,12 +229,13 @@ class _HomePageState extends State<HomeScreen> {
                 color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
           ),
           InkWell(
-            // onTap: () {
-            //   Navigator.pushNamed(
-            //     context,
-            //     kAllCategories,
-            //   );
-            // },
+            onTap: () {
+              rest.currentRestaurantType = 'nearby';
+              Navigator.pushNamed(
+                context,
+                kAllRestaurants,
+              );
+            },
             child: Text(
               "View all >>",
               style: TextStyle(

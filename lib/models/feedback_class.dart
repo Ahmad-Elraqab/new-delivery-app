@@ -1,26 +1,33 @@
-class Feedback {
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class FeedbackData {
+  String id;
   String restaurantId;
+  Timestamp date;
+  String userId;
   String userName;
-  String date;
   String userImage;
-  String userRate;
+  double userRate;
   String userFeedback;
 
-  Feedback(
-      {this.restaurantId,
-      this.userName,
-      this.date,
-      this.userImage,
-      this.userFeedback,
-      this.userRate});
-  Feedback.fromJson(Map<String, dynamic> json)
+  FeedbackData({
+    this.restaurantId,
+    this.userName,
+    this.date,
+    this.userImage,
+    this.userFeedback,
+    this.userRate,
+    this.userId,
+    this.id,
+  });
+  FeedbackData.fromJson(Map<String, dynamic> json)
       : this(
           restaurantId: json['restaurantId'],
-          userName: json['userName'],
           date: json['date'],
+          userName: json['userName'],
           userImage: json['userImage'],
           userFeedback: json['userFeedback'],
-          userRate: json['userRate'],
+          userRate: json['userRate'].toDouble(),
         );
 
   Map<String, dynamic> toJson() => {
@@ -30,5 +37,7 @@ class Feedback {
         'userImage': userImage,
         'userFeedback': userFeedback,
         'userRate': userRate,
+        'id': id,
+        'userId': userId,
       };
 }

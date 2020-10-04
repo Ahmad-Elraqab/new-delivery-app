@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
+import 'package:work_app/models/restaurant_class.dart';
+import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
 
 class RestaurantListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final restaurantData = Provider.of<RestaurantProvider>(context);
+    final itemProvider = Provider.of<ItemProvider>(context);
     // final dataService = service<RestaurantDataService>();
 
     return Container(
       margin: EdgeInsets.only(top: 10),
-      height: 200,
+      height: 250,
       child: ListView.builder(
           padding: EdgeInsets.only(left: 10, right: 10),
           scrollDirection: Axis.horizontal,
@@ -19,6 +22,8 @@ class RestaurantListView extends StatelessWidget {
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
+                restaurantData.currentRestaurantType = 'trending';
+                // restaurantData.isNotNearby = true;
                 Navigator.pushNamed(context, kRestaurantDetail,
                     arguments: index);
               },
@@ -138,8 +143,11 @@ class RestaurantListView extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    Text(restaurantData
-                                        .restaurants[index].description),
+                                    Text(
+                                      "${restaurantData.restaurants[index].description}",
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
+                                    ),
                                     Row(
                                       children: <Widget>[
                                         Icon(Icons.star,

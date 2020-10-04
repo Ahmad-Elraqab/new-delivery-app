@@ -2,19 +2,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:work_app/dependency.dart';
 import 'package:work_app/models/restaurant_class.dart';
 import 'package:work_app/services/data_service.dart';
+import 'package:work_app/services/screens_service/restaurant_service.dart';
 
 class RestaurantProvider with ChangeNotifier {
   List<Restaurant> restaurants = [];
-  bool isRestaurantArrive = false;
-  
+  bool isMenuArrive = false;
   final dataService = service<DataService>();
-
-  // void setServerData(){
-  //   getRestaurantsFromJson()
-  // }
+  final dataService2 = RestaurantService();
+  String currentRestaurantType;
+  Map<String, List<Restaurant>> restaurantsByDistance = {
+    'nearby': [],
+    'trending': [],
+  };
+  bool isNotNearby = true;
+  List<Restaurant> nearbyRestaurant = [];
+ 
 
   Future<void> delete(String id) async {
     await dataService.delete('restaurant', id);
+  }
+
+  Future<void> setProviderData() async {
+    final data = await dataService2.getAllRestaurants();
+    restaurants = data;
+    restaurantsByDistance['trending'] = restaurants;
+    restaurantsByDistance['nearby'] = nearbyRestaurant;
+    notifyListeners();
+  }
+
+  getNearbyRestaurant() {
+    // nearbyRestaurants = 0;
+    nearbyRestaurant.clear();
+    restaurants.forEach((element) {
+      if (element.distance <= 3) {
+        // nearbyRestaurants++;
+        nearbyRestaurant.add(element);
+      }
+    });
   }
 
   List<Restaurant> getRestaurantsFromJson(List data) {

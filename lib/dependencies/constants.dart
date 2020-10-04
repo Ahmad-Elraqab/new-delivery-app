@@ -6,3 +6,4 @@ const kRestaurantHomePage = '/HomeScreen';
 const kRestaurantCart = '/cart';
 const kRestaurantProfile = '/profile';
 const kRestaurantNotification = '/notificationPage';
+const userIdConst = 'newUser';

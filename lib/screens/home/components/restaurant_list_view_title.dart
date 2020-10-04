@@ -15,10 +15,12 @@ class RestaurantListViewTitle extends StatelessWidget {
         children: <Widget>[
           Text(
             "Trending Restaurants",
-            style: TextStyle(color: Colors.black, fontSize: 16,fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
           ),
           InkWell(
             onTap: () {
+              rest.currentRestaurantType = 'trending';
               Navigator.pushNamed(
                 context,
                 kAllRestaurants,

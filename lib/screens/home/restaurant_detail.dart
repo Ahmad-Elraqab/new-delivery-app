@@ -1,32 +1,47 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
+import 'package:work_app/models/feedback_class.dart';
+import 'package:work_app/models/restaurant_class.dart';
+import 'package:work_app/provider/feedback_provider.dart';
 import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
 
-class RestaurantDetail extends StatelessWidget {
+class RestaurantDetail extends StatefulWidget {
   final int index;
+
   RestaurantDetail(this.index);
+
+  @override
+  _RestaurantDetailState createState() => _RestaurantDetailState();
+}
+
+class _RestaurantDetailState extends State<RestaurantDetail> {
+  final myController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final rest = Provider.of<RestaurantProvider>(context);
-    final menu = Provider.of<ItemProvider>(context);
+    final menu = Provider.of<ItemProvider>(context, listen: false);
+    final feedback = Provider.of<FeedbackProvider>(context);
+    final resData = rest.restaurantsByDistance[rest.currentRestaurantType];
 
     return Scaffold(
       body: FutureBuilder(
-          future: menu.dataService.getMenu(rest.restaurants[index].id),
-          builder: (context, snapshot) {
-            menu.getMenuItems(snapshot.data);
+        future: menu.getMenuItems(resData[widget.index].id),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
             return SafeArea(
               child: NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
                     SliverPersistentHeader(
-                      delegate:
-                          MySliverAppBar(expandedHeight: 200, restIndex: index),
+                      delegate: MySliverAppBar(
+                          expandedHeight: 200, restIndex: widget.index),
                       pinned: true,
                     ),
                   ];
@@ -51,7 +66,11 @@ class RestaurantDetail extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Navigator.pushNamed(context, kRestaurantMenu, arguments: index);
+                                menu.currentMenu = widget.index;
+                                Navigator.pushNamed(
+                                  context,
+                                  kRestaurantMenu,
+                                );
                               },
                               child: Text(
                                 "View all >>",
@@ -117,49 +136,79 @@ class RestaurantDetail extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 25.0, top: 20, bottom: 5),
-                        child: Text(
-                          "The comments",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "The comments",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.add,
+                                  size: 30,
+                                ),
+                                onPressed: () {
+                                  showBottomSheet(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          addComment(context, feedback, rest));
+                                })
+                          ],
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          child: ListView.builder(
-                            physics: AlwaysScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: 20,
-                            scrollDirection: Axis.vertical,
-                            padding: EdgeInsets.only(left: 10),
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                leading: Icon(Icons.person),
-                                title: Text("Sarah"),
-                                subtitle: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                      size: 18,
-                                    ),
-                                    Icon(Icons.star,
-                                        color: Colors.yellow, size: 18),
-                                    Icon(Icons.star,
-                                        color: Colors.yellow, size: 18),
-                                    Icon(Icons.star,
-                                        color: Colors.yellow, size: 18),
-                                    Icon(Icons.star,
-                                        color: Colors.grey, size: 18),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 4.0),
-                                      child: Text("4.5"),
-                                    ),
-                                  ],
+                        child: FutureBuilder(
+                          future: feedback
+                              .getFeedbackList(resData[widget.index].id),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Container(
+                                child: ListView.builder(
+                                  physics: AlwaysScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: feedback.feedback.length,
+                                  scrollDirection: Axis.vertical,
+                                  padding: EdgeInsets.only(left: 10),
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      leading: CircleAvatar(
+                                        backgroundColor: Colors.pink,
+                                        backgroundImage: NetworkImage(
+                                            "${feedback.feedback[index].userImage}"),
+                                      ),
+                                      title: Text(
+                                          "${feedback.feedback[index].userName}"),
+                                      subtitle: Row(
+                                        children: <Widget>[
+                                          Icon(Icons.star,
+                                              color: Colors.yellow, size: 18),
+                                          Icon(Icons.star,
+                                              color: Colors.yellow, size: 18),
+                                          Icon(Icons.star,
+                                              color: Colors.yellow, size: 18),
+                                          Icon(Icons.star,
+                                              color: Colors.yellow, size: 18),
+                                          Icon(Icons.star,
+                                              color: Colors.grey, size: 18),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 4.0),
+                                            child: Text(
+                                                "${feedback.feedback[index].userRate}"),
+                                          ),
+                                        ],
+                                      ),
+                                      trailing: Text(
+                                          "${feedback.readTimestamp(feedback.feedback[index].date.millisecondsSinceEpoch)}"),
+                                    );
+                                  },
                                 ),
-                                trailing: Text("June 15"),
                               );
-                            },
-                          ),
+                            }
+                            return Center(child: CircularProgressIndicator());
+                          },
                         ),
                       ),
                     ],
@@ -167,7 +216,69 @@ class RestaurantDetail extends StatelessWidget {
                 ),
               ),
             );
-          }),
+          }
+          return Center(child: CircularProgressIndicator());
+        },
+      ),
+    );
+  }
+
+  Container addComment(BuildContext context, FeedbackProvider feedback,
+      RestaurantProvider restaurant) {
+    return Container(
+      height: 150,
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+      ),
+      child: Column(
+        children: [
+          TextField(
+            maxLines: 1,
+            controller: myController,
+            decoration: InputDecoration(
+              labelText: 'Write here...',
+              border: OutlineInputBorder(
+                borderSide: new BorderSide(
+                  color: Colors.teal,
+                ),
+              ),
+            ),
+          ),
+          // Slider(value: null, onChanged: null)
+          IconButton(
+              icon: Icon(Icons.send),
+              onPressed: () {
+                final rest = restaurant
+                        .restaurantsByDistance[restaurant.currentRestaurantType]
+                    [widget.index];
+                if (myController.text.isNotEmpty) {
+                  feedback.addComment(
+                    FeedbackData(
+                      date: Timestamp.now(),
+                      restaurantId: rest.id,
+                      userRate: 5,
+                      userFeedback: myController.text,
+                      userImage:
+                          'https://fedspendingtransparency.github.io/assets/img/user_personas/repurposer_mug.jpg',
+                      userName: 'Ahmad Mousa',
+                      userId: userIdConst,
+                      id: 'id',
+                    ),
+                  );
+                  myController.clear();
+                  Navigator.pop(context);
+                  setState(
+                    () {},
+                  );
+                }
+              })
+        ],
+      ),
     );
   }
 }
@@ -181,6 +292,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     final rest = Provider.of<RestaurantProvider>(context);
+    List<Restaurant> restaurantsList =
+        rest.restaurantsByDistance[rest.currentRestaurantType];
     return Stack(
       fit: StackFit.expand,
       overflow: Overflow.visible,
@@ -225,7 +338,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "${rest.restaurants[restIndex].name}",
+                            "${restaurantsList[restIndex].name}",
                             style: TextStyle(
                                 fontSize: 26, fontWeight: FontWeight.bold),
                           ),
@@ -241,7 +354,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                               Icon(Icons.star, color: Colors.yellow, size: 18),
                               Icon(Icons.star, color: Colors.grey, size: 18),
                               Text(
-                                  "${rest.restaurants[restIndex].rate}  (260 Reviews)"),
+                                  "${restaurantsList[restIndex].rate}  (260 Reviews)"),
                             ],
                           ),
                           Row(
@@ -254,7 +367,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
                                     child: Text(
-                                        "${rest.restaurants[restIndex].category}"),
+                                        "${restaurantsList[restIndex].category}"),
                                   )
                                 ],
                               ),
@@ -265,7 +378,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
                                     child: Text(
-                                        "${rest.restaurants[restIndex].distance} Km"),
+                                        "${restaurantsList[restIndex].distance} Km"),
                                   )
                                 ],
                               ),
@@ -282,7 +395,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
                                     child: Text(
-                                        "${rest.restaurants[restIndex].reservationCost}/person"),
+                                        "${restaurantsList[restIndex].reservationCost}/person"),
                                   )
                                 ],
                               ),
@@ -305,7 +418,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                       padding: const EdgeInsets.only(
                                           left: 4.0, top: 1),
                                       child: Text(
-                                          "${rest.restaurants[restIndex].openTime}-${rest.restaurants[restIndex].closeTime}"),
+                                          '${restaurantsList[restIndex].openTime}-' +
+                                              '${restaurantsList[restIndex].closeTime}'),
                                     )
                                   ],
                                 ),
@@ -317,7 +431,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                       padding: const EdgeInsets.only(
                                           left: 4.0, top: 2),
                                       child: Text(
-                                          "${rest.restaurants[restIndex].parkingFees} Rm"),
+                                          "${restaurantsList[restIndex].parkingFees} Rm"),
                                     )
                                   ],
                                 ),
@@ -330,7 +444,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                 padding:
                                     const EdgeInsets.only(left: 4.0, top: 4),
                                 child: Text(
-                                    "${rest.restaurants[restIndex].location}"),
+                                    "${restaurantsList[restIndex].location}"),
                               )
                             ],
                           ),

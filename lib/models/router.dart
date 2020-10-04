@@ -5,7 +5,7 @@ import 'package:work_app/screens/app.dart';
 import 'package:work_app/screens/home/categories_screen.dart';
 import 'package:work_app/screens/home/restaurant_detail.dart';
 import 'package:work_app/screens/home/restaurants_menu_screen.dart';
-import 'package:work_app/screens/home/restaurants_screen.dart';
+import 'package:work_app/screens/home/all_restaurants_screen.dart';
 
 class RouterPage {
   static Route<dynamic> generateRoute(RouteSettings settings) {

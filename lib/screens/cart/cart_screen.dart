@@ -1,19 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:work_app/models/cart_class.dart';
+import 'package:work_app/provider/cart_provider.dart';
 
-class Cart extends StatefulWidget {
+class CartScreen extends StatefulWidget {
   @override
-  _CartState createState() => _CartState();
+  _CartScreenState createState() => _CartScreenState();
 }
 
-class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
+class _CartScreenState extends State<CartScreen>
+    with SingleTickerProviderStateMixin {
   // static int pageChanged = 0;
   PageController pageController = PageController(initialPage: 0);
   bool _visible = true;
   int currentIndex;
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: DefaultTabController(
@@ -48,25 +53,37 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
                 ),
               ];
             },
-            body: PageView(
-              onPageChanged: (index) {
-                // pageChanged = index;
-                // print(pageChanged);
-                setState(() {});
-              },
-              controller: pageController,
-              children: <Widget>[
-                SingleChildScrollView(
-                                  child: Column(
+            body: FutureBuilder(
+              future: cart.getCart(),
+              builder: (context, snapshot) {
+                if (cart.carts.items.length != 0) {
+                  return PageView(
+                    onPageChanged: (index) {
+                      // pageChanged = index;
+                      // print(pageChanged);
+                      setState(() {});
+                    },
+                    controller: pageController,
                     children: <Widget>[
-                      _orderList(),
-                      _summaryBox(context),
-                      _checkoutButton()
+                      Scrollable(
+                        viewportBuilder: (context, position) => Column(
+                          children: <Widget>[
+                            _summaryBox(context, cart),
+                            _checkoutButton(),
+                            Expanded(child: _orderList(cart)),
+                          ],
+                        ),
+                      ),
+                      _historyScreen(context),
                     ],
-                  ),
-                ),
-                _historyScreen(context),
-              ],
+                  );
+                }
+                return Center(
+                    child: Text(
+                  "Cart is Empty!..",
+                  style: TextStyle(color: Colors.pink, fontSize: 25),
+                ));
+              },
             ),
           ),
         ),
@@ -94,7 +111,7 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
     );
   }
 
-  Column _summaryBox(BuildContext context) {
+  Column _summaryBox(BuildContext context, CartProvider cart) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -105,7 +122,7 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
             elevation: 3,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 200,
+              height: 170,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: Colors.white,
@@ -123,7 +140,7 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
                           style: TextStyle(fontSize: 18),
                         ),
                         Text(
-                          "1469.95 RM",
+                          "${cart.carts.totalPrice} RM",
                           style: TextStyle(fontSize: 18),
                         ),
                       ],
@@ -155,7 +172,7 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
                           style: TextStyle(fontSize: 18),
                         ),
                         Text(
-                          "59.45 RM",
+                          "${cart.carts.totalPrice * 0.1} RM",
                           style: TextStyle(fontSize: 18),
                         ),
                       ],
@@ -181,7 +198,7 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "1499.85 RM",
+                          "${cart.carts.totalPrice + (cart.carts.totalPrice * 0.1)} RM",
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -286,16 +303,17 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
     );
   }
 
-  Padding _orderList() {
+  Padding _orderList(CartProvider cart) {
     return Padding(
       padding: const EdgeInsets.only(left: 10.0, right: 10.0),
       child: Card(
         elevation: 3,
         child: Container(
-          height: 400,
           child: ListView.builder(
+            physics: AlwaysScrollableScrollPhysics(),
+            shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            itemCount: 10,
+            itemCount: cart.carts.items.length,
             padding: EdgeInsets.all(8.0),
             itemBuilder: (context, index) {
               return Padding(
@@ -310,38 +328,43 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
                               borderRadius: BorderRadius.circular(5),
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      "https://cdn-b.william-reed.com/var/wrbm_gb_hospitality/storage/images/publications/hospitality/bighospitality.co.uk/article/2020/04/15/kfc-reopens-11-restaurants-for-delivery-only/3331532-1-eng-GB/KFC-reopens-11-restaurants-for-delivery-only_wrbm_large.png"),
+                                      "${cart.carts.items[index].itemImage}"),
                                   fit: BoxFit.cover)),
                           width: 75,
                           height: 75,
                           child: Align(
                               alignment: Alignment(-0.9, -0.8),
-                              child: CircleAvatar(
-                                radius: 10,
-                                backgroundColor: Colors.white,
-                                child: Icon(
-                                  Icons.delete,
-                                  color: Colors.blueGrey,
-                                  size: 14,
+                              child: InkWell(
+                                onTap: () {
+                                  cart.delete(index);
+                                },
+                                child: CircleAvatar(
+                                  radius: 10,
+                                  backgroundColor: Colors.white,
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.blueGrey,
+                                    size: 14,
+                                  ),
                                 ),
                               )),
                         ),
                         Expanded(
                           child: Container(
                             padding: EdgeInsets.only(left: 8.0),
-                            height: 75,
+                            height: 80,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  "KFC Box",
+                                  "${cart.carts.items[index].itemName}",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  "this text is made for small description",
+                                  "${cart.carts.items[index].itemDescription}",
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold),
@@ -351,7 +374,7 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
                                   height: 10,
                                 )),
                                 Text(
-                                  "45.60 RM",
+                                  "${cart.carts.items[index].itemPrice} RM",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -380,7 +403,9 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
                                     size: 10,
                                     color: Colors.grey,
                                   ),
-                                  onPressed: null),
+                                  onPressed: () async {
+                                    await cart.decrement(index);
+                                  }),
                             ),
                             Container(
                               color: Colors.white,
@@ -388,7 +413,7 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
                               width: 25,
                               child: Center(
                                   child: Text(
-                                "0",
+                                "${cart.carts.items[index].itemCount}",
                                 style: TextStyle(fontSize: 14),
                               )),
                             ),
@@ -404,7 +429,9 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
                                     size: 10,
                                     color: Colors.pink,
                                   ),
-                                  onPressed: null),
+                                  onPressed: () async {
+                                    await cart.increment(index);
+                                  }),
                             ),
                           ],
                         )

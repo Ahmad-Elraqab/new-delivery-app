@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
+import 'package:work_app/provider/feedback_provider.dart';
 import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/my_profile_provider.dart';
-import 'package:work_app/provider/orders_provider.dart';
+import 'package:work_app/provider/cart_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
 
 import 'models/router.dart';
@@ -24,19 +25,22 @@ class _AppViewState extends State<AppView> {
         //   RestaurantProvider rest = RestaurantProvider();
         //   rest.setServerData();
         //   return rest;
-        //   } 
+        //   }
         // ),
         ChangeNotifierProvider(
-          create: (_) => RestaurantProvider(),
+          create: (_) => RestaurantProvider()..setProviderData(),
         ),
         ChangeNotifierProvider(
-          create: (_) => OrderProvider(),
+          create: (_) => CartProvider()..getCart(),
         ),
         ChangeNotifierProvider(
           create: (_) => MyProfileProvider(),
         ),
         ChangeNotifierProvider(
           create: (_) => ItemProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => FeedbackProvider(),
         ),
       ],
       child: MaterialApp(
