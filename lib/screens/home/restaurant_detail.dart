@@ -1,16 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
+import 'package:work_app/models/feedback_class.dart';
 import 'package:work_app/models/restaurant_class.dart';
 import 'package:work_app/provider/feedback_provider.dart';
 import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
 
-class RestaurantDetail extends StatelessWidget {
+class RestaurantDetail extends StatefulWidget {
   final int index;
+
   RestaurantDetail(this.index);
+
+  @override
+  _RestaurantDetailState createState() => _RestaurantDetailState();
+}
+
+class _RestaurantDetailState extends State<RestaurantDetail> {
+  final myController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final rest = Provider.of<RestaurantProvider>(context);
@@ -20,7 +31,7 @@ class RestaurantDetail extends StatelessWidget {
 
     return Scaffold(
       body: FutureBuilder(
-        future: menu.getMenuItems(resData[index].id),
+        future: menu.getMenuItems(resData[widget.index].id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return SafeArea(
@@ -29,8 +40,8 @@ class RestaurantDetail extends StatelessWidget {
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
                     SliverPersistentHeader(
-                      delegate:
-                          MySliverAppBar(expandedHeight: 200, restIndex: index),
+                      delegate: MySliverAppBar(
+                          expandedHeight: 200, restIndex: widget.index),
                       pinned: true,
                     ),
                   ];
@@ -55,7 +66,7 @@ class RestaurantDetail extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                menu.currentMenu = index;
+                                menu.currentMenu = widget.index;
                                 Navigator.pushNamed(
                                   context,
                                   kRestaurantMenu,
@@ -125,20 +136,34 @@ class RestaurantDetail extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 25.0, top: 20, bottom: 5),
-                        child: Text(
-                          "The comments",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "The comments",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.add,
+                                  size: 30,
+                                ),
+                                onPressed: () {
+                                  showBottomSheet(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          addComment(context, feedback, rest));
+                                })
+                          ],
                         ),
                       ),
                       Expanded(
                         child: FutureBuilder(
-                          future: feedback.dataService
-                              .getFeedback(resData[index].id),
+                          future: feedback
+                              .getFeedbackList(resData[widget.index].id),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              feedback.getFeedbackList(snapshot.data);
-
                               return Container(
                                 child: ListView.builder(
                                   physics: AlwaysScrollableScrollPhysics(),
@@ -194,6 +219,65 @@ class RestaurantDetail extends StatelessWidget {
           }
           return Center(child: CircularProgressIndicator());
         },
+      ),
+    );
+  }
+
+  Container addComment(BuildContext context, FeedbackProvider feedback,
+      RestaurantProvider restaurant) {
+    return Container(
+      height: 150,
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+      ),
+      child: Column(
+        children: [
+          TextField(
+            maxLines: 1,
+            controller: myController,
+            decoration: InputDecoration(
+              labelText: 'Write here...',
+              border: OutlineInputBorder(
+                borderSide: new BorderSide(
+                  color: Colors.teal,
+                ),
+              ),
+            ),
+          ),
+          // Slider(value: null, onChanged: null)
+          IconButton(
+              icon: Icon(Icons.send),
+              onPressed: () {
+                final rest = restaurant
+                        .restaurantsByDistance[restaurant.currentRestaurantType]
+                    [widget.index];
+                if (myController.text.isNotEmpty) {
+                  feedback.addComment(
+                    FeedbackData(
+                      date: Timestamp.now(),
+                      restaurantId: rest.id,
+                      userRate: 5,
+                      userFeedback: myController.text,
+                      userImage:
+                          'https://fedspendingtransparency.github.io/assets/img/user_personas/repurposer_mug.jpg',
+                      userName: 'Ahmad Mousa',
+                      userId: userIdConst,
+                      id: 'id',
+                    ),
+                  );
+                  myController.clear();
+                  Navigator.pop(context);
+                  setState(
+                    () {},
+                  );
+                }
+              })
+        ],
       ),
     );
   }

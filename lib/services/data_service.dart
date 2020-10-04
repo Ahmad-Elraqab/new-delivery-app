@@ -170,4 +170,12 @@ class DataService {
         .doc(doc2Id)
         .delete();
   }
+
+  Future<void> addToSubCollection(String doc1Id, dynamic data) async {
+    await FirebaseFirestore.instance
+        .collection("restaurant")
+        .doc(doc1Id)
+        .collection("feedback")
+        .add(data);
+  }
 }

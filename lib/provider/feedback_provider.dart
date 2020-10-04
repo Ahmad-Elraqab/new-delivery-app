@@ -1,43 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:work_app/models/comment_class.dart';
+import 'package:work_app/dependencies/constants.dart';
+import 'package:work_app/models/feedback_class.dart';
 import 'package:work_app/services/data_service.dart';
+import 'package:work_app/services/screens_service/comment_service.dart';
 
 import '../dependency.dart';
 
 class FeedbackProvider with ChangeNotifier {
   final dataService = service<DataService>();
-  List<Feedback> feedback = [];
+  final feedbackService = FeedbackService();
+  List<FeedbackData> feedback = [];
 
-  getFeedbackList(List data) {
+  getFeedbackList(String id) async {
     feedback.clear();
-    data.forEach((comment) {
-      feedback.add(Feedback.fromJson(comment.data()));
-    });
+    final data = await feedbackService.getComments(id);
+    feedback = data;
+    return feedback;
   }
 
-  // String readTimestamp(int timestamp) {
-  //   var now = new DateTime.now();
-  //   var format = new DateFormat('HH:mm a');
-  //   var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-  //   var diff = date.difference(now);
-  //   var time = '';
+  addComment(FeedbackData data) async {
+    feedback.clear();
+    await feedbackService.addComment(data.restaurantId, data);
+  }
 
-  //   if (diff.inSeconds <= 0 ||
-  //       diff.inSeconds > 0 && diff.inMinutes == 0 ||
-  //       diff.inMinutes > 0 && diff.inHours == 0 ||
-  //       diff.inHours > 0 && diff.inDays == 0) {
-  //     time = format.format(date);
-  //   } else {
-  //     if (diff.inDays == 1) {
-  //       time = diff.inDays.toString() + 'DAY AGO';
-  //     } else {
-  //       time = diff.inDays.toString() + 'DAYS AGO';
-  //     }
-  //   }
-
-  //   return time;
-  // }
   String readTimestamp(int timestamp) {
     var now = DateTime.now();
     var format = DateFormat('HH:mm a');
