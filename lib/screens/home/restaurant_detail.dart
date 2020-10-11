@@ -21,7 +21,7 @@ class RestaurantDetail extends StatefulWidget {
 
 class _RestaurantDetailState extends State<RestaurantDetail> {
   final myController = TextEditingController();
-
+  double _currentSliderValue = 20;
   @override
   Widget build(BuildContext context) {
     final rest = Provider.of<RestaurantProvider>(context);
@@ -173,6 +173,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                                   padding: EdgeInsets.only(left: 10),
                                   itemBuilder: (context, index) {
                                     return ListTile(
+                                      isThreeLine: true,
                                       leading: CircleAvatar(
                                         backgroundColor: Colors.pink,
                                         backgroundImage: NetworkImage(
@@ -180,23 +181,35 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                                       ),
                                       title: Text(
                                           "${feedback.feedback[index].userName}"),
-                                      subtitle: Row(
-                                        children: <Widget>[
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 18),
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 18),
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 18),
-                                          Icon(Icons.star,
-                                              color: Colors.yellow, size: 18),
-                                          Icon(Icons.star,
-                                              color: Colors.grey, size: 18),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 4.0),
-                                            child: Text(
-                                                "${feedback.feedback[index].userRate}"),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              "${feedback.feedback[index].userFeedback}"),
+                                          Row(
+                                            children: <Widget>[
+                                              Icon(Icons.star,
+                                                  color: Colors.yellow,
+                                                  size: 18),
+                                              Icon(Icons.star,
+                                                  color: Colors.yellow,
+                                                  size: 18),
+                                              Icon(Icons.star,
+                                                  color: Colors.yellow,
+                                                  size: 18),
+                                              Icon(Icons.star,
+                                                  color: Colors.yellow,
+                                                  size: 18),
+                                              Icon(Icons.star,
+                                                  color: Colors.grey, size: 18),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 4.0),
+                                                child: Text(
+                                                    "${feedback.feedback[index].userRate}"),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -226,7 +239,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
   Container addComment(BuildContext context, FeedbackProvider feedback,
       RestaurantProvider restaurant) {
     return Container(
-      height: 150,
+      height: 300,
       padding: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Colors.grey[200],
@@ -250,6 +263,18 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
             ),
           ),
           // Slider(value: null, onChanged: null)
+          // Slider(
+          //   value: _currentSliderValue,
+          //   min: 0,
+          //   max: 100,
+          //   divisions: 5,
+          //   label: _currentSliderValue.round().toString(),
+          //   onChanged: (double value) {
+          //     setState(() {
+          //       _currentSliderValue = value;
+          //     });
+          //   },
+          // ),
           IconButton(
               icon: Icon(Icons.send),
               onPressed: () {
