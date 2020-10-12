@@ -14,9 +14,10 @@ class RestaurantProvider with ChangeNotifier {
     'nearby': [],
     'trending': [],
   };
+  int currentMenu;
   bool isNotNearby = true;
   List<Restaurant> nearbyRestaurant = [];
- 
+  bool visible = false;
 
   Future<void> delete(String id) async {
     await dataService.delete('restaurant', id);
@@ -60,5 +61,29 @@ class RestaurantProvider with ChangeNotifier {
         status: "open");
 
     await dataService.create('restaurant', data: data);
+  }
+
+  void increment(index) {
+    restaurants[currentMenu].menu[index].itemCount++;
+    if (restaurants[currentMenu].menu[index].itemCount < 0)
+      restaurants[currentMenu].menu[index].itemCount = 0;
+    visible = true;
+    notifyListeners();
+  }
+
+  void decrement(index) {
+    int tempInvisible = 0;
+    restaurants[currentMenu].menu[index].itemCount--;
+    if (restaurants[currentMenu].menu[index].itemCount < 0)
+      restaurants[currentMenu].menu[index].itemCount = 0;
+    restaurants[currentMenu].menu.forEach((element) {
+      if (element.itemCount != 0)
+        visible = true;
+      else
+        tempInvisible++;
+    });
+    if (tempInvisible == restaurants[currentMenu].menu.length) visible = false;
+
+    notifyListeners();
   }
 }

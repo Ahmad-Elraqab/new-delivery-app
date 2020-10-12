@@ -37,7 +37,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                 flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     background: Image.network(
-                      "${restData[menu.currentMenu].image}",
+                      "${restData[rest.currentMenu].image}",
                       fit: BoxFit.cover,
                     )),
               ),
@@ -48,7 +48,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
               _categoryList(rest, restData),
               _itemList(context, menu, rest, restData),
               // _visible ? _addCart() : null,
-              if (menu.visible) _addCart(menu, order)
+              if (rest.visible) _addCart(menu, order)
             ],
           ),
         ),
@@ -131,10 +131,10 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
         color: Colors.white,
         child: ListView.builder(
           padding: EdgeInsets.all(8.0),
-          itemCount: restData[menu.currentMenu].menu.length,
+          itemCount: restData[restaurant.currentMenu].menu.length,
           itemBuilder: (context, index) {
-            if (restData[menu.currentMenu].menu[index].itemCategory ==
-                restData[menu.currentMenu].categories[currentIndexBar]) {
+            if (restData[restaurant.currentMenu].menu[index].itemCategory ==
+                restData[restaurant.currentMenu].categories[currentIndexBar]) {
               return Container(
                 padding: EdgeInsets.all(8.0),
                 height: 170,
@@ -158,10 +158,10 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
-                                color: Colors.green,
+                                color: Colors.white,
                                 image: DecorationImage(
                                     image: NetworkImage(
-                                        "${restData[menu.currentMenu].menu[index].itemImage}"),
+                                        "${restData[restaurant.currentMenu].menu[index].itemImage}"),
                                     fit: BoxFit.cover)),
                           ),
                         ),
@@ -173,37 +173,36 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Expanded(
-                                flex: 2,
-                                child: Text(
-                                  "${restData[menu.currentMenu].menu[index].itemName}",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
+                              Text(
+                                "${restData[restaurant.currentMenu].menu[index].itemName}",
+                                maxLines: 3,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
                               ),
                               Expanded(
                                 flex: 5,
                                 child: Text(
-                                  "${restData[menu.currentMenu].menu[index].itemDescription}",
+                                  "${restData[restaurant.currentMenu].menu[index].itemDescription}",
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey,
                                   ),
-                                  maxLines: 5,
+                                  maxLines: 6,
+                                  overflow: TextOverflow.clip,
                                 ),
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 2,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Text(
-                                      "${restData[menu.currentMenu].menu[index].itemPrice} RM",
+                                      "${restData[restaurant.currentMenu].menu[index].itemPrice} RM",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -219,12 +218,12 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                                             size: 16,
                                           ),
                                           onPressed: () {
-                                            menu.decrement(index);
+                                            restaurant.decrement(index);
                                           },
                                           color: Colors.black,
                                         ),
                                         Text(
-                                          "${restData[menu.currentMenu].menu[index].itemCount}",
+                                          "${restData[restaurant.currentMenu].menu[index].itemCount}",
                                           style: TextStyle(
                                             fontSize: 20,
                                             color: Colors.black,
@@ -237,7 +236,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                                             color: Colors.pink,
                                           ),
                                           onPressed: () {
-                                            menu.increment(index);
+                                            restaurant.increment(index);
                                           },
                                           color: Colors.black,
                                         ),
@@ -254,7 +253,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                   ),
                 ),
               );
-            }else{
+            } else {
               return Container();
             }
           },
@@ -271,7 +270,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
         color: Colors.white,
       ),
       child: ListView.builder(
-        itemCount: restData[menu.currentMenu].categories.length,
+        itemCount: restData[restaurant.currentMenu].categories.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return InkWell(
@@ -293,8 +292,8 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
               ),
               width: MediaQuery.of(context).size.width / 3,
               child: Center(
-                  child:
-                      Text("${restData[menu.currentMenu].categories[index]}")),
+                  child: Text(
+                      "${restData[restaurant.currentMenu].categories[index]}")),
             ),
           );
         },

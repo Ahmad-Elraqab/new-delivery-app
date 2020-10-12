@@ -61,7 +61,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                       ),
                       InkWell(
                         onTap: () {
-                          menu.currentMenu = widget.index;
+                          rest.currentMenu = widget.index;
                           Navigator.pushNamed(
                             context,
                             kRestaurantMenu,
@@ -104,7 +104,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                                       color: Colors.transparent,
                                       boxShadow: [
                                         BoxShadow(
-                                            color: Colors.grey,
+                                            color: Colors.transparent,
                                             blurRadius: 2.5,
                                             offset: Offset(1, 1),
                                             spreadRadius: 0.5)

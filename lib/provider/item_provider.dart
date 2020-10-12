@@ -9,8 +9,6 @@ class ItemProvider with ChangeNotifier {
   List<Item> cartItems = [];
   final dataService = service<DataService>();
   final itemService = service<ItemService>();
-  bool visible = false;
-  int currentMenu;
 
   Future getMenuItems(String id) async {
     items.clear();
@@ -21,27 +19,6 @@ class ItemProvider with ChangeNotifier {
     return items;
   }
 
-  void increment(index) {
-    items[index].itemCount++;
-    if (items[index].itemCount < 0) items[index].itemCount = 0;
-    visible = true;
-    notifyListeners();
-  }
-
-  void decrement(index) {
-    int tempInvisible = 0;
-    items[index].itemCount--;
-    if (items[index].itemCount < 0) items[index].itemCount = 0;
-    items.forEach((element) {
-      if (element.itemCount != 0)
-        visible = true;
-      else
-        tempInvisible++;
-    });
-    if (tempInvisible == items.length) visible = false;
-
-    notifyListeners();
-  }
 }
 
 // Future<List<Item>> getMenu(String restaurantId) async {
