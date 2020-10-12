@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
+import 'package:work_app/models/restaurant_class.dart';
 import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/cart_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
@@ -73,7 +74,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
             await cart.updateCart(menu.cartItems);
           }
           await Future.delayed(Duration(seconds: 1));
-          
+
           Navigator.pushNamed(context, kRestaurantCart);
         },
         child: Container(
@@ -124,16 +125,16 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
   }
 
   Expanded _itemList(BuildContext context, ItemProvider menu,
-      RestaurantProvider restaurant, restData) {
+      RestaurantProvider restaurant, List<Restaurant> restData) {
     return Expanded(
       child: Container(
         color: Colors.white,
         child: ListView.builder(
           padding: EdgeInsets.all(8.0),
-          itemCount: menu.items.length,
+          itemCount: restData[menu.currentMenu].menu.length,
           itemBuilder: (context, index) {
-            if (menu.items[index].itemCategory ==
-                restData[menu.currentMenu].categories[currentIndexBar])
+            if (restData[menu.currentMenu].menu[index].itemCategory ==
+                restData[menu.currentMenu].categories[currentIndexBar]) {
               return Container(
                 padding: EdgeInsets.all(8.0),
                 height: 170,
@@ -160,7 +161,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                                 color: Colors.green,
                                 image: DecorationImage(
                                     image: NetworkImage(
-                                        "${menu.items[index].itemImage}"),
+                                        "${restData[menu.currentMenu].menu[index].itemImage}"),
                                     fit: BoxFit.cover)),
                           ),
                         ),
@@ -175,7 +176,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                               Expanded(
                                 flex: 2,
                                 child: Text(
-                                  "${menu.items[index].itemName}",
+                                  "${restData[menu.currentMenu].menu[index].itemName}",
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -186,7 +187,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                               Expanded(
                                 flex: 5,
                                 child: Text(
-                                  "${menu.items[index].itemDescription}",
+                                  "${restData[menu.currentMenu].menu[index].itemDescription}",
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -202,7 +203,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Text(
-                                      "${menu.items[index].itemPrice} RM",
+                                      "${restData[menu.currentMenu].menu[index].itemPrice} RM",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -217,30 +218,13 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                                             FontAwesomeIcons.minus,
                                             size: 16,
                                           ),
-                                          // onPressed: menuProvider.decrementItem,
                                           onPressed: () {
-                                            // int tempInvisible = 0;
-                                            // menu.items[index].itemCount--;
-                                            // if (menu.items[index].itemCount < 0)
-                                            //   menu.items[index].itemCount = 0;
-                                            // menu.items.forEach((element) {
-                                            //   if (element.itemCount != 0)
-                                            //     _visible = true;
-                                            //   else
-                                            //     tempInvisible++;
-                                            // });
-                                            // if (tempInvisible ==
-                                            //     menu.items.length)
-                                            //   _visible = false;
-
-                                            // setState(() {});
                                             menu.decrement(index);
                                           },
                                           color: Colors.black,
                                         ),
                                         Text(
-                                          // "${menuProvider.items[index].numberOfItems}",
-                                          "${menu.items[index].itemCount}",
+                                          "${restData[menu.currentMenu].menu[index].itemCount}",
                                           style: TextStyle(
                                             fontSize: 20,
                                             color: Colors.black,
@@ -252,14 +236,8 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                                             size: 16,
                                             color: Colors.pink,
                                           ),
-                                          // onPressed: menuProvider.incrementItem,
                                           onPressed: () {
                                             menu.increment(index);
-                                            // menu.items[index].itemCount++;
-                                            // if (menu.items[index].itemCount < 0)
-                                            //   menu.items[index].itemCount = 0;
-                                            // _visible = true;
-                                            // setState(() {});
                                           },
                                           color: Colors.black,
                                         ),
@@ -276,8 +254,9 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
                   ),
                 ),
               );
-            else
-              return Text(".");
+            }else{
+              return Container();
+            }
           },
         ),
       ),
