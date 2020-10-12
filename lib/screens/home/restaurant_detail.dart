@@ -30,208 +30,200 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
     final resData = rest.restaurantsByDistance[rest.currentRestaurantType];
 
     return Scaffold(
-      body: FutureBuilder(
-        future: menu.getMenuItems(resData[widget.index].id),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return SafeArea(
-              child: NestedScrollView(
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
-                  return <Widget>[
-                    SliverPersistentHeader(
-                      delegate: MySliverAppBar(
-                          expandedHeight: 200, restIndex: widget.index),
-                      pinned: true,
-                    ),
-                  ];
-                },
-                body: Scrollable(
-                  viewportBuilder: (context, position) => Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      body: SafeArea(
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverPersistentHeader(
+                delegate: MySliverAppBar(
+                    expandedHeight: 200, restIndex: widget.index),
+                pinned: true,
+              ),
+            ];
+          },
+          body: Scrollable(
+            viewportBuilder: (context, position) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  height: 50,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 25.0, top: 25, bottom: 5, right: 25),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      SizedBox(
-                        height: 50,
+                      Text(
+                        "Recommended dishes",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 25.0, top: 25, bottom: 5, right: 25),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              "Recommended dishes",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                menu.currentMenu = widget.index;
-                                Navigator.pushNamed(
-                                  context,
-                                  kRestaurantMenu,
-                                );
-                              },
-                              child: Text(
-                                "View all >>",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.pink),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 200,
-                        child: ListView.builder(
-                          itemCount: menu.items.length,
-                          scrollDirection: Axis.horizontal,
-                          padding: EdgeInsets.only(left: 20),
-                          itemBuilder: (context, index) {
-                            return Container(
-                              padding: EdgeInsets.all(5),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Container(
-                                    height: 120,
-                                    width: 150,
-                                    decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Colors.grey,
-                                              blurRadius: 2.5,
-                                              offset: Offset(1, 1),
-                                              spreadRadius: 0.5)
-                                        ],
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                              "${menu.items[index].itemImage}"),
-                                          fit: BoxFit.cover,
-                                        )),
-                                  ),
-                                  Text(
-                                    "${menu.items[index].itemName}",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                  Text("${menu.items[index].itemPrice} RM",
-                                      style: TextStyle(fontSize: 16)),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      Divider(
-                        height: 1,
-                        thickness: 1,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 25.0, top: 20, bottom: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "The comments",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                            IconButton(
-                                icon: Icon(
-                                  Icons.add,
-                                  size: 30,
-                                ),
-                                onPressed: () {
-                                  showBottomSheet(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          addComment(context, feedback, rest));
-                                })
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: FutureBuilder(
-                          future: feedback
-                              .getFeedbackList(resData[widget.index].id),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Container(
-                                child: ListView.builder(
-                                  physics: AlwaysScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: feedback.feedback.length,
-                                  scrollDirection: Axis.vertical,
-                                  padding: EdgeInsets.only(left: 10),
-                                  itemBuilder: (context, index) {
-                                    return ListTile(
-                                      isThreeLine: true,
-                                      leading: CircleAvatar(
-                                        backgroundColor: Colors.pink,
-                                        backgroundImage: NetworkImage(
-                                            "${feedback.feedback[index].userImage}"),
-                                      ),
-                                      title: Text(
-                                          "${feedback.feedback[index].userName}"),
-                                      subtitle: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                              "${feedback.feedback[index].userFeedback}"),
-                                          Row(
-                                            children: <Widget>[
-                                              Icon(Icons.star,
-                                                  color: Colors.yellow,
-                                                  size: 18),
-                                              Icon(Icons.star,
-                                                  color: Colors.yellow,
-                                                  size: 18),
-                                              Icon(Icons.star,
-                                                  color: Colors.yellow,
-                                                  size: 18),
-                                              Icon(Icons.star,
-                                                  color: Colors.yellow,
-                                                  size: 18),
-                                              Icon(Icons.star,
-                                                  color: Colors.grey, size: 18),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 4.0),
-                                                child: Text(
-                                                    "${feedback.feedback[index].userRate}"),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      trailing: Text(
-                                          "${feedback.readTimestamp(feedback.feedback[index].date.millisecondsSinceEpoch)}"),
-                                    );
-                                  },
-                                ),
-                              );
-                            }
-                            return Center(child: CircularProgressIndicator());
-                          },
+                      InkWell(
+                        onTap: () {
+                          menu.currentMenu = widget.index;
+                          Navigator.pushNamed(
+                            context,
+                            kRestaurantMenu,
+                          );
+                        },
+                        child: Text(
+                          "View all >>",
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.pink),
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
-            );
-          }
-          return Center(child: CircularProgressIndicator());
-        },
+                Container(
+                  height: 200,
+                  child: ListView.builder(
+                    itemCount: rest
+                        .restaurantsByDistance[rest.currentRestaurantType]
+                            [widget.index]
+                        .menu
+                        .length,
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.only(left: 20),
+                    itemBuilder: (context, index) {
+                      return Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(8),
+                          width: 150,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Expanded(
+                                flex: 8,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius: 2.5,
+                                            offset: Offset(1, 1),
+                                            spreadRadius: 0.5)
+                                      ],
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                            "${rest.restaurantsByDistance[rest.currentRestaurantType][widget.index].menu[index].itemImage}"),
+                                        fit: BoxFit.cover,
+                                      )),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "${rest.restaurantsByDistance[rest.currentRestaurantType][widget.index].menu[index].itemName}",
+                                  style: TextStyle(fontSize: 16),
+                                  maxLines: 2,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                    "${rest.restaurantsByDistance[rest.currentRestaurantType][widget.index].menu[index].itemPrice} RM",
+                                    style: TextStyle(fontSize: 16)),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Divider(
+                  height: 1,
+                  thickness: 1,
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 25.0, top: 20, bottom: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "The comments",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.add,
+                            size: 30,
+                          ),
+                          onPressed: () {
+                            showBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    addComment(context, feedback, rest));
+                          })
+                    ],
+                  ),
+                ),
+                Expanded(
+                    child: Container(
+                  child: ListView.builder(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: rest
+                        .restaurantsByDistance[rest.currentRestaurantType]
+                            [widget.index]
+                        .comments
+                        .length,
+                    scrollDirection: Axis.vertical,
+                    padding: EdgeInsets.only(left: 10),
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        isThreeLine: true,
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.pink,
+                          backgroundImage: NetworkImage(
+                              "${rest.restaurantsByDistance[rest.currentRestaurantType][widget.index].comments[index].userImage}"),
+                        ),
+                        title: Text(
+                            "${rest.restaurantsByDistance[rest.currentRestaurantType][widget.index].comments[index].userName}"),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                "${rest.restaurantsByDistance[rest.currentRestaurantType][widget.index].comments[index].userFeedback}"),
+                            Row(
+                              children: <Widget>[
+                                Icon(Icons.star,
+                                    color: Colors.yellow, size: 18),
+                                Icon(Icons.star,
+                                    color: Colors.yellow, size: 18),
+                                Icon(Icons.star,
+                                    color: Colors.yellow, size: 18),
+                                Icon(Icons.star,
+                                    color: Colors.yellow, size: 18),
+                                Icon(Icons.star, color: Colors.grey, size: 18),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 4.0),
+                                  child: Text(
+                                      "${rest.restaurantsByDistance[rest.currentRestaurantType][widget.index].comments[index].userRate}"),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        // trailing: Text(
+                        //     "${feedback.readTimestamp(feedback.feedback[index].date.millisecondsSinceEpoch)}"),
+                      );
+                    },
+                  ),
+                )),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -262,19 +254,6 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
               ),
             ),
           ),
-          // Slider(value: null, onChanged: null)
-          // Slider(
-          //   value: _currentSliderValue,
-          //   min: 0,
-          //   max: 100,
-          //   divisions: 5,
-          //   label: _currentSliderValue.round().toString(),
-          //   onChanged: (double value) {
-          //     setState(() {
-          //       _currentSliderValue = value;
-          //     });
-          //   },
-          // ),
           IconButton(
               icon: Icon(Icons.send),
               onPressed: () {
@@ -282,19 +261,19 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                         .restaurantsByDistance[restaurant.currentRestaurantType]
                     [widget.index];
                 if (myController.text.isNotEmpty) {
-                  feedback.addComment(
-                    FeedbackData(
-                      date: Timestamp.now(),
-                      restaurantId: rest.id,
-                      userRate: 5,
-                      userFeedback: myController.text,
-                      userImage:
-                          'https://fedspendingtransparency.github.io/assets/img/user_personas/repurposer_mug.jpg',
-                      userName: 'Ahmad Mousa',
-                      userId: userIdConst,
-                      id: 'id',
-                    ),
-                  );
+                  // feedback.addComment(
+                  //   FeedbackData(
+                  //     date: Timestamp.now(),
+                  //     restaurantId: rest.id,
+                  //     userRate: 5,
+                  //     userFeedback: myController.text,
+                  //     userImage:
+                  //         'https://fedspendingtransparency.github.io/assets/img/user_personas/repurposer_mug.jpg',
+                  //     userName: 'Ahmad Mousa',
+                  //     userId: userIdConst,
+                  //     id: 'id',
+                  //   ),
+                  // );
                   myController.clear();
                   Navigator.pop(context);
                   setState(

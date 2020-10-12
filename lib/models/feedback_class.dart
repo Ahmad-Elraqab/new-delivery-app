@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FeedbackData {
   String id;
   String restaurantId;
-  Timestamp date;
+  String date;
   String userId;
   String userName;
   String userImage;

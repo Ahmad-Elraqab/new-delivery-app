@@ -7,9 +7,11 @@ class RestaurantService {
   final dataService = service<DataService>();
 
   Future<List<Restaurant>> getAllRestaurants() async {
-    final data = await dataService.getListByFuture('restaurant');
+    final data = await dataService.getListByFuture('restaurants');
 
-    return (data as List).map((e) => Restaurant.fromJson(e)).toList();
+    final result = (data as List).map((e) => Restaurant.fromJson(e)).toList();
+    
+    return result;
   }
 
   Future<Restaurant> createRestaurant(Restaurant r) async {}

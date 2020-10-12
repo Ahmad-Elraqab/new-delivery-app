@@ -132,8 +132,8 @@
                     "itemImage": "https://pbs.twimg.com/profile_images/2316945719/w7bn7o9sn87d5fvrjg9x.jpeg",
                     "itemDescription": "Two all-beef patties with lettuce, onions, pickles, cheese and special sauce in a toasted sesame seed bun.",
                     "itemPrice": 19.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -145,8 +145,8 @@
                     "itemImage": "https://images.eatthismuch.com/site_media/img/599836_tabitharwheeler_cae50dd0-7682-4a11-8d2d-6eed03670448.jpg",
                     "itemDescription": "Two all-beef patties with lettuce, onions, pickles, cheese and special sauce in a toasted sesame seed bun with extra cheese.",
                     "itemPrice": 21.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -158,8 +158,8 @@
                     "itemImage": "https://static6.businessinsider.com/image/51781de169bedd3d2d000012-391-293/my-burger-mcdonalds-contest.jpg?maxX=400",
                     "itemDescription": "Pure beef patty, onions, pickles, ketchup and mustard in a toasted bun.",
                     "itemPrice": 15.90,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -171,8 +171,8 @@
                     "itemImage": "https://imgix.pedestrian.tv/content/uploads/2019/10/double-cheesy-636x397.jpg",
                     "itemDescription": "Two slices of cheese coupled with two tasty beef patties, the Double Cheeseburger is always a delight.",
                     "itemPrice": 18.0,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -184,8 +184,8 @@
                     "itemImage": "https://images.eatthismuch.com/site_media/img/466509_013ks_7d5f4060-defd-4c04-a864-9d96a232eaea.jpeg",
                     "itemDescription": "Your favorite chicken burger cooked to golden perfection topped with lettuce and special sauce.",
                     "itemPrice": 15.30,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -197,8 +197,8 @@
                     "itemImage": "https://www.mcdonalds.com.my/images/scm/item_single_burger.jpg",
                     "itemDescription": "Specially marinated whole chicken thigh meat with a delightfully crispy coat, layered with fresh lettuce and special sauce in a corn meal bun.",
                     "itemPrice": 22.0,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -210,8 +210,8 @@
                     "itemImage": "data:image/jpeg;base64,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",
                     "itemDescription": "Bomb sandwich, filled with double cheese",
                     "itemPrice": 25.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -223,8 +223,8 @@
                     "itemImage": "https://ke.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/41/330721/1.jpg?7066",
                     "itemDescription": "Can’t go wrong with classic orange juice.",
                     "itemPrice": 10.20,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -236,8 +236,8 @@
                     "itemImage": "https://lawson-philippines.com/wp-content/uploads/2016/01/LawsonNestleMilo-300x300.jpg",
                     "itemDescription": "Chocolate malt deliciousness.",
                     "itemPrice": 6.30,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -249,8 +249,8 @@
                     "itemImage": "https://i.pinimg.com/originals/f0/3b/f2/f03bf20f2553623c7e217c8c0856777a.png",
                     "itemDescription": "Theres nothing like an icy drink full of chocolate and malt flavours.",
                     "itemPrice": 8.99,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -262,8 +262,8 @@
                     "itemImage": "https://my-live-01.slatic.net/p/0c8cf733b3610e1c0cf3fc59cd806852.jpg",
                     "itemDescription": "Drink up to hydrate.",
                     "itemPrice": 2.99,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -275,8 +275,8 @@
                     "itemImage": "https://www.pngkit.com/png/detail/360-3605214_mcdonalds-oreo-mcflurry-mcdonalds-ice-cream.png",
                     "itemDescription": "Indulge in our famous Sundae, whirled with bits of Oreo.",
                     "itemPrice": 5.0,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -288,8 +288,8 @@
                     "itemImage": "https://i.pinimg.com/originals/ef/91/31/ef913108f559c525a64ca00b36576e86.jpg",
                     "itemDescription": "Everyday is a Sundae! With warm Hot Fudge or fruity Strawberry topping.",
                     "itemPrice": 3.99,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -301,8 +301,8 @@
                     "itemImage": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhUTEhMWFRUVFRgXGBUYFRUVGBgWFhUXFxUWFRcYHSggGBolGxUVIjEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGhAQGy0lICUrLS0vLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIALcBEwMBIgACEQEDEQH/xAAcAAACAgMBAQAAAAAAAAAAAAAEBQMGAAIHAQj/xAA6EAABAwIFAQYEBAUEAwEAAAABAAIRAwQFEiExQVEGEyJhcYEykaGxUsHR8AcUI0JiFlOC4RVykjP/xAAaAQACAwEBAAAAAAAAAAAAAAACAwABBAUG/8QAJxEAAgICAgICAwACAwAAAAAAAAECEQMhEjEEQRMiFFFhcYEjMuH/2gAMAwEAAhEDEQA/AMN0F7Ru/wC35JXnUlMypZB5Sqxqps06hLKVRF0LgBLyZFBWMx43J0NaFAxBUVdpbqEVZXEoirSDlinmlPo1Qxxi9iEYjlOqKpYsDytb/DxEhV2tRLXaLNNzRqjGEix1qwcEruG6ry0qkhbXLo3SdsNa0ZTqkBaPuCtrVwdoo762I2UjGy20TPdmC1t3kFRWVXgoioACmJC2gqs2RKr946HJq+7DQq5id3rITccLYEpUiZtUoO4nNLfkvLW9kQ6PVGNga7rpfFFowPNJPQOx+YQVCaxpnXUdUeWtOrdCh6lIcoH48Ql5EkSsvZGhSq8xIgwUaLWNWnRD3FmHbpf4qGx8toCZcuK0delHMw8t8wvLjDw71Rrx4gvy5MU1Lp/CNw6s5xA5W4si3cJz2cw5pqg+YR/FFAxySnKi1YDgGZoc4I+7sQ0QE+bXbTpgeSU3LswJWfyMiX1R0sFr/BRsZtZKrVxaaq24w4yUhNIlZIzo61JxFIsytX25HKeMowhLykmLKZpONiVwKEqmCjaroKCuU2G2IlKjdtZYhcy8TOAPM6I1ymtzBQrPNF20FOyy4xOLhhykHt12Rttacle2tAASULi+LCm2AuY8jl2dJQSf1Dal62nysZjQK5/dYo57pleU79wO6D7DviR0R+IyNEBWeCkljdkjdHFC5OyfGkGW7gCibqlmalOchE21/IhWgXFrYLRrZHapw6sHtSPEHCZQjsSyjdMhBgyaXYff1RT51lLq2NjYlI8TxSTASwy5aoePe2Z5+RWkOrnGJ2KCp3DnHrPCkwrCnVXZWz6rpHZ3sYynD3iXRpKY3DFr2IqeTfoq9h2aqvbmd4B57qwYXSZQBBAf5lWV+Hvb4jEdELXpBzhLNBxsseTyMj/hrx4ca/oCzC6NXcBpdyOErvezVUEhniHCt1FtEGHNDT6qC6pFhzU3FzZ1HRReROC/YMsMJvqjn13aVaJhzSPso8wPkV0W+ot7lziM0Ceqp7W0KuwyO/NaY+Ytc1Rnfit7gKhUI/RSEA7fJT3Vk5m+o6/qhgFsjJSVoyyi4umYSpbG67t8jlaO2/NKLysQR6oMrqOjX4MVLKrL8MTLgNUX/MeFVXBrgGJKsLqrcu65NNu2d/JBKkhbeayljsoKJv7oCYSKpc6oJIOvqMnuCX3lUQoqtwgbispCGzJKNMCuXaoYle3D1FmW+KpCJM9yBYsXqIXZd7gRqhbe5IcjqpkSlz3ap88amqObjy8BzVxchqrGIXxeVmJVfNLGyVn/ABqNMfK2SNdrujaTAeUnry0+qJt7gwqeBjV5SLLYODeUfUvR1VKffuaYW1K8c7kpP40g/wAqBcnXgjdLziAbyq1UvXTC9LXOCZHxXdsXPy4+hrfYtOgSqpdOJha27IMFHG0kaLZHGomGeVyB6Vtm9UdaWZ6KSypxvwr5gfZ0ZW1ag04HVVlyrGrZMeNzdIZ9j8EFOmHubLzsFY3V4dlcQP3sltXEmUmxOX8kBQxai4y52snUlc75V77N/wAT/wBDivdS4NHold9dlpMkLc1mk5mnMBtCHum5/iB56KSnaIo0A1sRaeBM7o22uG6ZXTO4VM7R0HUjnaTkmPQ8AoKwxR4cNSlaexvF1o6pTrjVkeEjSVRMewh1KoXM+Fxn0Vr7MYiLiQ8iWt+ZUmMWsktmdNvJNyRuFisc+M6KhZ3JHhqbHla4nY5Dmbq07JVjDXU35J2P0Viw2u2rQyO3Gynj5OEv4H5OLnG/Yh7zXVKMYcrA61dy0+qRYzQ00XSl9o6MfiPhlVkWGXscp2/EiRuqdSfBR9KsVz8kT0lpqxncXUpeaklaPqKDvNUCiU3oJc5C1ipy6VFUCKOjNNC+qtHot1NRvorQpIzyiwXMsU/crEfJA8WXWZaQk1VxDtU4pOEoHEGCYWo4gHcUczSgqGhhNKJkRygbmnlJEHVQsy6t8wQ9toYKY2ZkajVC3NuQ6euyhLNby2BEqG1jYpja+PTT0Ql1bFroOk7KEMr20iYW1k6dETbOBEcratZlploOqhCOrak6hFWvQpjgli6ocoaSeg3V5wXsDTBL7gkyNKYJAnzcNSlyyRToOOOT2V/srgguK7ZHhbq79Cun16DGtE8bCNB0SmhToWzMlvIJknc6zy47hQm8Dm5XCHaeKT1mSufm8iMpUbMWGSQZesY/4Y22DZmOTKrVbAe8kta3QSS3wn06Epk6po5gJMH4gYBUtnXLaZafhdudyP0SqjJ7HKUoLRUn29ej4my5vIGpEdWqWjjoftuNI5TmhUyPyu9ttR5dUpxzBgHvq0gQW/HTHI5e0fWEPGlaGc1LTDrzD216L2RJLS7Qf3N1C5mXEGDoQVfcExAskyTI+h6pL2lwujSzyXd654cyPhLDuD0IKdxTiDCVOmT9l67mEO2VnrXRqszNMvYDPoDsqngdXwkDYjVPKVtlpPc0wXAoE/0DJKxdilq25h7fiaPEEutWGm6BMInCbgsdPThMKdHvsxbAcNYVKnpjHZJTa4EFpDgBJBVUx28Y6o/Lp5efKKxTFe7GQHx7HXZVutB1lb/Hi6/hhzTSkv2L6jvEURRqaIW530WtOrCrJjOng8lSiGueoO81XtAZ3Bs7lX3CP4fMc0Oe4mR1hLUaGTzKO2UynVUjaRds0n2XU7PsZbU+AUxZhlBmzQluKQh+UvSOQ0sIrO2YUdS7M1ncQuoOawbAKJ1QBA5UD87fo56OxdXqsV//AJheqvkYPysotBsvyjlbYpalsRyOiIs8SpsdmMD2XmI422o+W8CF1vRyKFNrQcHCRoSmeLYIXU84Go+3Kgddyo6vaFwGQjyVWXQtp2T8w4HKcX+B5qU5hI1/VK3XfoozjlT4ZCiZKN8Pse7dJM9U/ucPpPYNZI1VUr37jyoKF/UmJMK7JRY6dmwGYT6zptqAMY2XHQDqVVmXDiPhJXUv4ddmv5ZhuLgjvHDwskHu2nk/5H6JUslINQD8JwttpSktLqrt8o09AUvxa8vC3w0jlHALQdfKZKuDL2k7kT00Q9xWptJnU+ULBKPPfLRshPj62c2/8nWDspYQehBCZWVWu8QGCDyUXeYe6uQS7Rux0JA01PkgW3xouLH6gbEcj8vRZfjrfSNbyJrXYzb3rQAWNMHVohe3F5SylhaGSIggz10nlDtxbMdFLUe1+4EI3L9Cfe0CMaKjCydRqx3II1WvZ/FxUdLvjPhJ1n1/JS933bm5fhEHXcAmCqbcXZt7yqNstUn2JzD6FFBuJfFSTLPieGBleG6BwzEcN3Py8kr7WZHNyub/AFGwWuHIP5K1WFcV2h+/B8ifvKRYxTZTqMFTxRI1/DwtGSKUbQvHL7bK1YuDI19Qn2H3jXtcCfMD8ktxLDonu4c0mY5CCtXGmR1/eizW/Q9xQcLN3iqM1bOreQtsSxFrG5Acr3Djf3U2O4rTtqWeYc7ZvU9FzcXTqjy951Jn08gnxxasW53osJ7PvqeJpze6Bq4U5phwI9Ufg+KOpkQVdbV9G7ADgA7qmY/KadSEZfFVXE50cNEapPiIDdldu1GHOtnFrtj8J6hc/wARfLitqpmaLlHo0o3mVwI4K6x2U7QCpTAnULjZCYYRijqLgQfZBkxWtDYZ29SO8NvPNY64VPwXtEyqBrBT5leVjcHY2w11VQvqKPOtS5C4l8j0vWKOVirgTkc/rve4RlUVChUGyfvA6L2kwLo2YqFjLOr1Wn/iXEySn4cFhKqy6FLcFnlF/wCn2ASUUx6kqVp0VWy6QHb4KzonGG4AwvADZJMAIrs3hz7ioKbdOXOOzR18/IK80bZlqx2RjnVIMvO58h+EJOXNHGthwg5OkZYYRb27QSG541dEmejeilvMQphuRp9THlCUWrn1ZcX5SdYHHuVq7D3HUPJHMwFz3lm9pG5YYx7ZpXYJ/pu0/wAp1UNLxfE6DPp6AaIbEqlRoEiQ2YjdRWOIiqCD8Q4/Eqi43Qck6tGV8SNMkB3Op+33Q13d03MIJ1c7Q7/Ppug8WoEOd0Ilp/I/ZVtuIkGDx+5Rxk+geF7Q5dTe139M5v8AHn/j1R+D4oH6HX1SalW1G+Yw4EaCJO/yTqvhYyG4pkNfvAHhd10Gx3QcW3ottew/GCXNaWO+Df05+yqX8QmxXpVIg1KQzEbFzDGb1gj5J1QqFrTm2OnzXnazD/5i2ZkAL6XiAG5bHjb57AhFik29lJU0Adjse7t2U/Cf2CrJ2voTluImnEO8p5XMsNfB9F0PDMTNWm2i7pzsR0801yaXFlOFu0JLYCQWmf0TXFaNBje8cYcGzvA06rTG8B7lmdj9ZEDzPC552hxh1d/dh3gZoT+Ij8leLG2ysk0kRYhXfd1iWzkbo2enWPNWvstg1Npl7Q4f5Kv4S8AQG+/VXXCMJqVIaTlnjnr7I8s60ukBCPuQc6xp5pZSEeyKa+mwAlmWOY/NE4f2cALZe508zAHkYTupY0mMic08GNfLVZ1b26Cco9LZVu19sLu1ml4ns1jmFxi7YQ4giCNwu9VMIptIdSLqZO8fD6Fcs/iJg76NwXlpyPAIdHhJ9eq2ePkb+rEZILtFNIWpClcFG5bTNJHtGu5hlphWDDe1tRmjtQq0V4qcFLsFTaOi23bOmd9EY3tVR/EuXysQfAgvlZ009q6XVYuYwsVfCi/lZ0kvlbscoGle94rKCQ5Y56iaV6FCE7FI0qKmCTABPkNUyoYbVlpLMoJiTH1G42QOSXbDjGUukdJ7C0aDbZrWuHevGd+ozSfhHoB+fVPLu1lsfVUuvZGoGfy4JLGgZwMkFrQJzKz0qtTuGtrOBqRDiOenvssspxldoe8XCmn/AK/QixGk3MS05fMbH1CXXF6+kDmALTs4be/RM6pph+VxGvnMH1S/FXspaSC1w/8Ab2KwcZcXKzWpK0mhU+/mddDx+iRXdUMfmZpzCZPsqbtWOLHfhOrfbkfVBYlg1QQQc7SJJaDp1kb+6VjjJ7HXENN1maOg6/OFVe0toGFtRnw1PL4XDcT57phWa+k7u6oI501BBGhEbhFYlZ97aVQJLqZDxzq06wf/AFJWrGnzpiroqdhiRa4TwVcsKxZhpluvi0ka5eZC549hEH96dVPZXhaVplD2gZJM6DjDRQotIaX5iQCJA6tJ54OiEsbl4LX7Ncfl1hTYBjQdka8+EFHYlRBeH0hprLPKTsPThIlTBja0Jb3BaebPR0E/D065fLyUdBzqbwZOUEEnoB5I20qtbUBJGV086DyS3tpjdOmxoZqTI0515RRTloJtLZ52n7UETlE5pa1pO0jVxCpFtS2ACktc9Z+Z/oB09FZMMw9jXdXekgeS0t/HGn2JS5uw7s5heUZ378DonbsVIMME+fCCuK+VuUIA1yNIJP4Vilc2aFGuyztxt4aZPyS6tjTeXa+qWMw2tUPiOVsbSpjgQaCT+qF4o+y00hrbdoY+F0jmdUzbjNCuzu69Nr2n+06j1g7LfAuz9K2pvfcCnUe6HNBEhojYTodwpra9GfKGsbO0NDUDvE0kC+Mr0UDHv4ckNdVsn960STSMBwbv4D/dHTdc/dTX0WMQpsqAFwBB101+nC5//EfsaB3l9a5XUj4qrG7tJMGo0D+3WSON9tun43kOWpdmHLjraOXuatgxSlq2aFtszURd2s7tShekKEoj7peraFihdF2aFgCxqwHVAQlCZYLhb7hxDIDWiXOOgH6ofCLB1esyi0wXmJ3gAS4xzABXQ8E7PstgGOf3xc+YylrJ2EiTmOnokZsyxodix8mL8EwMzlot71861CMrW9NTsPqVccN7NMZl78io7pswc7co52JU2EiR4RqqL2g7UPLjlc6J0DTAWWeTHj+0ttmuEcmRcYaResTqsY3KIiNAOPYKoX9y8k7wNP0/JVy2xiq4kgH1lOLC47+WnRx19VnnkWX1QyOB4uwC5qjedeiWV7w7I6+oZSd9EnvmiJCStDlTN6V6J3TXDMS8Q8uFVnBu8+6ipYgabpBkddkcVZU4HQMXwJt2W1GOyloy+R5ExqEptKL6XhqAhodHvrHqFr2f7SwCNweqcX9RrxqZY/TNpLXb7dFoaXfsy3JaZR8VwUZ3PAJbuWt3iPEW+8lVkWpOoB3VxqVCHEbEHcHj1QrqQk6b69PkoptdjfWhVhbS0iZhWNl0dPFMbRwgBbs4dBPHC0fNMEk/uEuSvaLX9I8Tvw0Oc46j6/8AaqdKk+4qyQY48gi3tdcvLplrSAG9U5s7d+Y5Ybpzpxp9itUP+Nf0CS5f4N7eybT0A/5feE0sqYH5IUMLmtDQ4mNZjfNrHkm9rZ5iG6CBrP19UibbC/6gFZ4zDPEQY4UdndsY4k6ngeZ6prjWGUyxxptJLWhwdqADOgE8qn0aoDtRBnryCiUdEuzoVtXECQAtKtyNcuw5/wClXaGeoYDoEdETQa5umY/dJnLiRQIL+q5ziWveWnZpJIGmwB0A8lqKjwAc5BG3JTCnbL28oAN80hyk2O5JaAH4jU0ObWN9J+anwzHqtN0h08EHY9Qkd1Uy6qKhdAnROSk1aKklRt2k7KEu760bNOpJLP8Abfu5o/x106bKuV8Irs+Kk4D0n7LpmAXGoYTo/T0dwngbpqJXW8bJ8kd9nKzw4S/hws6HValdnr4PQeZNJs+gQFfslaHemB6GFo4ibOULF03/AEfafhP/ANFeqUychI1y3podrlNRCWWdF/hrh1OKlw8wfgbOwGheR57D5qz4jiLAwGlpJPijbhVvBb0d21ucCkKYaGxqHRqfPWdVLe20UHf1GnWQGkknQaTxC5WXLKUnX/p0seGKq2IsZxsnwMJ8zO/UITDrCpXmJjlylwHD21KrO8BLR4nAESQTAEnzXQ8lOnbHu9Gz4RsNPukLByTk/RqnnWP6xWyh1rIsOQGOPJDUa1Sm+diCnN20OmeUuvapiOI9ylQpbJyb7Gt8RVptqs50PkeZS2hROpcPDzp7QpezV63MabyA12g8ncKfGabgzK3gkop92L6dFExa3NGq5nEyPMHUIM08zXHO1uVswd3Ho0dVYMYpGqwf7jefLkFV00HRrofotGNp7CbIWVXUy0yNQDAPB69D5KwWuIOeyJ0VVuKJ6foneCN0g/JNmtWhMgi8LmEO3ad+Y6IoublEEBbsqgg8QdioKz2OmRqeUqyJEb9jPt+i0q2rqgIdMAbce/mp6FyxvicdvhB46mPshG4wHlwbG/qnYYVti8s29IHsqLaTttCR9907q2bM2YnTTQbadUvrWRc3Nz++EThFznYaR+IED/jyUeaLatEwz9DS2c0CQBtA2+y2e8AT09pQteoJjUAcJe+qaj+7Z6b/AFWKm2aWklYxrYzLcugEEeypz6mpBPp5mUdiVpVa/KDMbwDp0n2Xlva0S0gl2YOEuAkAH9NVqiqQhNIOwe7yjr+StNO1a5st10956/voqQKgpPcGnOwHRw5HVPMP7TsZzpCFwT7I5P0OP5cg6g/L6KC9fpAGp4ifso6nahjuR6wUtusaBksOsETGuu6UsST0S2+xJidSXH1+SHZcZSCN/JT93nPA6n80svnmm6JgfiidVohC9BuaXZZsNe/4m7ggxO4BlXh1XvGNqtaRJ11nKd5cf3uua4XjMANBa4zqToY6aK6YZjdOCw6Atn5FRXiYuaU10GVnHNvvEIaqTm1k+6mYc5GX2UlxZPG4j10XSVNI5rtMHB81izufNYjAKQ1yLp1IQbTopQ5LQdhtriRZ4Tq2ZMaH2Kf4LjbS4scNHbA9eFUW6n7ryrUiYWbL40J7fZox+ROCr0dBss1tcTllrhrpOXWZnhPO0GKuqMYymAREmOvK5fhvaGpS8J8TJ1E6xMmD81YKWPUX1AQQA4xl0BAPWeVhyYckY8PRtjlxzfJ9lrs8OzU8zjOm3mk2NAAQOEfRdTa+KFczyDqPmg8Utqjsx0MbgA+khLcY1SIm7sQVQBUEeTvpP3VrfiQqUeA8iD5jqqU2o/MXay38vsnuDW+d/eOPgHAO7tdCj43FlyYruWFunXnk+SAZQdJzJ12iumtqiBPl08kFd3DtfD4t/IR5JcdINME/kRGmq9oUGsMxvtH6IJl4RvK9dWOpn26JlMF/phl9SmHCIIndAVaw2/tA1Q13izWNgkAmY6eahtLhpIAc0+4K04sLe2IyZuCpdhtOm0/2z84TG0otb/awLS2pdZPsj227SZIC1cDHzN8uZsFzR6GPsldcik7M0yQddDsBtKa903oob9lOACQJH7lVNRS+wUHJvRlXEaJaHuOhE5RuYmZ+iUntZSaDlY1hjjxO9+hQ91gYcd4Hr9gtrfs4wbDyPtyUqHjx2OnnYtdinenK3QaHMSWmfXZP6uJhlFgBBe7KSGtzes76DzUrMMY2IbHH78lOy18vomfDGXQl5muypYnVrVtA3I3mGxPsocNtHfDBOh4jVXI2Y101XjcKn4dDodtAUTh9aRccu9iBtMAQ5sEaTxHmo61ID4T7K0s7NuJBc5E0+zbRqdUpYJsY88UUo3BGkEny6omnh9SvEt0HH6q6jDaTTHdt+WqIsaDRIa0CTxP0TIYknV7Fzytq/RTf9GTq4tb6Si2YZTpRlcXEDUzJnoSrbVog6Fs+5W1OiwbUwPQBP4IRzYsw64fs0GRsSCnH8++AHiZ31mem6mosb+GPdVbtf2vp0SaNu0OrDRz/AO2meR/k4fIeeyvgr5Mq30E4n2jsreq6jVe4VGRmDWlwBIDonylYuVPc5xJJkkkkkkkknUleq7KplhaVuCoZWxdAQkJWOUdUoV1eEO+4VUGgoqJ6E74rU1SqoseYTjD6LwQcw5DpI9uQrbT7RCq8EOFLyJ8J8iVzU1iFrUunxulTwRl2Esso9HTcUuqOYuzAujVrTMnyI0hAjHe7pBjRG5JHUrm9SvU/EVA57/xO+ZSvxE/YxeS/0XqpcOd43Tqd00YA5rZIgfMjdc4NWqwCKjvSZ191uMRr/wC4foh/Dfpjfyl7ReC+kKZedS52UDYAR+qr2I4ixkho14jb3SI3lX8R+iHcCdTqmw8ZJ7Yufk2tImqVM2p1K3FqDsYQwYVNSJWnroy232E0TXpmab3COjjHyOhTW07W3DD42tqDzGQ/Nun0SmnWOikdWUJRbrDtpQd/+jH0z1+IfTX6JqypZ3MFrqbiNY0B92nWVzokHgfJeGg08KOvZabXR1evh0wGtBGkadPzWjMPqTGQ+sLlzHPZBZUeI2hzh9ijrPtDd09W3FQeRdmH1lRJFNs6WMPdIkR6ndEU8Odz9p+6pFv2/rgjvaVKrHJBafporHh/8RbdwitSfTP+PjHtyoo/styH9Oxb0HyCm7kxoAh7TtTYv0bXaPJ0t+6Z/wA1R0Pe04POZqZSAImUvJe1bfRG0yx3wvafRwUotgrogmFkN8qlFrEQPpymot16KKlEFfcE7gL0W6jxvtFbWulR8u4YNT/0uXdqO3Fe5llP+lS6A+Jw/wAj+SptIhYu1nbFjJo2xzVNnVRBDOobw53nwucxJJmSZJJ3J3JPUrSmt2lLbbDSo8yLFvCxVZBqxyjr1F6sVggTnLRyxYoWiNegrFiphkZWO3WLFRCJ4XrKaxYoQ2rNkjyWkLFiJAszJK1LV4sVlGFqyNFixQhuxuq8K8WKEZgK2BWLFRCRrl4VixQh4tsyxYoQnojYFSN1PusWKyidlR7ILHubB4cQnNl21vKcDvM4HDhP1WLFLKLHh38TToK1L3afyU3aXt43uot5D3ckRA5WLFdsiOYXddznEuJLjuSZQwWLFQRKAtnLFios2WLFihR//9k=",
                     "itemDescription": "Crispy pie crust with tasty apple chunks.",
                     "itemPrice": 3.5,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -314,9 +314,9 @@
                     "itemImage": "https://2.bp.blogspot.com/-5vh1snPCOYw/VKZZGw6-w7I/AAAAAAAALyE/bB6iuOSLnFY/s1600/Corn%2BSoup%2BS_hero.png",
                     "itemDescription": "Crunchy and juicy corn kernels, perfect as a snack!",
                     "itemPrice": 3.99,
-                    "totalPrice": "",
-                    "itemCount": "",
-                    "isOrdered": ""
+                    "totalPrice": 0,
+                    "itemCount": 0,
+                    "isOrdered": false
                 },
                 {
                     "restaurantId": "",
@@ -327,8 +327,8 @@
                     "itemImage": "https://www.tasteofhome.com/wp-content/uploads/2018/11/mc-donalds-fries_1033217323.jpg",
                     "itemDescription": "We only use premium Russet Burbank variety potatoes for that fluffy inside, crispy outside taste of our world-famous fries.",
                     "itemPrice": 5.99,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -340,8 +340,8 @@
                     "itemImage": "https://www.mcdelivery.com.sg/sg/static/1601237524936/assets/65/products/708216.png?",
                     "itemDescription": "A hearty morning combo of scrambled eggs, chicken sausage, a freshly toasted English muffin and golden Hash Browns.",
                     "itemPrice": 12.30,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -353,8 +353,8 @@
                     "itemImage": "https://topsecretrecipes.com/images/product/mcdonalds-filet-o-fish-copycat-recipe.jpg",
                     "itemDescription": "Cant get enough of Filet-O-Fish™? Have it for breakfast too!",
                     "itemPrice": 14.30,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -366,8 +366,8 @@
                     "itemImage": "https://www.mcdonalds.com.my/storage/foods/September2019/qfTrWYwxETzQbHmq4vNN.png",
                     "itemDescription": "Chicken sausage, farm fresh egg and cheese in a freshly toasted English muffin. Great way to kickstart your morning.",
                     "itemPrice": 15.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -379,8 +379,8 @@
                     "itemImage": "https://2.bp.blogspot.com/-0Hro2T5WOLs/XI3KLpJdRiI/AAAAAAAAQD4/PUJN8u6ohwsFIBN8p_x5KTeO_RvM6LCVgCLcBGAs/s1600/MCd%2Bwebsite.JPG",
                     "itemDescription": "Chicken sausage and cheese tucked in a freshly toasted English Muffin.",
                     "itemPrice": 8.99,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 }
             ]
@@ -497,8 +497,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/8/0-whopper-details.png",
                     "itemDescription": "Look who's here - THE burger to rule them all. A real meaty flame-grilled Whopper® beef patty, topped with tangy pickles, ketchup, fresh tomatoes, crisp lettuce and fresh onions, finished with creamy mayo , and served on a toasted 5 sesame seed bun. Feeling hungry for a real meaty burger yet?",
                     "itemPrice": 22.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -510,8 +510,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/9/0-whopper-cheese-details.png",
                     "itemDescription": "What else can we say, all the great taste of the WHOPPER® with cheese. A truly cheesillicious WHOPPIN' Time.",
                     "itemPrice": 21.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -523,8 +523,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/15/0-whopper-jr-details.png",
                     "itemDescription": "The same big WHOPPER® taste, but in a regular size. A mouth-watering, flame-grilled beef patty topped with fresh tomatoes, crisp lettuce, tangy pickles and crunchy onions, served on a toasted sesame seed bun and flavored with creamy mayo and ketchup. Ummm...yummy.",
                     "itemPrice": 17.90,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -536,8 +536,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/14/double-bbq-beefacon-details.png",
                     "itemDescription": "Double it up...Double the taste!! Grab hold of our Double BBQ Beefacon™ with cheese slices, Beefacon™ and delicious smokey BBQ sauce to complete the sensational taste.",
                     "itemPrice": 18.0,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -549,8 +549,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/12/double-mushroom-swiss-details.png",
                     "itemDescription": "Can't get enough of that heavenly creamy taste? Go for double the goodness! Melted Swiss cheese on two flame-grilled beef patties, topped with BK's special mushroom sauce, served on a sesame seed bun. Twice the velvety goodness in every bite.",
                     "itemPrice": 27.30,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -562,8 +562,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/56/double-cheeseburger-details.png",
                     "itemDescription": "Make room for our Double Cheeseburger, two signature flame-grilled beef patties topped with a simple layer of melted American cheese, crinkle cut pickles, yellow mustard, and ketchup on a toasted sesame seed bun.",
                     "itemPrice": 24.0,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -575,8 +575,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/86/0-tendergrill_burger_500x540px.png",
                     "itemDescription": "Wonder why it’s called Tendergrill™? That’s ‘cos we made sure to flame-grill the chicken thighs to soft, juicy perfection. Best enjoyed with fries and soft drink.",
                     "itemPrice": 25.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -588,8 +588,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/24/soft-drink-details.png",
                     "itemDescription": "Great selection of drinks to be consumed with or without straw. Your favourite drinks only @ BK. Choose your pleasure.",
                     "itemPrice": 5.20,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -601,8 +601,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/33/coffee-latte-details.png",
                     "itemDescription": "Makes mornings worth waking up for. Espresso and milk.",
                     "itemPrice": 10.0,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -614,8 +614,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/28/0-milo-details.png",
                     "itemDescription": "Enjoy it either Hot or Cold. You can never go wrong with the taste of Cocoa, giving you the energy you deserve!",
                     "itemPrice": 4.99,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -627,8 +627,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/25/dasani_500pxW-x-540pxH.png",
                     "itemDescription": "Cool down with our Mineral water, it sure does quench your thirst!",
                     "itemPrice": 1.99,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -640,8 +640,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/51/taro-details.png",
                     "itemDescription": "Sweet taro chunks in a crispy pie crust. It'll win you over in a bite! Perfect after meals.",
                     "itemPrice": 2.0,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -653,8 +653,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/53/pineapple-pie.png",
                     "itemDescription": "Sweet pineapple chunks in a crispy pie crust. It'll win you over in a bite! Perfect after meals.",
                     "itemPrice": 2.0,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -666,8 +666,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/17/onion-rings-details.png",
                     "itemDescription": "There's more to sides than fries. Just ask fans of our famous Onion Rings, bursting with refreshing onion goodness inside! Perfect snack on its own or with a meal.",
                     "itemPrice": 4.5,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -679,8 +679,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/68/0-salad.png",
                     "itemDescription": "Something light on the tummy but super packed with great nutrients. Come enjoy our salad bowl with special sauce on its own or swap it with fries when you order your next BK meal!",
                     "itemPrice": 3.99,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -692,8 +692,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/18/french-fries-details.png",
                     "itemDescription": "Yummy shoe-string fires fried to a crisp golden brown, served piping hot withyour favourite Value Meal, or as the star of the moment.",
                     "itemPrice": 6.99,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -705,8 +705,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/112/BKMY200336-20_Breakfast-Refresh-4.0_BK-Website(500x540)_4.png",
                     "itemDescription": "Wake up to BK’s classic crispy chicken fillet, fluffy eggs, delicious cheese and signature mushroom sauce together inside a fluffy, buttery CROISSAN’WICH® bun to bring you to cloud nine in one bite!",
                     "itemPrice": 11.30,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -718,8 +718,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/104/BKMY200336-20_Breakfast-Refresh-4.0_BK-Website(500x540)_1.png",
                     "itemDescription": "Kickstart the day with a sweet and savoury masterpiece!Our Cheesy Caramelized Onion Croissan'wich® is perfect for cheese lovers, and great for satisfying that morning hunger.",
                     "itemPrice": 13.30,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -731,8 +731,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/111/BKMY200336-20_Breakfast-Refresh-4.0_BK-Website(500x540)_3.png",
                     "itemDescription": "This signature combination of creamy mayo, Beefacon™, fluffy eggs and American cheese sandwiched between a CROISSAN’WICH® bun is sure to hit all the right spots if you’re looking for a savoury pick-me-up.",
                     "itemPrice": 16.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -744,8 +744,8 @@
                     "itemImage": "http://www.burgerking.com.my/upload/image/Product/110/BKMY200336-20_Breakfast-Refresh-4.0_BK-Website(500x540)_2.png",
                     "itemDescription": "This sensational chicken strips, egg and cheese sauce sandwiched between soft buttery CROISSAN’WICH® is sure to tantalize your taste buds.",
                     "itemPrice": 10.99,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 }
             ]
@@ -882,8 +882,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/del-cheezy-cheezy-combo-3pc.png.webp",
                     "itemDescription": "3 pieces of chicken, cheezy wedges, whipped potato, drink",
                     "itemPrice": 18.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -895,8 +895,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/del-cheezy-cheezy-combo-2pc.png.webp",
                     "itemDescription": "2 pieces of chicken, cheezy wedges, whipped potato, drink",
                     "itemPrice": 21.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -908,8 +908,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/stacker-box.jpg.webp",
                     "itemDescription": "STACKER BOX 1 piece of chicken, Zinger Stacker, fries, drink.",
                     "itemPrice": 15.90,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -921,8 +921,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/signature-box.jpg.webp",
                     "itemDescription": "1 piece of chicken, Zinger burger, fries, drink.",
                     "itemPrice": 23.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -934,8 +934,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/delivery_SetB-3pc-Combo.png.webp",
                     "itemDescription": "3 pieces of chicken, coleslaw, whipped potato, drink.",
                     "itemPrice": 11.30,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -947,8 +947,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/delivery_SetF-1pc-Rice-Combo.png.webp",
                     "itemDescription": "1 piece of chicken, coleslaw, rice, drink.",
                     "itemPrice": 12.0,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -960,8 +960,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/delivery_2-pc-Chicken.png.webp",
                     "itemDescription": "2 pieces of chicken",
                     "itemPrice": 21.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -973,8 +973,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/pepsiblack.png.webp",
                     "itemDescription": "none",
                     "itemPrice": 3.70,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -986,8 +986,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/delivery_Pepsi(R).png.webp",
                     "itemDescription": "none",
                     "itemPrice": 3.70,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -999,8 +999,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/pepsi-black-1.5L.png.webp",
                     "itemDescription": "none",
                     "itemPrice": 5.90,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -1012,8 +1012,8 @@
                     "itemImage": "https://my-live-01.slatic.net/p/0c8cf733b3610e1c0cf3fc59cd806852.jpg",
                     "itemDescription": "Drink up to hydrate.",
                     "itemPrice": 2.99,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -1025,8 +1025,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/6-pc-tenders-combo-chipotle.jpg.webp",
                     "itemDescription": "Indulge in our famous Sundae, whirled with bits of Oreo.",
                     "itemPrice": 17.0,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -1038,8 +1038,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/6-pc-nuggets-combo-chipotle.jpg.webp",
                     "itemDescription": "6 pieces of nuggets, dip, potato wedges or fries, drink.",
                     "itemPrice": 33.90,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -1051,8 +1051,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/9-pc-nuggets-chipotle.jpg.webp",
                     "itemDescription": "9 pieces of nuggets, dip.",
                     "itemPrice": 12.90,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -1065,8 +1065,8 @@
                     "itemDescription": "6 pieces of nuggets, dip",
                     "itemPrice": "",
                     "totalPrice": 9.20,
-                    "itemCount": "",
-                    "isOrdered": ""
+                    "itemCount": 0,
+                    "isOrdered": false
                 },
                 {
                     "restaurantId": "",
@@ -1077,8 +1077,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/delivery-cheesy-wedges(L).png.webp",
                     "itemDescription": "Cheezy Wedges",
                     "itemPrice": 6.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -1090,8 +1090,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/zinger-spicy-bbq-a-la-carte.jpg.webp",
                     "itemDescription": "A hearty morning combo of scrambled eggs, chicken sausage, a freshly toasted English muffin and golden Hash Browns.",
                     "itemPrice": 11.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -1103,8 +1103,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/zinger-cheezy-ala-carte.jpg.webp",
                     "itemDescription": "Cant get enough of Filet-O-Fish™? Have it for breakfast too!",
                     "itemPrice": 11.50,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -1116,8 +1116,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/zinger-spicy-bbq-wedges-delivery.jpg.webp",
                     "itemDescription": "Zinger Spicy BBQ, potato wedges, drink",
                     "itemPrice": 15.80,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 },
                 {
@@ -1129,8 +1129,8 @@
                     "itemImage": "https://cdn.kfc.com.my/images/menu/delivery/zinger-cheezy-wedges-delivery.jpg.webp",
                     "itemDescription": "Zinger Cheezy, potato wedges, drink",
                     "itemPrice": 15.80,
-                    "totalPrice": "",
-                    "itemCount": "",
+                    "totalPrice": 0,
+                    "itemCount": 0,
                     "isOrdered": false
                 }
             ]
