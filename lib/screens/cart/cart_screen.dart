@@ -56,7 +56,7 @@ class _CartScreenState extends State<CartScreen>
             body: FutureBuilder(
               future: cart.getCart(),
               builder: (context, snapshot) {
-                if (cart.carts.items.length != 0) {
+                if (cart.cartItems.length != 0) {
                   return PageView(
                     onPageChanged: (index) {
                       // pageChanged = index;
@@ -140,7 +140,7 @@ class _CartScreenState extends State<CartScreen>
                           style: TextStyle(fontSize: 18),
                         ),
                         Text(
-                          "${cart.carts.totalPrice} RM",
+                          "${cart.getTotalPrice()} RM",
                           style: TextStyle(fontSize: 18),
                         ),
                       ],
@@ -172,7 +172,7 @@ class _CartScreenState extends State<CartScreen>
                           style: TextStyle(fontSize: 18),
                         ),
                         Text(
-                          "${cart.carts.totalPrice * 0.1} RM",
+                          "${cart.getTotalPrice()} RM",
                           style: TextStyle(fontSize: 18),
                         ),
                       ],
@@ -198,7 +198,7 @@ class _CartScreenState extends State<CartScreen>
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "${cart.carts.totalPrice + (cart.carts.totalPrice * 0.1)} RM",
+                          "${cart.getTotalPrice()} RM",
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -313,7 +313,7 @@ class _CartScreenState extends State<CartScreen>
             physics: AlwaysScrollableScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            itemCount: cart.carts.items.length,
+            itemCount: cart.cartItems.length,
             padding: EdgeInsets.all(8.0),
             itemBuilder: (context, index) {
               return Padding(
@@ -328,7 +328,7 @@ class _CartScreenState extends State<CartScreen>
                               borderRadius: BorderRadius.circular(5),
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      "${cart.carts.items[index].itemImage}"),
+                                      "${cart.cartItems[index].itemImage}"),
                                   fit: BoxFit.cover)),
                           width: 75,
                           height: 75,
@@ -358,13 +358,13 @@ class _CartScreenState extends State<CartScreen>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  "${cart.carts.items[index].itemName}",
+                                  "${cart.cartItems[index].itemName}",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  "${cart.carts.items[index].itemDescription}",
+                                  "${cart.cartItems[index].itemDescription}",
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold),
@@ -374,7 +374,7 @@ class _CartScreenState extends State<CartScreen>
                                   height: 10,
                                 )),
                                 Text(
-                                  "${cart.carts.items[index].itemPrice} RM",
+                                  "${cart.cartItems[index].itemPrice} RM",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -413,7 +413,7 @@ class _CartScreenState extends State<CartScreen>
                               width: 25,
                               child: Center(
                                   child: Text(
-                                "${cart.carts.items[index].itemCount}",
+                                "${cart.cartItems[index].itemCount}",
                                 style: TextStyle(fontSize: 14),
                               )),
                             ),

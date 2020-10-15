@@ -8,37 +8,32 @@ import '../dependency.dart';
 class CartProvider with ChangeNotifier {
   Cart carts;
   final userId = 'newUser';
-
   final dataService = service<DataService>();
   final cartService = CartService();
 
-  Future<void> addOrder(List<Item> data) async {
-    data.forEach((element) {
-      element.totalPrice = element.itemCount * element.itemPrice;
-    });
-    await cartService.createCart(data);
-  }
+  List<Item> cartItems;
 
-  Future<void> updateCart(List<Item> data) async {
+  Future<void> addToCart(List<Item> data) async {
     data.forEach((element) async {
-      final checkData = await cartService.checkItemExist(carts.id, element.id);
+      // final checkData = await cartService.checkItemExist(carts.id, element.id);
 
-      if (checkData == false) {
-        element.totalPrice = element.itemCount * element.itemPrice;
-        carts.totalPrice += element.totalPrice;
-        await cartService.updateCartDocument(element, carts.id);
-      } else {
-        element.totalPrice = element.itemCount * element.itemPrice;
-        carts.totalPrice += element.totalPrice;
-        element.itemCount += checkData[0].data()['itemCount'];
-        element.totalPrice += checkData[0].data()['totalPrice'];
-        await cartService.updateCartRepeated(
-            element, carts.id, checkData[0].id);
-      }
+      // if (checkData == false) {
+      //   element.totalPrice = element.itemCount * element.itemPrice;
+      //   carts.totalPrice += element.totalPrice;
+      //   await cartService.updateCartDocument(element, carts.id);
+      // } else {
+      //   element.totalPrice = element.itemCount * element.itemPrice;
+      //   carts.totalPrice += element.totalPrice;
+      //   element.itemCount += checkData[0].data()['itemCount'];
+      //   element.totalPrice += checkData[0].data()['totalPrice'];
+      //   await cartService.updateCartRepeated(
+      //       element, carts.id, checkData[0].id);
+      // }
 
-      await cartService.updateCartTotalPrice(carts.id, carts.totalPrice);
+      // await cartService.updateCartTotalPrice(carts.id, carts.totalPrice);
+
+      await cartService.addItemsToCart(element.toJson());
     });
-
     notifyListeners();
   }
 
@@ -57,9 +52,18 @@ class CartProvider with ChangeNotifier {
 
   Future<void> getCart() async {
     final cartList = await cartService.getCartItems();
-    carts = await cartList;
+    cartItems = await cartList;
 
     return cartList;
+  }
+
+  double getTotalPrice() {
+    double total = 0;
+    cartItems.forEach((element) {
+      total += element.totalPrice;
+    });
+
+    return total;
   }
 
   Future checkDocument(String id) async {

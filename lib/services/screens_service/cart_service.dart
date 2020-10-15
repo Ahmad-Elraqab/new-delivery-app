@@ -8,24 +8,26 @@ class CartService {
   final dataService = service<DataService>();
 
   Future getCartItems() async {
-    final carts = await dataService.getCart();
-    final items = await dataService.getCartItems(carts[0]);
-    final id = carts[0].documentID;
-    final Map<String, dynamic> mergedCart = carts[0].data();
-    final result = (items as List).map((e) => e.data()).toList();
+    // final carts = await dataService.getCart();
+    // final items = await dataService.getCartItems(carts[0]);
+    // final id = carts[0].documentID;
+    // final Map<String, dynamic> mergedCart = carts[0].data();
+    // final result = (items as List).map((e) => e.data()).toList();
     // double totalPrice = 0.0;
 
-    mergedCart['id'] = id;
-    mergedCart['items'] = result;
+    // mergedCart['id'] = id;
+    // mergedCart['items'] = result;
 
-    for (var i = 0; i < mergedCart['items'].length; i++) {
-      mergedCart['items'][i]['menuId'] = items[i].documentID;
-      // totalPrice += mergedCart['items'][i]['totalPrice'];
-    }
+    // for (var i = 0; i < mergedCart['items'].length; i++) {
+    // mergedCart['items'][i]['menuId'] = items[i].documentID;
+    // totalPrice += mergedCart['items'][i]['totalPrice'];
+    // }
 
     // mergedCart['totalPrice'] = totalPrice;
 
-    return Cart.fromJson(mergedCart);
+    final items = await dataService.getCartItems();
+    
+    return (items as List).map((e) => Item.fromJson(e)).toList();
   }
 
   Future<void> createCart(List<Item> data) async {
@@ -74,5 +76,10 @@ class CartService {
   Future updateCartTotalPrice(String cartId, double totalPrice) async {
     return await dataService
         .update(cartId, 'cart', data: {'totalPrice': totalPrice});
+  }
+
+  Future<void> addItemsToCart(Map items) async {
+    await dataService.addToSubCollection(
+        'Ikpfx9o03W1nD168LFfQ', items, 'users', 'cart');
   }
 }

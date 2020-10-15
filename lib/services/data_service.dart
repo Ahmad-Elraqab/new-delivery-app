@@ -78,16 +78,14 @@ class DataService {
     return carts;
   }
 
-  Future<dynamic> getCartItems(data) async {
-    final id = data.documentID;
-
+  Future<dynamic> getCartItems() async {
     var items = (await FirebaseFirestore.instance
+            .collection("users")
+            .doc('Ikpfx9o03W1nD168LFfQ')
             .collection("cart")
-            .doc(id)
-            .collection("items")
             .get())
         .docs;
-    return items;
+    return (items).map((e) => e.data()).toList();
   }
 
   Future createOrderCollection({String collection, dynamic data}) async {
@@ -171,13 +169,12 @@ class DataService {
         .delete();
   }
 
-  Future<void> addToSubCollection(String doc1Id, dynamic data) async {
+  Future<void> addToSubCollection(
+      String doc1Id, dynamic data, String coll_1, String coll_2) async {
     await FirebaseFirestore.instance
-        .collection("restaurant")
+        .collection(coll_1)
         .doc(doc1Id)
-        .collection("feedback")
+        .collection(coll_2)
         .add(data);
   }
-
-
 }

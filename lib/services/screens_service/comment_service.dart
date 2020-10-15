@@ -17,6 +17,7 @@ class FeedbackService {
 
   Future addComment(String restaurantId, FeedbackData data) async {
     final result = data.toJson();
-    await dataService.addToSubCollection(restaurantId, result);
+    await dataService.addToSubCollection(
+        restaurantId, result, 'restaurant', 'feedback');
   }
 }

@@ -48,7 +48,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
               _categoryList(rest, restData),
               _itemList(context, menu, rest, restData),
               // _visible ? _addCart() : null,
-              if (rest.visible) _addCart(menu, order)
+              if (rest.visible) _addCart(order, rest)
             ],
           ),
         ),
@@ -56,24 +56,26 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
     );
   }
 
-  AnimatedOpacity _addCart(ItemProvider menu, CartProvider cart) {
+  AnimatedOpacity _addCart(CartProvider cart, RestaurantProvider restaurant) {
     return AnimatedOpacity(
       opacity: 1.0,
       duration: Duration(milliseconds: 2000),
       child: InkWell(
         onTap: () async {
-          menu.cartItems.clear();
-          menu.items.forEach((element) {
-            if (element.itemCount != 0) menu.cartItems.add(element);
+          // menu.cartItems.clear();
+
+          // menu.items.forEach((element) {
+          //   if (element.itemCount != 0) menu.cartItems.add(element);
+          // });
+          restaurant
+              .restaurantsByDistance['${restaurant.currentRestaurantType}']
+                  [restaurant.currentMenu]
+              .menu
+              .forEach((element) {
+            if (element.itemCount != 0) cart.cartItems.add(element);
           });
 
-          final response = await cart.checkDocument(userIdConst);
-          if (response == true) {
-            await cart.addOrder(menu.cartItems);
-          } else {
-            await cart.updateCart(menu.cartItems);
-          }
-          await Future.delayed(Duration(seconds: 1));
+          await cart.addToCart(cart.cartItems);
 
           Navigator.pushNamed(context, kRestaurantCart);
         },

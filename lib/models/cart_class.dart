@@ -15,12 +15,11 @@ class Cart {
   // Cart.fromJson(Map<String, dynamic> json, dynamic json2)
   Cart.fromJson(Map<String, dynamic> json)
       : this(
-          id: json['id'],
-          userId: json['userid'],
-          totalPrice: json['totalPrice'],
-          items: (json['items'] as List)
-              .map((doc) => Item.fromJson(doc))
-              .toList(),
+          // id: json['id'],
+          // userId: json['userid'],
+          // totalPrice: json['totalPrice'],
+          items:
+              (json['items'] as List).map((doc) => Item.fromJson(doc)).toList(),
         );
 
   Map<String, dynamic> toJson() =>
