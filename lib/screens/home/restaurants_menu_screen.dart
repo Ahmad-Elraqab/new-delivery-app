@@ -62,20 +62,17 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
       duration: Duration(milliseconds: 2000),
       child: InkWell(
         onTap: () async {
-          // menu.cartItems.clear();
-
-          // menu.items.forEach((element) {
-          //   if (element.itemCount != 0) menu.cartItems.add(element);
-          // });
           restaurant
               .restaurantsByDistance['${restaurant.currentRestaurantType}']
                   [restaurant.currentMenu]
               .menu
               .forEach((element) {
-            if (element.itemCount != 0) cart.cartItems.add(element);
+            if (element.itemCount != 0) {
+              // cart.cartItems.add(element);
+              cart.addToCart(element);
+              element.itemCount = 0;
+            }
           });
-
-          await cart.addToCart(cart.cartItems);
 
           Navigator.pushNamed(context, kRestaurantCart);
         },

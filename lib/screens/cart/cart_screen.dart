@@ -359,12 +359,16 @@ class _CartScreenState extends State<CartScreen>
                               children: <Widget>[
                                 Text(
                                   "${cart.cartItems[index].itemName}",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   "${cart.cartItems[index].itemDescription}",
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold),

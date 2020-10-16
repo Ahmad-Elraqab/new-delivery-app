@@ -85,7 +85,15 @@ class DataService {
             .collection("cart")
             .get())
         .docs;
-    return (items).map((e) => e.data()).toList();
+
+    List data = [];
+    items.forEach((element) {
+      final result = element.data();
+      result['id'] = element.id;
+      data.add(result);
+    });
+
+    return data;
   }
 
   Future createOrderCollection({String collection, dynamic data}) async {
@@ -143,11 +151,11 @@ class DataService {
     return false;
   }
 
-  Future<void> updateRepeated(Map data, String id, String itemId) async {
+  Future<void> updateRepeated(Map data, String itemId) async {
     await FirebaseFirestore.instance
+        .collection("users")
+        .doc('Ikpfx9o03W1nD168LFfQ')
         .collection("cart")
-        .doc(id)
-        .collection("items")
         .doc(itemId)
         .set(data);
   }
@@ -160,11 +168,11 @@ class DataService {
         .add(data);
   }
 
-  Future<void> deleteFromSubCollection(String doc1Id, String doc2Id) async {
+  Future<void> deleteFromSubCollection(String doc2Id) async {
     await FirebaseFirestore.instance
+        .collection("users")
+        .doc('Ikpfx9o03W1nD168LFfQ')
         .collection("cart")
-        .doc(doc1Id)
-        .collection("items")
         .doc(doc2Id)
         .delete();
   }
