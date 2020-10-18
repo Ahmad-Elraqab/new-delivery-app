@@ -12,8 +12,17 @@ class CartProvider with ChangeNotifier {
   List<Item> cartItems = new List<Item>();
 
   Future<void> addToCart(Item data) async {
-    data.totalPrice = data.itemCount * data.itemPrice;
-    await cartService.addItemsToCart(data.toJson());
+    final valid =
+        await cartService.checkItemExist('Ikpfx9o03W1nD168LFfQ', data.id);
+    // !?! i must add meal id to the meals to validate its existence in the cart............. it supposed to be data.mealId
+    if (valid == false) {
+      data.totalPrice = data.itemCount * data.itemPrice;
+      await cartService.addItemsToCart(data.toJson());
+    } else {
+      data.itemCount += valid['itemCount'];
+      data.totalPrice = data.itemCount * data.itemPrice;
+      await cartService.updateItemField(data, valid['menuId']);
+    }
 
     notifyListeners();
   }
@@ -31,7 +40,7 @@ class CartProvider with ChangeNotifier {
       total += element.totalPrice;
     });
 
-    return total;
+    return total.roundToDouble();
   }
 
   Future checkDocument(String id) async {
@@ -43,7 +52,8 @@ class CartProvider with ChangeNotifier {
     cartItems[index].totalPrice =
         cartItems[index].itemCount * cartItems[index].itemPrice;
 
-    await cartService.updateItemField(cartItems[index], cartItems[index].id);
+    await cartService.updateItemField(
+        cartItems[index], cartItems[index].menuId);
 
     notifyListeners();
   }
@@ -52,13 +62,14 @@ class CartProvider with ChangeNotifier {
     cartItems[index].itemCount--;
     cartItems[index].totalPrice =
         cartItems[index].itemCount * cartItems[index].itemPrice;
-    await cartService.updateItemField(cartItems[index], cartItems[index].id);
+    await cartService.updateItemField(
+        cartItems[index], cartItems[index].menuId);
 
     notifyListeners();
   }
 
   delete(int index) async {
-    await cartService.deleteFromCart(cartItems[index].id);
+    await cartService.deleteFromCart(cartItems[index].menuId);
 
     // double totalPrice = 0.0;
     // cartItems.remove(cartItems[index]);

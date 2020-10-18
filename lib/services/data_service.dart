@@ -89,7 +89,7 @@ class DataService {
     List data = [];
     items.forEach((element) {
       final result = element.data();
-      result['id'] = element.id;
+      result['menuId'] = element.id;
       data.add(result);
     });
 
@@ -141,13 +141,13 @@ class DataService {
 
   Future checkItemExistInDoc(String cartId, String itemId) async {
     final data = await FirebaseFirestore.instance
-        .collection("cart")
+        .collection("users")
         .doc(cartId)
-        .collection('items')
+        .collection('cart')
         .where("id", isEqualTo: itemId)
         .get();
 
-    if (data.docs.isNotEmpty) return data.docs;
+    if (data.docs.isNotEmpty) return data.docs[0].data();
     return false;
   }
 

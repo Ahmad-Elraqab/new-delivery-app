@@ -92,7 +92,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                       return Expanded(
                         child: Container(
                           padding: EdgeInsets.all(8),
-                          width: 150,
+                          width: 160,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +101,6 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                                 flex: 8,
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      color: Colors.transparent,
                                       boxShadow: [
                                         BoxShadow(
                                             color: Colors.transparent,
@@ -111,8 +110,12 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                                       ],
                                       borderRadius: BorderRadius.circular(5.0),
                                       image: DecorationImage(
-                                        image: NetworkImage(
-                                            "${rest.restaurantsByDistance[rest.currentRestaurantType][widget.index].menu[index].itemImage}"),
+                                        image: NetworkImage(rest
+                                            .restaurantsByDistance[
+                                                rest.currentRestaurantType]
+                                                [widget.index]
+                                            .menu[index]
+                                            .itemImage),
                                         fit: BoxFit.cover,
                                       )),
                                 ),

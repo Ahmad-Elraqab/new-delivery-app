@@ -373,10 +373,6 @@ class _CartScreenState extends State<CartScreen>
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Expanded(
-                                    child: SizedBox(
-                                  height: 10,
-                                )),
                                 Text(
                                   "${cart.cartItems[index].itemPrice} RM",
                                   style: TextStyle(

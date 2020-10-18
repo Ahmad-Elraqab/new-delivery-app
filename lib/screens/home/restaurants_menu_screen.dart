@@ -70,8 +70,8 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
             if (element.itemCount != 0) {
               // cart.cartItems.add(element);
               cart.addToCart(element);
-              element.itemCount = 0;
             }
+            // element.itemCount = 0;
           });
 
           Navigator.pushNamed(context, kRestaurantCart);
