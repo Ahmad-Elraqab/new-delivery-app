@@ -147,7 +147,7 @@ class DataService {
         .where("id", isEqualTo: itemId)
         .get();
 
-    if (data.docs.isNotEmpty) return data.docs[0].data();
+    if (data.docs.isNotEmpty) return data.docs[0];
     return false;
   }
 

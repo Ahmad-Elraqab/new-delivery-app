@@ -19,9 +19,9 @@ class CartProvider with ChangeNotifier {
       data.totalPrice = data.itemCount * data.itemPrice;
       await cartService.addItemsToCart(data.toJson());
     } else {
-      data.itemCount += valid['itemCount'];
+      data.itemCount += valid.data()['itemCount'];
       data.totalPrice = data.itemCount * data.itemPrice;
-      await cartService.updateItemField(data, valid['menuId']);
+      await cartService.updateItemField(data, valid.id);
     }
 
     notifyListeners();
@@ -29,7 +29,7 @@ class CartProvider with ChangeNotifier {
 
   Future<void> getCart() async {
     final cartList = await cartService.getCartItems();
-    cartItems = await cartList;
+    cartItems = cartList;
 
     return cartList;
   }

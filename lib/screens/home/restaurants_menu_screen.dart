@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
+import 'package:work_app/models/item_class.dart';
 import 'package:work_app/models/restaurant_class.dart';
 import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/cart_provider.dart';
@@ -68,10 +69,21 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
               .menu
               .forEach((element) {
             if (element.itemCount != 0) {
-              // cart.cartItems.add(element);
-              cart.addToCart(element);
+              Item item = Item(
+                  id: element.id,
+                  isOrdered: element.isOrdered,
+                  itemCategory: element.itemCategory,
+                  itemCount: element.itemCount,
+                  itemDescription: element.itemDescription,
+                  itemImage: element.itemImage,
+                  itemName: element.itemName,
+                  itemPrice: element.itemPrice,
+                  menuId: element.menuId,
+                  restaurantId: element.restaurantId,
+                  totalPrice: element.totalPrice);
+              cart.addToCart(item);
+              element.itemCount = 0;
             }
-            // element.itemCount = 0;
           });
 
           Navigator.pushNamed(context, kRestaurantCart);
