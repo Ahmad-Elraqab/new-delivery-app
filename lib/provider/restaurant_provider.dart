@@ -19,12 +19,55 @@ class RestaurantProvider with ChangeNotifier {
   List<Restaurant> nearbyRestaurant = [];
   bool visible = false;
 
+  void increment(index) {
+    restaurantsByDistance[currentRestaurantType][currentMenu]
+        .menu[index]
+        .itemCount++;
+    if (restaurantsByDistance[currentRestaurantType][currentMenu]
+            .menu[index]
+            .itemCount <
+        0)
+      restaurantsByDistance[currentRestaurantType][currentMenu]
+          .menu[index]
+          .itemCount = 0;
+    visible = true;
+    notifyListeners();
+  }
+
+  void decrement(index) {
+    int tempInvisible = 0;
+    restaurantsByDistance[currentRestaurantType][currentMenu]
+        .menu[index]
+        .itemCount--;
+    if (restaurantsByDistance[currentRestaurantType][currentMenu]
+            .menu[index]
+            .itemCount <
+        0)
+      restaurantsByDistance[currentRestaurantType][currentMenu]
+          .menu[index]
+          .itemCount = 0;
+    restaurantsByDistance[currentRestaurantType][currentMenu]
+        .menu
+        .forEach((element) {
+      if (element.itemCount != 0)
+        visible = true;
+      else
+        tempInvisible++;
+    });
+    if (tempInvisible ==
+        restaurantsByDistance[currentRestaurantType][currentMenu].menu.length)
+      visible = false;
+
+    notifyListeners();
+  }
+
   Future<void> delete(String id) async {
     await dataService.delete('restaurant', id);
   }
 
   Future<void> setProviderData() async {
     final data = await dataService2.getAllRestaurants();
+
     restaurants = data;
     restaurantsByDistance['trending'] = restaurants;
     restaurantsByDistance['nearby'] = nearbyRestaurant;
@@ -61,29 +104,5 @@ class RestaurantProvider with ChangeNotifier {
         status: "open");
 
     await dataService.create('restaurant', data: data);
-  }
-
-  void increment(index) {
-    restaurants[currentMenu].menu[index].itemCount++;
-    if (restaurants[currentMenu].menu[index].itemCount < 0)
-      restaurants[currentMenu].menu[index].itemCount = 0;
-    visible = true;
-    notifyListeners();
-  }
-
-  void decrement(index) {
-    int tempInvisible = 0;
-    restaurants[currentMenu].menu[index].itemCount--;
-    if (restaurants[currentMenu].menu[index].itemCount < 0)
-      restaurants[currentMenu].menu[index].itemCount = 0;
-    restaurants[currentMenu].menu.forEach((element) {
-      if (element.itemCount != 0)
-        visible = true;
-      else
-        tempInvisible++;
-    });
-    if (tempInvisible == restaurants[currentMenu].menu.length) visible = false;
-
-    notifyListeners();
   }
 }

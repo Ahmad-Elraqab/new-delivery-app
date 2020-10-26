@@ -191,10 +191,15 @@ class _HomePageState extends State<HomeScreen> {
                                               )),
                                           CircleAvatar(
                                               backgroundColor: Colors.pink,
-                                              child: Text(
+                                              child: Center(
+                                                child: Text(
                                                   "${rest.nearbyRestaurant[index].distance} Km",
                                                   style:
-                                                      TextStyle(fontSize: 14))),
+                                                      TextStyle(fontSize: 14),
+                                                      maxLines: 2,
+                                                      textAlign: TextAlign.center,
+                                                ),
+                                              )),
                                         ],
                                       ),
                                     ),
