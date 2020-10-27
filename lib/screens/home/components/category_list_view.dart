@@ -1,24 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:work_app/dependencies/constants.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
 
 class CategoryListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rest = Provider.of<RestaurantProvider>(context);
+    rest.categoryGenerator();
     return Container(
       margin: EdgeInsets.only(top: 10),
       height: 180,
       child: ListView.builder(
           padding: EdgeInsets.only(left: 10, right: 10),
           scrollDirection: Axis.horizontal,
-          itemCount: 10,
+          itemCount: rest.categoryList.length,
           itemBuilder: (context, index) {
             return InkWell(
-              // onTap: () {
-              //   Navigator.pushNamed(context, kRestaurantDetail,
-              //       arguments: index);
-              // },
+              onTap: () {
+                rest.currentCategory = index;
+                rest.currentRestaurantType = 'category';
+                rest.getRestaurantsByList();
+                Navigator.pushNamed(
+                  context,
+                  kAllRestaurants,
+                );
+              },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -60,8 +67,7 @@ class CategoryListView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             ListTile(
-                              title: Text("Pizza & Pasta"),
-                              subtitle: Text("29 venues"),
+                              title: Text("${rest.categoryList[index]}"),
                             ),
                           ],
                         ),

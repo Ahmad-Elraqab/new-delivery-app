@@ -196,8 +196,8 @@ class _HomePageState extends State<HomeScreen> {
                                                   "${rest.nearbyRestaurant[index].distance} Km",
                                                   style:
                                                       TextStyle(fontSize: 14),
-                                                      maxLines: 2,
-                                                      textAlign: TextAlign.center,
+                                                  maxLines: 2,
+                                                  textAlign: TextAlign.center,
                                                 ),
                                               )),
                                         ],

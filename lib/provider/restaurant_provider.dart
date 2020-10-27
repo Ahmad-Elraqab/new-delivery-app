@@ -5,18 +5,22 @@ import 'package:work_app/services/data_service.dart';
 import 'package:work_app/services/screens_service/restaurant_service.dart';
 
 class RestaurantProvider with ChangeNotifier {
-  List<Restaurant> restaurants = [];
-  bool isMenuArrive = false;
   final dataService = service<DataService>();
   final dataService2 = RestaurantService();
-  String currentRestaurantType;
+
+  List<Restaurant> nearbyRestaurant = [];
+  List<Restaurant> restaurants = [];
+  var categoryList = new List();
   Map<String, List<Restaurant>> restaurantsByDistance = {
     'nearby': [],
     'trending': [],
+    'category': [],
   };
   int currentMenu;
+  int currentCategory;
+  String currentRestaurantType;
+  bool isMenuArrive = false;
   bool isNotNearby = true;
-  List<Restaurant> nearbyRestaurant = [];
   bool visible = false;
 
   void increment(index) {
@@ -104,5 +108,23 @@ class RestaurantProvider with ChangeNotifier {
         status: "open");
 
     await dataService.create('restaurant', data: data);
+  }
+
+  categoryGenerator() {
+    categoryList.clear();
+    restaurants.forEach((element) {
+      if (!categoryList.contains(element.category)) {
+        categoryList.add(element.category);
+      }
+    });
+  }
+
+  getRestaurantsByList() {
+    restaurantsByDistance[currentRestaurantType].clear();
+    restaurants.forEach((element) {
+      if (element.category == categoryList[currentCategory]) {
+        restaurantsByDistance[currentRestaurantType].add(element);
+      }
+    });
   }
 }
