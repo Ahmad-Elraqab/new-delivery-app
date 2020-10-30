@@ -81,61 +81,51 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                 Container(
                   height: 200,
                   child: ListView.builder(
-                    itemCount: rest
-                        .restaurantsByDistance[rest.currentRestaurantType]
-                            [widget.index]
-                        .menu
-                        .length,
+                    itemCount: resData[widget.index].menu.length,
                     scrollDirection: Axis.horizontal,
                     padding: EdgeInsets.only(left: 20),
                     itemBuilder: (context, index) {
-                      return Expanded(
-                        child: Container(
-                          padding: EdgeInsets.all(8),
-                          width: 160,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Expanded(
-                                flex: 8,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.transparent,
-                                            blurRadius: 2.5,
-                                            offset: Offset(1, 1),
-                                            spreadRadius: 0.5)
-                                      ],
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      image: DecorationImage(
-                                        image: NetworkImage(rest
-                                            .restaurantsByDistance[
-                                                rest.currentRestaurantType]
-                                                [widget.index]
-                                            .menu[index]
-                                            .itemImage),
-                                        fit: BoxFit.cover,
-                                      )),
-                                ),
+                      return Container(
+                        padding: EdgeInsets.all(8),
+                        width: 160,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 8,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.transparent,
+                                          blurRadius: 2.5,
+                                          offset: Offset(1, 1),
+                                          spreadRadius: 0.5)
+                                    ],
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                          "${resData[widget.index].menu[index].itemImage}"),
+                                      fit: BoxFit.cover,
+                                    )),
                               ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  "${rest.restaurantsByDistance[rest.currentRestaurantType][widget.index].menu[index].itemName}",
-                                  style: TextStyle(fontSize: 16),
-                                  maxLines: 2,
-                                ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                "${resData[widget.index].menu[index].itemName}",
+                                style: TextStyle(fontSize: 16),
+                                maxLines: 2,
                               ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                    "${rest.restaurantsByDistance[rest.currentRestaurantType][widget.index].menu[index].itemPrice} RM",
-                                    style: TextStyle(fontSize: 16)),
-                              ),
-                            ],
-                          ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                  "${resData[widget.index].menu[index].itemPrice} RM",
+                                  style: TextStyle(fontSize: 16)),
+                            ),
+                          ],
                         ),
                       );
                     },
