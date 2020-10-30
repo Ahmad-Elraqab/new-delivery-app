@@ -15,10 +15,12 @@ class RestaurantProvider with ChangeNotifier {
     'nearby': [],
     'trending': [],
     'category': [],
+    'search': [],
   };
   int currentMenu;
   int currentCategory;
   String currentRestaurantType;
+  String currentRestaurantType2;
   bool isMenuArrive = false;
   bool isNotNearby = true;
   bool visible = false;
@@ -79,11 +81,9 @@ class RestaurantProvider with ChangeNotifier {
   }
 
   getNearbyRestaurant() {
-    // nearbyRestaurants = 0;
     nearbyRestaurant.clear();
     restaurants.forEach((element) {
       if (element.distance <= 3) {
-        // nearbyRestaurants++;
         nearbyRestaurant.add(element);
       }
     });
@@ -126,5 +126,18 @@ class RestaurantProvider with ChangeNotifier {
         restaurantsByDistance[currentRestaurantType].add(element);
       }
     });
+  }
+
+  updateList(String text) {
+    restaurantsByDistance['search'].clear();
+    final tag = restaurantsByDistance[currentRestaurantType2];
+
+    tag.forEach((element) {
+      if (element.name == text) {
+        restaurantsByDistance['search'].add(element);
+        currentRestaurantType = 'search';
+      }
+    });
+    notifyListeners();
   }
 }

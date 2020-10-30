@@ -20,6 +20,7 @@ class CategoryListView extends StatelessWidget {
               onTap: () {
                 rest.currentCategory = index;
                 rest.currentRestaurantType = 'category';
+                rest.currentRestaurantType2 = 'category';
                 rest.getRestaurantsByList();
                 Navigator.pushNamed(
                   context,

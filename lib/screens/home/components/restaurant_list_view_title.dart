@@ -21,6 +21,7 @@ class RestaurantListViewTitle extends StatelessWidget {
           InkWell(
             onTap: () {
               rest.currentRestaurantType = 'trending';
+              rest.currentRestaurantType2 = 'trending';
               Navigator.pushNamed(
                 context,
                 kAllRestaurants,

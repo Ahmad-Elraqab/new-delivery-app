@@ -112,6 +112,7 @@ class _HomePageState extends State<HomeScreen> {
             child: InkWell(
               onTap: () {
                 rest.currentRestaurantType = 'nearby';
+                rest.currentRestaurantType2 = 'nearby';
                 Navigator.pushNamed(context, kRestaurantDetail,
                     arguments: index);
               },
