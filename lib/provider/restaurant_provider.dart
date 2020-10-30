@@ -131,9 +131,12 @@ class RestaurantProvider with ChangeNotifier {
   updateList(String text) {
     restaurantsByDistance['search'].clear();
     final tag = restaurantsByDistance[currentRestaurantType2];
+    if (text.isEmpty) {
+      currentRestaurantType = currentRestaurantType2;
+    }
 
     tag.forEach((element) {
-      if (element.name == text) {
+      if (element.name.toLowerCase() == text.toLowerCase()) {
         restaurantsByDistance['search'].add(element);
         currentRestaurantType = 'search';
       }
