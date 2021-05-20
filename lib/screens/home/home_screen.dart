@@ -76,7 +76,7 @@ class _HomePageState extends State<HomeScreen> {
 
     await showDialog(
       context: con,
-      builder: (context) => AlertDialog(
+      child: AlertDialog(
         contentPadding: EdgeInsets.all(10),
         content: Column(
           children: <Widget>[

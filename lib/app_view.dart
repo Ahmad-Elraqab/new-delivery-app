@@ -5,8 +5,8 @@ import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/my_profile_provider.dart';
 import 'package:work_app/provider/orders_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
-import 'package:work_app/models/router.dart';
 
+import 'models/router.dart';
 
 class AppView extends StatefulWidget {
   @override
@@ -37,7 +37,7 @@ class _AppViewState extends State<AppView> {
           accentColor: Colors.deepOrange,
           textTheme: TextTheme(body2: TextStyle(color: Colors.black)),
         ),
-        onGenerateRoute: Routers.generateRoute,
+        onGenerateRoute: Router.generateRoute,
         initialRoute: '/',
       ),
     );
