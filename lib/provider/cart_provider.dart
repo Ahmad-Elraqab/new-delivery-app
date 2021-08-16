@@ -9,6 +9,7 @@ class CartProvider with ChangeNotifier {
   final dataService = service<DataService>();
   final cartService = CartService();
 
+  // ignore: deprecated_member_use
   List<Item> cartItems = new List<Item>();
 
   Future<void> addToCart(Item data) async {

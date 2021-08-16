@@ -6,6 +6,7 @@ import 'package:work_app/services/data_service.dart';
 import 'home/home_screen.dart';
 import 'notification/notification_screen.dart';
 
+// ignore: must_be_immutable
 class App extends StatefulWidget {
   int currentIndex;
   App({this.currentIndex = 0});
@@ -14,6 +15,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  // ignore: unused_element
   _onItemTapped(index) {
     setState(() {
       widget.currentIndex = index;

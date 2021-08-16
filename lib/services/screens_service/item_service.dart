@@ -24,6 +24,7 @@ class ItemService {
     data.forEach((element) {
       Map x = element.data();
 
+      // ignore: unnecessary_statements
       x['itemCount'] == null ? x['itemCount'] = 0 : null;
       x["itemId"] = element.id;
       result.add(x);

@@ -21,7 +21,6 @@ class AppView extends StatefulWidget {
 class _AppViewState extends State<AppView> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     widget._firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {

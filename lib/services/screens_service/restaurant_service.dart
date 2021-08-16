@@ -14,15 +14,19 @@ class RestaurantService {
     return result;
   }
 
+  // ignore: missing_return
   Future<Restaurant> createRestaurant(Restaurant r) async {}
 
+  // ignore: missing_return
   Future<Restaurant> updateRestaurant(Restaurant r) async {
+    // ignore: unused_local_variable
     final data = dataService.getListByFuture('restaurant');
 
     // return (data as List).map((e) => Restaurant.fromJson(e)).toList();
   }
 
   Future<void> deleteRestaurant({Restaurant r, String id}) {
+    // ignore: unused_local_variable
     final data = dataService.getListByFuture('restaurant');
 
     return null;

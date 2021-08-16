@@ -43,54 +43,52 @@ class _HomePageState extends State<HomeScreen> {
           //     if (snapshot.hasData) {
           //       rest.restaurants = rest.getRestaurantsFromJson(snapshot.data);
 
-          SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                height: 200,
-                decoration: BoxDecoration(
-                    color: Colors.pink,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(50),
-                      bottomRight: Radius.circular(50),
-                    )),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20.0, right: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Text(
-                        "browse",
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                      SearchBar(),
-                      Center(
-                        child: Container(
-                          width: 200,
-                          height: 2,
-                          color: Colors.grey,
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                      color: Colors.pink,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(50),
+                        bottomRight: Radius.circular(50),
+                      )),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Text(
+                          "browse",
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
-                      )
-                    ],
+                        SearchBar(),
+                        Center(
+                          child: Container(
+                            width: 200,
+                            height: 2,
+                            color: Colors.grey,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              CategoryListViewTitle(),
-              CategoryListView(),
-              RestaurantListViewTitle(),
-              RestaurantListView(),
-              _nearbyTitle(rest),
-              _nearbyRestaurants(rest),
-            ],
+                CategoryListViewTitle(),
+                CategoryListView(),
+                RestaurantListViewTitle(),
+                RestaurantListView(),
+                _nearbyTitle(rest),
+                _nearbyRestaurants(rest),
+              ],
+            ),
           ),
-        ),
-      ),
 
       // return Center(child: CircularProgressIndicator());
     );

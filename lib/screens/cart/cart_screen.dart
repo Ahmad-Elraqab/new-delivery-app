@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:work_app/models/cart_class.dart';
 import 'package:work_app/provider/cart_provider.dart';
 
 class CartScreen extends StatefulWidget {
@@ -20,71 +19,69 @@ class _CartScreenState extends State<CartScreen>
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context);
     return Scaffold(
-      body: SafeArea(
-        child: DefaultTabController(
-          // initialIndex: pageChanged,
-          length: 2,
-          child: NestedScrollView(
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                SliverAppBar(
-                  // backgroundColor: Colors.red,
-                  expandedHeight: 0.0,
-                  floating: true,
-                  pinned: true,
-                  flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: true,
-                  ),
-                  bottom: TabBar(
-                    onTap: (index) {
-                      // pageChanged = index;
-                      pageController.animateToPage(index,
-                          duration: Duration(milliseconds: 250),
-                          curve: Curves.bounceInOut);
-                    },
-                    labelColor: Colors.white,
-                    unselectedLabelColor: Colors.black87,
-                    tabs: [
-                      Tab(icon: Icon(Icons.list), text: "current order"),
-                      Tab(icon: Icon(Icons.history), text: "order history"),
-                    ],
-                  ),
+      body: DefaultTabController(
+        // initialIndex: pageChanged,
+        length: 2,
+        child: NestedScrollView(
+          headerSliverBuilder:
+              (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                // backgroundColor: Colors.red,
+                expandedHeight: 0.0,
+                floating: true,
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
                 ),
-              ];
-            },
-            body: FutureBuilder(
-              future: cart.getCart(),
-              builder: (context, snapshot) {
-                if (cart.cartItems.length != 0) {
-                  return PageView(
-                    onPageChanged: (index) {
-                      // pageChanged = index;
-                      // print(pageChanged);
-                      setState(() {});
-                    },
-                    controller: pageController,
-                    children: <Widget>[
-                      Scrollable(
-                        viewportBuilder: (context, position) => Column(
-                          children: <Widget>[
-                            _summaryBox(context, cart),
-                            _checkoutButton(),
-                            Expanded(child: _orderList(cart)),
-                          ],
-                        ),
+                bottom: TabBar(
+                  onTap: (index) {
+                    // pageChanged = index;
+                    pageController.animateToPage(index,
+                        duration: Duration(milliseconds: 250),
+                        curve: Curves.bounceInOut);
+                  },
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.black87,
+                  tabs: [
+                    Tab(icon: Icon(Icons.list), text: "current order"),
+                    Tab(icon: Icon(Icons.history), text: "order history"),
+                  ],
+                ),
+              ),
+            ];
+          },
+          body: FutureBuilder(
+            future: cart.getCart(),
+            builder: (context, snapshot) {
+              if (cart.cartItems.length != 0) {
+                return PageView(
+                  onPageChanged: (index) {
+                    // pageChanged = index;
+                    // print(pageChanged);
+                    setState(() {});
+                  },
+                  controller: pageController,
+                  children: <Widget>[
+                    Scrollable(
+                      viewportBuilder: (context, position) => Column(
+                        children: <Widget>[
+                          _summaryBox(context, cart),
+                          _checkoutButton(),
+                          Expanded(child: _orderList(cart)),
+                        ],
                       ),
-                      _historyScreen(context),
-                    ],
-                  );
-                }
-                return Center(
-                    child: Text(
-                  "Cart is Empty!..",
-                  style: TextStyle(color: Colors.pink, fontSize: 25),
-                ));
-              },
-            ),
+                    ),
+                    _historyScreen(context),
+                  ],
+                );
+              }
+              return Center(
+                  child: Text(
+                "Cart is Empty!..",
+                style: TextStyle(color: Colors.pink, fontSize: 25),
+              ));
+            },
           ),
         ),
       ),

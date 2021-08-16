@@ -58,10 +58,12 @@ class Restaurant extends ChangeNotifier {
     reservationCost = json['reservationCost'].toDouble();
     parkingFees = json['parkingFees'].toDouble();
     categories = json['categories'];
+    // ignore: deprecated_member_use
     if (json['menu'] != null) menu = new List<Item>();
     json['menu'].forEach((item) {
       menu.add(new Item.fromJson(item));
     });
+    // ignore: deprecated_member_use
     if (json['feedback'] != null) comments = new List<FeedbackData>();
     json['feedback'].forEach((comment) {
       comments.add(new FeedbackData.fromJson(comment));

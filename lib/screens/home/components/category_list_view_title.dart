@@ -6,6 +6,7 @@ import 'package:work_app/provider/restaurant_provider.dart';
 class CategoryListViewTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final rest = Provider.of<RestaurantProvider>(context);
     return Padding(
       padding: const EdgeInsets.only(left: 20.0, top: 20, right: 20),

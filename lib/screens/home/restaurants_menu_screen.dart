@@ -27,31 +27,29 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
     final order = Provider.of<CartProvider>(context);
     final restData = rest.restaurantsByDistance[rest.currentRestaurantType];
     return Scaffold(
-      body: SafeArea(
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                expandedHeight: 200.0,
-                floating: true,
-                pinned: false,
-                flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: true,
-                    background: Image.network(
-                      "${restData[rest.currentMenu].image}",
-                      fit: BoxFit.cover,
-                    )),
-              ),
-            ];
-          },
-          body: Column(
-            children: <Widget>[
-              _categoryList(rest, restData),
-              _itemList(context, menu, rest, restData),
-              // _visible ? _addCart() : null,
-              if (rest.visible) _addCart(order, rest)
-            ],
-          ),
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              expandedHeight: 200.0,
+              floating: true,
+              pinned: false,
+              flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  background: Image.network(
+                    "${restData[rest.currentMenu].image}",
+                    fit: BoxFit.cover,
+                  )),
+            ),
+          ];
+        },
+        body: Column(
+          children: <Widget>[
+            _categoryList(rest, restData),
+            _itemList(context, menu, rest, restData),
+            // _visible ? _addCart() : null,
+            if (rest.visible) _addCart(order, rest)
+          ],
         ),
       ),
     );
@@ -116,6 +114,7 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
     );
   }
 
+  // ignore: unused_element
   Positioned _backButton(BuildContext context) {
     return Positioned(
       left: 16,
@@ -274,7 +273,6 @@ class _RestaurantMenuState extends State<RestaurantMenu> {
   }
 
   Container _categoryList(RestaurantProvider restaurant, restData) {
-    final menu = Provider.of<ItemProvider>(context);
     return Container(
       height: 50,
       decoration: BoxDecoration(

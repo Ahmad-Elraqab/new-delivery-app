@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:work_app/dependencies/constants.dart';
-import 'package:work_app/models/restaurant_class.dart';
 import 'package:work_app/provider/item_provider.dart';
 import 'package:work_app/provider/restaurant_provider.dart';
 
@@ -9,6 +8,7 @@ class RestaurantListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final restaurantData = Provider.of<RestaurantProvider>(context);
+    // ignore: unused_local_variable
     final itemProvider = Provider.of<ItemProvider>(context);
     // final dataService = service<RestaurantDataService>();
 

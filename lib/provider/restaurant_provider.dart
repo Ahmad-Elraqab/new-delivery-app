@@ -10,6 +10,7 @@ class RestaurantProvider with ChangeNotifier {
 
   List<Restaurant> nearbyRestaurant = [];
   List<Restaurant> restaurants = [];
+  // ignore: deprecated_member_use
   var categoryList = new List();
   Map<String, List<Restaurant>> restaurantsByDistance = {
     'nearby': [],
